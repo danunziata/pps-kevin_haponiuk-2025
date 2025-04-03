@@ -1,0 +1,16 @@
+site_name: PPS - Haponiuk Kevin Joel
+site_description: Seguridad de entornos contenerizados con enfoque en Kubernetes.
+site_author: Rodriguez Ferro Federico
+
+nav:
+  - Home: index.md
+  - Metodología Utilizada: proyecto/metodologia.md
+
+theme:
+  name: material
+
+extra_css:
+  - css/custom.css
+
+extra_javascript:
+  - js/custom.js
