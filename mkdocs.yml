@@ -1,11 +1,31 @@
-site_name: PPS - Haponiuk Kevin Joel
-site_description: Seguridad de entornos contenerizados con enfoque en Kubernetes.
-site_author: Rodriguez Ferro Federico
+# Metadata
+site_name: Agente IA orientado a investigación científica
+site_description: Desarrollo de un Agente de Inteligencia Artificial para la Investigación Científica
+site_author: Haponiuk Kevin Joel
 
+
+# Github
+repo_url: https://github.com/danunziata/pps-kevin_haponiuk-2025
+repo_name: Abrir Repositorio (GitHub)
+
+# Navegación entre páginas
 nav:
-  - Home: index.md
-  - Metodología Utilizada: proyecto/metodologia.md
+  - Introducción: index.md
+  - Desarrollo:
+    - Metodología de investigación: investigacion/metod_inves.md
+  - Proyecto:
+    - Metodología de Trabajo: proyecto/metodologia.md
+    - Como contribuir: proyecto/contribuir.md
+    - Acerca de: proyecto/about.md
 
+
+markdown_extensions:
+  - admonition
+  - pymdownx.emoji
+  - pymdownx.superfences
+
+
+# Personalización del tema de la página
 theme:
   name: material
 
@@ -14,3 +34,22 @@ extra_css:
 
 extra_javascript:
   - js/custom.js
+
+
+#pie de página
+
+extra:
+  social:
+    - icon: fontawesome/brands/github-alt
+      link: https://github.com/danunziata/pps-kevin_haponiuk-2025
+      name: Repo vinculado
+      
+    - icon: fontawesome/brands/github
+      link: https://github.com/LeKEVIN5151
+
+copyright: |
+  <img src="/images/escudo_unrc.png" alt="Logo UNRC" style="height: 30px; vertical-align: middle; margin-right: 10px;">
+  <img src="/images/escudo_ing.png" alt="Logo ING" style="height: 30px; vertical-align: middle; margin-right: 10px;">
+  <img src="/images/escudo_gidat.png" alt="Logo GIDAT" style="height: 30px; vertical-align: middle; margin-right: 10px;">
+
+  &copy; 2025 <a href="https://www.ing.unrc.edu.ar/inicio.php" target="_blank" rel="noopener">Universidad Nacional de Río Cuarto | Facultad de Ingeniería</a>

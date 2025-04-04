@@ -43,3 +43,4 @@ Cada sprint comienza con una planificación, donde se define el **Sprint Backlog
 
 Scrum permite una entrega incremental de software funcional, promoviendo la **transparencia, inspección y adaptación continua**.
 
+
