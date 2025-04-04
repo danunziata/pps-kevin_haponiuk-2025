@@ -60,6 +60,7 @@ En la **investigación**, uno de los mayores desafíos es la **búsqueda y clasi
 Este proyecto propone un **agente de inteligencia artificial** diseñado para **asistir en la investigación científica** con un enfoque en **precisión y confiabilidad**. A diferencia de otros modelos, este sistema trabajará con un **conjunto acotado de documentos** (por ejemplo, **50 papers**), asegurando que las respuestas se basen exclusivamente en esas fuentes y no existe información "inventada".  
 
 ### Características principales:
+
 - Consulta inteligente
 - Sin invención de datos
 - Optimización del tiempo
@@ -148,21 +149,35 @@ Para ejemplos e información, por favor diríjase a la [Documentación](https://
 <p align="right">(<a href="#readme-top">Volver al Inicio</a>)</p>
 
 <!-- CONTRIBUTING -->
+
 ## Contribuir
 
-### Flujo de Trabajo
+### Workflow seleccionado "Git Flow"  
 
-El proceso que seguiremos implica utilizar la rama `main` como la rama de **producción** del proyecto. Cualquier nueva funcionalidad o corrección de errores se realizará creando nuevas ramas.
+El workflow **Git Flow**, creado por Vincent Driessen en 2010, organiza el desarrollo del código en dos ramas principales:  
 
-Para incorporar una función en la rama `main`,  simplemente se crea un "PR" (Pull Request), que deberá ser aprobado por algún colaborador, cualquier colaborador puede hacerlo, o bien, si no  requiere revisión, puede ser aceptado por quien esté incluyendo la  funcionalidad.
+- **master**: Contiene el código en producción.  
+- **develop**: Contiene el código en pre-producción.  
 
-Es crucial que el nombre de las ramas creadas sea lo más descriptivo  posible. Por ejemplo, si trabajamos en una nueva funcionalidad  relacionada con la API, la rama se debe llamar como referencia a la funcionalidad en cuestión. En el caso de tratarse de la corrección de un error en el código de la API, la llamaremos `fix-api`.
+Además, utiliza ramas auxiliares para distintas etapas del desarrollo:  
 
-Además, se contarán con ramas específicas para la documentación del proyecto denominada `docs`, esta rama sera utilizada para registrar toda la documentación ya sea de la carpeta `docs` o el mismo `README.md`.
+- **feature***: Para nuevas funcionalidades (se crean desde `develop` y se fusionan en `develop`).  
+- **hotfix***: Para corregir errores críticos en producción (se crean desde `master` y se fusionan en `master` y `develop`).  
+- **release***: Para preparar nuevas versiones de producción (se crean desde `develop` y se fusionan en `master` y `develop`).  
 
-Los pasos para contribuir en este proyecto como miembro del mismo son:
 
-1. Clonar el repositorio (`git clone`)
+### ¿Cómo puedo contribuir?
+Nos emociona que estés interesado en contribuir a nuestro proyecto. Esta guía está diseñada para ayudarte a entender cómo puedes colaborar con  nosotros, ya sea corrigiendo errores, mejorando la documentación,  agregando nuevas características o cualquier otra forma de contribución  que desees realizar.
+
+Para incorporar una función en la rama `main`, simplemente se crea un "PR" (Pull Request), que deberá ser aprobado por algún colaborador. Cualquier colaborador puede hacerlo, o bien, si no requiere revisión, puede ser aceptado por quien esté incluyendo la funcionalidad.
+
+Es crucial que el nombre de las ramas creadas sea lo más descriptivo posible. Por ejemplo, si trabajamos en una nueva funcionalidad relacionada con la API, la rama se debe llamar como referencia a la funcionalidad en cuestión. En el caso de tratarse de la corrección de un error en el código de la API, la llamaremos `fix-api`.
+
+Este proceso asegura un flujo de trabajo ordenado y facilita la colaboración entre los miembros del equipo.
+
+Los pasos para contribuir en este proyecto como individuo son:
+
+1. Forkear el repositorio (`git fork`)
 2. Crear una nueva rama para la función (`git checkout -b feature/AmazingFeature`)
 3. Publicar la rama en el repositorio remoto(`git push --set-upstream origin <nombre-de-la-nueva-rama>`)
 4. Commit los cambios (`git commit -m 'Add some AmazingFeature'`)
@@ -207,3 +222,5 @@ Haponiuk Kevin Joel - kevinhapo@gmail.com
 Link del Proyecto: [https://github.com/danunziata/pps-kevin_haponiuk-2025](https://github.com/danunziata/pps-kevin_haponiuk-2025)
 
 <p align="right">(<a href="#readme-top">Volver al Inicio</a>)</p>
+
+
