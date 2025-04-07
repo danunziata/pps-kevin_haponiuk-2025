@@ -13,6 +13,7 @@ nav:
   - Introducción: index.md
   - Desarrollo:
     - Metodología de investigación: investigacion/metod_inves.md
+    - La magia detrás de todo: investigacion/llm.md
   - Proyecto:
     - Metodología de Trabajo: proyecto/metodologia.md
     - Como contribuir: proyecto/contribuir.md
