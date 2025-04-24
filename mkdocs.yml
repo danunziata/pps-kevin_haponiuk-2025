@@ -11,8 +11,23 @@ repo_name: Abrir Repositorio (GitHub)
 # Navegación entre páginas
 nav:
   - Introducción: index.md
+
   - Desarrollo:
-    - Metodología de investigación: investigacion/metod_inves.md
+    - Conceptos Previos: investigacion/llm.md
+
+    - Metodología de investigación:
+      - Concepto general: investigacion/metod_inves.md
+      - Revisión Bibliográfica: investigacion/revision_biblio.md
+    
+    - Arquitectura RAG: investigacion/arquitectura.md
+
+    - Software utilizado:
+      - n8n: investigacion/n8n.md
+      - GROBID: investigacion/grobid.md
+
+
+    - MCP/A2A: investigacion/mcp_a2a.md
+
   - Proyecto:
     - Metodología de Trabajo: proyecto/metodologia.md
     - Como contribuir: proyecto/contribuir.md
@@ -50,6 +65,5 @@ extra:
 copyright: |
   <img src="/images/escudo_unrc.png" alt="Logo UNRC" style="height: 30px; vertical-align: middle; margin-right: 10px;">
   <img src="/images/escudo_ing.png" alt="Logo ING" style="height: 30px; vertical-align: middle; margin-right: 10px;">
-  <img src="/images/escudo_gidat.png" alt="Logo GIDAT" style="height: 30px; vertical-align: middle; margin-right: 10px;">
 
   &copy; 2025 <a href="https://www.ing.unrc.edu.ar/inicio.php" target="_blank" rel="noopener">Universidad Nacional de Río Cuarto | Facultad de Ingeniería</a>
