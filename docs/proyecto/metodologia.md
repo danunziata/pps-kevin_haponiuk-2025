@@ -7,7 +7,11 @@ El [desarrollo ágil](https://agilemanifesto.org/iso/es/manifesto.html) es un en
 3. **Colaboración con el cliente** sobre negociación de contratos.  
 4. **Respuesta ante el cambio** sobre seguir un plan rígido.  
 
-![Screenshot](/images/met-agil.webp)
+
+<p align="center">
+  <img src="/images/met-agil.webp" width="100%">
+</p>
+
 
 Además, se apoya en **12 principios**, entre los que destacan:  
 - Entrega frecuente de software funcional.  
@@ -24,8 +28,10 @@ Antes de cada sprint, el equipo trabaja con el **Product Backlog (Backlog del Pr
 
 Cada sprint comienza con una planificación, donde se define el **Sprint Backlog (Backlog del Sprint)**, que es el conjunto específico de tareas y objetivos seleccionados del backlog del producto para ser desarrollados durante ese sprint. Luego, se sigue con la fase de desarrollo, revisión y retrospectiva para mejorar en el siguiente ciclo.
 
+<p align="center">
+  <img src="/images/scrum.jpg" width="100%">
+</p>
 
-![FotoScrum](/images/scrum.jpg)
 
 ## Roles en Scrum  
 
