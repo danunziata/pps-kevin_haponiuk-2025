@@ -41,10 +41,6 @@ El GCID se sitúa en la vanguardia de la investigación y la innovación en el c
     <img src="/images/escudo_ing.png" alt="Logo Facultad de Ingeniería" style="height: 60px;">
   </a>
 
-  <a href="https://www.ing.unrc.edu.ar/grupos/gidat/" target="_blank" rel="noopener">
-    <img src="/images/escudo_gidat.png" alt="Logo GIDAT" style="height: 60px;">
-  </a>
-
 </div>
 
 ---
