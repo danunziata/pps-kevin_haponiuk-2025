@@ -1,77 +1,53 @@
 # Metadata
 site_name: Agente IA orientado a investigación científica
-site_description: Desarrollo de un Agente de Inteligencia Artificial para la Investigación Científica
+site_description: Desarrollo Agente IA para la Investigación Científica
 site_author: Haponiuk Kevin Joel
-
 
 # Github
 repo_url: https://github.com/danunziata/pps-kevin_haponiuk-2025
-repo_name: Abrir Repositorio (GitHub)
-
-# Navegación entre páginas
-nav:
-  - Introducción: index.md
-
-  - Desarrollo:
-    - Conceptos Previos: investigacion/llm.md
-
-    - Metodología de investigación:
-      - Concepto general: investigacion/metod_inves.md
-      - Revisión Bibliográfica: investigacion/revision_biblio.md
-    
-    - Tipos de Arquitecturas: investigacion/arquitectura.md
-
-    - Software utilizado:
-      - n8n: investigacion/n8n.md
-      - GROBID: investigacion/grobid.md
-
-
-    - MCP/A2A: investigacion/mcp_a2a.md
-
-  - Proyecto:
-    - Metodología de Trabajo: proyecto/metodologia.md
-    - Como contribuir: proyecto/contribuir.md
-    - Acerca de: proyecto/about.md
-
-
+repo_name: GitHub
 
 ## Extras
-
 markdown_extensions:
   - admonition
   - pymdownx.emoji
   - pymdownx.superfences
-
 plugins:
     - search
 
 # Personalización del tema de la página
 theme:
   name: readthedocs
-
 extra_css:
   - css/custom.css
-
 extra_javascript:
   - js/custom.js
 
-
 #pie de página
-
-extra:
-  social:
-    - icon: fontawesome/brands/github-alt
-      link: https://github.com/danunziata/pps-kevin_haponiuk-2025
-      name: Repo vinculado
-      
-    - icon: fontawesome/brands/github
-      link: https://github.com/LeKEVIN5151
-
 copyright: |
   <img src="/images/escudo_unrc.png" alt="Logo UNRC" style="height: 30px; vertical-align: middle; margin-right: 10px;">
   <img src="/images/escudo_ing.png" alt="Logo ING" style="height: 30px; vertical-align: middle; margin-right: 10px;">
-
   &copy; 2025 <a href="https://www.ing.unrc.edu.ar/inicio.php" target="_blank" rel="noopener">Universidad Nacional de Río Cuarto | Facultad de Ingeniería</a>
-
-
 strict: true
+
+# Navegación entre páginas
+nav:
+  - Introducción: index.md
+  - Desarrollo:
+    - Conceptos Previos: investigacion/01_llm.md
+    - Metodología de investigación:
+      - Concepto general: investigacion/02_metod-invest.md
+      - Revisión Bibliográfica: investigacion/03_estado-arte.md
+    - Tipos de Arquitecturas: investigacion/04_arquitectura.md
+    - Software utilizado:
+      - Resumen Opentools: investigacion/05_opentools.md  
+      - n8n: investigacion/06_n8n.md
+      - GROBID: investigacion/07_grobid.md
+    - Modelos de lenguaje: investigacion/08_nlp-models.md
+    - MCP: investigacion/09_mcp.md
+    - A2A: investigacion/10_a2a.md
+    - Interfaz de usuario: investigacion/11_interface-options.md
+  - Proyecto:
+    - Metodología de Trabajo: proyecto/01_metodologia.md
+    - Como contribuir: proyecto/02_contribuir.md
+    - Acerca de: proyecto/03_about.md
