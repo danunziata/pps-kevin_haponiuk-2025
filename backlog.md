@@ -29,4 +29,4 @@
 - [ ] Revisar con GitHub Actions que se publique correctamente la documentacion
 - [ ] Redactar informe final de práctica profesional.
 - [ ] Crear presentación gráfica para explicar el proyecto (canva).
- [] Revisar Licencias de todo el software utilizado.
+- [ ] Revisar Licencias de todo el software utilizado.
