@@ -77,11 +77,61 @@ Finalmente, un modelo de lenguaje (LLM) preentrenado toma ese prompt completo (c
 Es importante destacar que el modelo ya está entrenado previamente, ya que realizar un entrenamiento desde cero suele ser costoso o técnicamente complejo. Por eso, es importante elegir un modelo que sea eficiente para el uso que le daremos.
 
 ---
+
+### Contextual RAG
+
+El Contextual RAG (Retrieval Augmented Generation) es una evolución del RAG tradicional que mejora significativamente la precisión y relevancia de las respuestas mediante la incorporación de contexto adicional durante el proceso de recuperación. A diferencia del RAG estándar, que busca fragmentos similares basándose únicamente en la similitud semántica, el Contextual RAG considera múltiples factores para determinar qué información es verdaderamente relevante para la consulta del usuario. La arquitectura se puede ver en la siguiente figura:
+
+<p align="center">
+  <img src="/images/crag.webp" width="100%">
+  <br>
+  <em>Figura 4: Arquitectura Contextual RAG</em>
+</p>
+
+El Contextual RAG es una arquitectura desarrollada en 2024 que supera una limitación histórica: la capacidad de procesar documentos completos de una sola vez. Aunque su funcionamiento base es similar al RAG tradicional, introduce una etapa adicional de procesamiento contextual. En esta etapa, cada fragmento (chunk) se analiza en relación con el documento completo mediante un prompt estructurado:
+
+``` bash
+<document> 
+{{WHOLE_DOCUMENT}} 
+</document> 
+Here is the chunk we want to situate within the whole document 
+<chunk> 
+{{CHUNK_CONTENT}} 
+</chunk> 
+Please give a short succinct context to situate this chunk within the overall document for the purposes of improving search retrieval of the chunk. Answer only with the succinct context and nothing else. 
+```
+
+Este proceso enriquece la base de datos vectorial al almacenar no solo el fragmento original, sino también el contexto generado que lo sitúa dentro del documento completo.
+
+
+#### Ventajas sobre RAG tradicional:
+
+- **Mayor precisión**: Al considerar el contexto completo, reduce las respuestas fuera de tema o irrelevantes.
+- **Mejor coherencia**: Mantiene una línea de pensamiento más consistente en las respuestas.
+- **Respuestas más completas**: Al entender mejor el contexto, puede proporcionar información más relevante y útil.
+
+#### Desventajas sobre RAG tradicional:
+
+- **Mayor complejidad**: Requiere un procesamiento adicional y una base de datos vectorial más grande.
+- **Latencia**: Puede ser más lento debido al procesamiento adicional.
+
+#### Comparación entre RAG tradicional y Contextual RAG
+
+Los resultados de la comparación entre RAG tradicional y Contextual RAG muestran una mejora significativa en la precisión de recuperación: el uso de Contextual Embeddings redujo la tasa de fallos en la recuperación de los 20 fragmentos más relevantes en un 35%, pasando de un 5.7% a un 3.7% de fallos. Esto demuestra que el procesamiento contextual adicional mejora sustancialmente la calidad de las búsquedas. (en las graficas aparece tambien BM25, que es un modelo de recuperación de información que se basa en la frecuencia de las palabras en el documento pero no lo vamos a usar)
+
+<p align="center">
+  <img src="/images/crag_vs_rag.webp" width="100%">
+  <br>
+  <em>Figura 5: Comparación entre RAG (embedding) y CRAG (contextual embedding)</em>
+</p>
+
+
+---
 ### Prompt chaining
 <p align="center">
   <img src="/images/prompt-chaining.webp" width="100%">
   <br>
-  <em>Figura 4: Arquitectura Prompt chaining</em>
+  <em>Figura 6: Arquitectura Prompt chaining</em>
 </p>
 
 El encadenamiento de *prompts* descompone una tarea en una secuencia de pasos, donde cada llamada a un modelo de lenguaje procesa la salida de la anterior. Este flujo de trabajo es ideal para situaciones en las que la tarea puede dividirse de forma clara y sencilla en subtareas fijas. El objetivo principal es sacrificar algo de latencia a cambio de una mayor precisión, haciendo que cada llamada al modelo sea una tarea más simple.
@@ -91,7 +141,7 @@ El encadenamiento de *prompts* descompone una tarea en una secuencia de pasos, d
 <p align="center">
   <img src="/images/routing.png" width="100%">
   <br>
-  <em>Figura 5: Arquitectura Routing </em>
+    <em>Figura 7: Arquitectura Routing </em>
 </p>
 
 El enrutamiento clasifica una entrada y la dirige a una tarea de seguimiento especializada. Este enfoque permite una clara separación de responsabilidades y la creación de *prompts* más específicos y eficaces. Sin esta estructura, optimizar el rendimiento para un tipo de entrada podría perjudicar el desempeño en otros casos. El enrutamiento resulta especialmente útil en tareas complejas con categorías bien diferenciadas, donde cada una puede ser tratada de forma más eficiente por separado. La clasificación inicial puede realizarse mediante un modelo de lenguaje o utilizando métodos tradicionales de clasificación.
@@ -101,7 +151,7 @@ El enrutamiento clasifica una entrada y la dirige a una tarea de seguimiento esp
 <p align="center">
   <img src="/images/parallelization.webp" width="100%">
   <br>
-  <em>Figura 6: Arquitectura Parallelization</em>
+    <em>Figura 8: Arquitectura Parallelization</em>
 </p>
 
 Los LLMs pueden abordar múltiples tareas de forma simultánea, y sus resultados pueden combinarse posteriormente mediante programación. Este enfoque, conocido como paralelización, se presenta en dos formas principales:
@@ -116,7 +166,7 @@ La paralelización es especialmente útil cuando las subtareas pueden procesarse
 <p align="center">
   <img src="/images/orchestrator-workers.webp" width="100%">
   <br>
-  <em>Figura 7: Arquitectura Orchestrator-workers</em>
+  <em>Figura 9: Arquitectura Orchestrator-workers</em>
 </p>
 
 En el flujo de trabajo de orquestador y trabajadores, un LLM central actúa como orquestador: descompone dinámicamente las tareas, las asigna a LLMs especializados (trabajadores) y luego sintetiza sus respuestas. Aunque este enfoque puede parecer similar a la paralelización, su diferencia clave radica en la flexibilidad: las subtareas no están predefinidas, sino que son generadas en tiempo real por el orquestador según la naturaleza de la tarea.
@@ -126,7 +176,7 @@ En el flujo de trabajo de orquestador y trabajadores, un LLM central actúa como
 <p align="center">
   <img src="/images/evaluator-optimizer.webp" width="100%">
   <br>
-  <em>Figura 8: Arquitectura Evaluator-optimizer</em>
+  <em>Figura 10: Arquitectura Evaluator-optimizer</em>
 </p>
 
 En el flujo de trabajo de evaluador-optimizador, una instancia de LLM genera una respuesta, mientras que otra evalúa su calidad y proporciona retroalimentación, formando un ciclo iterativo. Este enfoque resulta efectivo cuando se disponen de criterios de evaluación bien definidos y cuando la mejora progresiva aporta un valor tangible.
@@ -134,4 +184,5 @@ En el flujo de trabajo de evaluador-optimizador, una instancia de LLM genera una
 ---
 
 ## Referencia
-[Anthropic: Building Effective Agents](https://www.anthropic.com/engineering/building-effective-agents)
+- [Anthropic: Building Effective Agents](https://www.anthropic.com/engineering/building-effective-agents)
+- [Anthropic: Contextual Retrieval](https://www.anthropic.com/news/contextual-retrieval)
