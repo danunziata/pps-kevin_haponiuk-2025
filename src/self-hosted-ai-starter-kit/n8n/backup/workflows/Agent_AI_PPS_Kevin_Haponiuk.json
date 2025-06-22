@@ -1,0 +1,1862 @@
+{
+  "name": "Agent-AI-PPS_Kevin-Haponiuk",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        3560,
+        1680
+      ],
+      "id": "79a395dc-a650-4200-a790-e515ee1b7c7b",
+      "name": "When chat message received",
+      "webhookId": "e87e7744-55bd-40d3-a7a3-c823b6ae9ab4"
+    },
+    {
+      "parameters": {
+        "content": "",
+        "height": 880,
+        "width": 4550
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        2260,
+        540
+      ],
+      "typeVersion": 1,
+      "id": "8cfaba08-f354-4a79-9865-1d6363e8e777",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "operation": "download",
+        "fileId": {
+          "__rl": true,
+          "value": "={{ $json.id }}",
+          "mode": "id"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        2860,
+        780
+      ],
+      "id": "0bc772b4-e71f-482a-b022-5719e8416395",
+      "name": "Get Content",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "qfIxvff9Pr5p2Nab",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "fileFolder",
+        "returnAll": true,
+        "filter": {
+          "folderId": {
+            "__rl": true,
+            "value": "17sVXrczitVQ4AXLxJy8f0vIFj9-EmWrj",
+            "mode": "list",
+            "cachedResultName": "10 papers",
+            "cachedResultUrl": "https://drive.google.com/drive/folders/17sVXrczitVQ4AXLxJy8f0vIFj9-EmWrj"
+          }
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        2620,
+        780
+      ],
+      "id": "29d03bd6-26af-4a93-a418-3ea9083306b7",
+      "name": "Search all Content",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "qfIxvff9Pr5p2Nab",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "xml",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        3960,
+        1000
+      ],
+      "id": "73ddc925-556b-4483-8cf4-3050317b9ed1",
+      "name": "Extract from File"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.xml",
+      "typeVersion": 1,
+      "position": [
+        4220,
+        1000
+      ],
+      "id": "4d3ad4f0-55a5-4ab4-8d22-b78662e8188b",
+      "name": "XML"
+    },
+    {
+      "parameters": {
+        "mode": "insert",
+        "qdrantCollection": {
+          "__rl": true,
+          "value": "=prueba_CRAG3",
+          "mode": "id"
+        },
+        "embeddingBatchSize": "=200",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreQdrant",
+      "typeVersion": 1.1,
+      "position": [
+        6380,
+        780
+      ],
+      "id": "0ab32727-30ff-432e-ae3a-a3f1acca7700",
+      "name": "Qdrant Vector Store2",
+      "credentials": {
+        "qdrantApi": {
+          "id": "sFfERYppMeBnFNeA",
+          "name": "Local QdrantApi database"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": "nomic-embed-text:latest"
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOllama",
+      "typeVersion": 1,
+      "position": [
+        6280,
+        980
+      ],
+      "id": "0d1f1a72-1b97-416c-a76a-dfd6323ae516",
+      "name": "Embeddings Ollama1",
+      "credentials": {
+        "ollamaApi": {
+          "id": "xHuYe0MDGOs9IpBW",
+          "name": "Local Ollama service"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chunkSize": 5000,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.textSplitterRecursiveCharacterTextSplitter",
+      "typeVersion": 1,
+      "position": [
+        6460,
+        1220
+      ],
+      "id": "e315b530-ec0a-4c43-8bfe-402eefe0e2cd",
+      "name": "Recursive Character Text Splitter1"
+    },
+    {
+      "parameters": {
+        "jsonMode": "expressionData",
+        "jsonData": "={{\n{\n  \"content\": `${ $('Create Context').item.json.text }\\n---\\n ${ $('Loop').item.json.chunks}`\n}\n}}",
+        "options": {
+          "metadata": {
+            "metadataValues": [
+              {
+                "name": "Title",
+                "value": "={{ $('Information extraction').item.json.title }}"
+              },
+              {
+                "name": "Publisher",
+                "value": "={{ $('Information extraction').item.json.publisher }}"
+              },
+              {
+                "name": "Year published",
+                "value": "={{ $('Information extraction').item.json['year published'] }}"
+              },
+              {
+                "name": "DOI",
+                "value": "={{ $('Information extraction').item.json.DOI }}"
+              },
+              {
+                "name": "keywords",
+                "value": "={{ $('Information extraction').item.json.keywords }}"
+              }
+            ]
+          }
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.documentDefaultDataLoader",
+      "typeVersion": 1,
+      "position": [
+        6460,
+        1000
+      ],
+      "id": "cca0240b-98db-405b-be2d-32f09bdeff34",
+      "name": "Default Data Loader"
+    },
+    {
+      "parameters": {
+        "model": "llama3.1:8b",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmOllama",
+      "typeVersion": 1,
+      "position": [
+        6020,
+        780
+      ],
+      "id": "72d2f2ca-7c14-40c2-8c4c-5b0fe5f950c6",
+      "name": "Ollama Model2",
+      "credentials": {
+        "ollamaApi": {
+          "id": "xHuYe0MDGOs9IpBW",
+          "name": "Local Ollama service"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.body.chatInput }}",
+        "options": {
+          "systemMessage": "## Role\n\nYou are a Retrieval-Augmented Generation (RAG) assistant designed to answer questions a user has. You use a corpus of documents that are all text based. Your primary goal is to provide accurate, up-to-date, and relevant information based on what the user asks and the documents you retrieve.\n\n## Responsibilities\n\n- Answer user queries with a good mix of being comprehensive but still concise\n- Present information in an easy-to-understand and professional manner  \n- Clarify misconceptions or misinformation\n\n## Other Key Information and Instructions\n\n- Always tell the user if you didn't find the answer. Don't make something up just to please them.\n- Keep your language neutral and factual. Do not show bias or opinion  \n\n## Error Handling\n- If the information cannot be found using the provided instructions respond with:  \n  “I’m sorry, I couldn’t find relevant information based on your documents.”",
+          "returnIntermediateSteps": true
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.8,
+      "position": [
+        2200,
+        1620
+      ],
+      "id": "333a340b-8142-4a20-9e02-832c94beeda7",
+      "name": "AI Agent1",
+      "executeOnce": false
+    },
+    {
+      "parameters": {
+        "model": "llama3.2:latest",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOllama",
+      "typeVersion": 1,
+      "position": [
+        2060,
+        1820
+      ],
+      "id": "a5c754e3-cd2b-4730-b660-d2f9e189981d",
+      "name": "Ollama Chat Model",
+      "credentials": {
+        "ollamaApi": {
+          "id": "xHuYe0MDGOs9IpBW",
+          "name": "Local Ollama service"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "qdrantCollection": {
+          "__rl": true,
+          "value": "prueba_CRAG3",
+          "mode": "list",
+          "cachedResultName": "prueba_CRAG3"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreQdrant",
+      "typeVersion": 1.1,
+      "position": [
+        2300,
+        2060
+      ],
+      "id": "385ad15e-86b6-45aa-8db2-9f3c6b2ff781",
+      "name": "Qdrant Vector Store",
+      "credentials": {
+        "qdrantApi": {
+          "id": "sFfERYppMeBnFNeA",
+          "name": "Local QdrantApi database"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": "nomic-embed-text:latest"
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOllama",
+      "typeVersion": 1,
+      "position": [
+        2400,
+        2240
+      ],
+      "id": "dd1b0a07-a04e-4848-8b92-c1652fc0892e",
+      "name": "Embeddings Ollama",
+      "credentials": {
+        "ollamaApi": {
+          "id": "xHuYe0MDGOs9IpBW",
+          "name": "Local Ollama service"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": "llama3.2:latest",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmOllama",
+      "typeVersion": 1,
+      "position": [
+        2600,
+        2040
+      ],
+      "id": "b426af0e-6d8c-4ea5-949c-bf07688d7a5b",
+      "name": "Ollama Model1",
+      "credentials": {
+        "ollamaApi": {
+          "id": "xHuYe0MDGOs9IpBW",
+          "name": "Local Ollama service"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "AGENT AI (ARQUITECTURA NO UTILIZADA)",
+        "height": 920,
+        "width": 1790,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1420,
+        1520
+      ],
+      "typeVersion": 1,
+      "id": "95340791-a73f-4876-816a-c4f3d2424311",
+      "name": "Sticky Note",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.2,
+      "position": [
+        2980,
+        1620
+      ],
+      "id": "76cbc5ef-2abd-4f95-a96d-a4cc71098985",
+      "name": "Respond to Webhook",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1974aa93-b72a-4ffa-bf1b-690cde513799",
+              "name": "body.chatInput",
+              "value": "={{ $json.chatInput }}",
+              "type": "string"
+            },
+            {
+              "id": "6eae30a4-9493-4690-a1ad-9744f967c481",
+              "name": "sessionId",
+              "value": "={{ $json.sessionId }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1720,
+        1620
+      ],
+      "id": "5d937943-e852-4b51-bce9-99796adb80a3",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        2240,
+        1820
+      ],
+      "id": "aeff52ed-d9bf-4a56-a318-10a42d15ca71",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "name": "infopapers",
+        "description": "Use RAG to look up information in the knowledgebase."
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolVectorStore",
+      "typeVersion": 1,
+      "position": [
+        2380,
+        1840
+      ],
+      "id": "41cb6795-4150-4c4c-8426-1ec62495cd20",
+      "name": "infopapers"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "fd373344-0809-43d7-8e3a-886bedb6902d",
+              "name": "output",
+              "value": "={{ $json.intermediateSteps[0].observation }}\n\nPrincipales coincidencias:\n",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        2740,
+        1760
+      ],
+      "id": "42e379c4-cd37-411b-a65b-3aed7febf845",
+      "name": "Informacion directa de infopapers",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "6a2c5239-f9a9-49ed-a373-00e8f1da83fd",
+              "name": "Title",
+              "value": "response[0].metadata.Title",
+              "type": "object"
+            }
+          ]
+        },
+        "options": {
+          "ignoreConversionErrors": true
+        }
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        2880,
+        1960
+      ],
+      "id": "0ce6d9c3-84e9-4f6a-9723-df46df7f40fa",
+      "name": "Informacion directa de infopapers1"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=User query:\n{{ $('Chat and session Id').item.json.body.chatInput }}\n\nDatabase results:\n{{ $json.content }}",
+        "options": {
+          "systemMessage": "You are a research assistant that helps users find information from academic papers.\n\nYour task is to answer the user's question using ONLY the text found in the \"content\" fields of the provided documents.\n\nInstructions:\n- Do NOT generate or assume any information.\n- Do NOT summarize or paraphrase.\n- Only copy and paste exact matching text.\n- If no relevant content is found, say:\n  \"No specific information was found in the texts to answer the question.\"\n\nDo not answer unless you find an exact match in the content.\n",
+          "returnIntermediateSteps": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.8,
+      "position": [
+        5520,
+        2300
+      ],
+      "id": "8db11464-b1a0-4163-a260-9dd357a01aab",
+      "name": "AI Agent",
+      "executeOnce": false
+    },
+    {
+      "parameters": {
+        "content": "AGENTE AI (search QDRANT manual)",
+        "height": 1200,
+        "width": 4170,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        3360,
+        1520
+      ],
+      "typeVersion": 1,
+      "id": "6d5c7ede-25fc-4ee5-8556-6cc3c3707b79",
+      "name": "Sticky Note1",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "model": "llama3.2:latest",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOllama",
+      "typeVersion": 1,
+      "position": [
+        5380,
+        2480
+      ],
+      "id": "0a71dcff-0ffd-4b1a-8185-fc19d40e8dc3",
+      "name": "Model: qwen3:8b",
+      "credentials": {
+        "ollamaApi": {
+          "id": "xHuYe0MDGOs9IpBW",
+          "name": "Local Ollama service"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $('Chat and session Id').item.json.body.sessionId }}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryPostgresChat",
+      "typeVersion": 1.3,
+      "position": [
+        5620,
+        2560
+      ],
+      "id": "7e3cbea5-d0c6-403e-a541-524d6bac9a10",
+      "name": "Postgres Chat Memory",
+      "credentials": {
+        "postgres": {
+          "id": "5cFFy1ixUJUhsZHD",
+          "name": "Postgres account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "b32cf740-e8b2-41bf-b0dd-00a8efff9cff",
+              "name": "content",
+              "value": "={\n  \"Title\": \"{{ $json.metadata.Title }}\",\n  \"Year\": \"{{ $json.metadata['Year published'] }}\",\n  \"Score\": {{ $json.score }},\n  \"Content\": \"{{ $json.content }}\"\n}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        5000,
+        2300
+      ],
+      "id": "a16e6452-80c1-4a2d-b7b9-cddb5c86bee6",
+      "name": "Edit Fields2"
+    },
+    {
+      "parameters": {
+        "fieldsToAggregate": {
+          "fieldToAggregate": [
+            {
+              "fieldToAggregate": "content"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        5220,
+        2300
+      ],
+      "id": "3cbc7650-0136-4447-9d4f-5f045ed67ccc",
+      "name": "Aggregate1"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.removeDuplicates",
+      "typeVersion": 2,
+      "position": [
+        5640,
+        1740
+      ],
+      "id": "3b891a84-45a7-42d1-accc-639b04718573",
+      "name": "Remove Duplicates"
+    },
+    {
+      "parameters": {
+        "maxItems": 3
+      },
+      "type": "n8n-nodes-base.limit",
+      "typeVersion": 1,
+      "position": [
+        5860,
+        1740
+      ],
+      "id": "d37e7705-2c07-4e69-ae83-37bb2eb6d41b",
+      "name": "Limit"
+    },
+    {
+      "parameters": {
+        "fieldsToAggregate": {
+          "fieldToAggregate": [
+            {
+              "fieldToAggregate": "metadata.Title"
+            }
+          ]
+        },
+        "options": {
+          "mergeLists": false
+        }
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        6080,
+        1740
+      ],
+      "id": "79e1d90d-bdd6-41b7-8556-fa7b911e93ac",
+      "name": "Aggregate"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        6580,
+        1880
+      ],
+      "id": "9d43e942-bdcd-44dc-8868-a3c443537cf3",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "83884e1a-e254-4c0f-bd2b-2c1b2e907b6d",
+              "name": "output",
+              "value": "={{ $json.output }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        5880,
+        2300
+      ],
+      "id": "4894d084-41f4-45d3-977d-262b4b433b4e",
+      "name": "Edit Fields4"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "4709a4c3-5276-46c7-b0b8-619a47d76ff6",
+              "name": "formatedtittles",
+              "value": "={{ $json.Title.map(t => \"- \" + t).join(\"\\n\") }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        6300,
+        1780
+      ],
+      "id": "be7b66ee-8f03-4288-a5ce-f226c4c3a768",
+      "name": "Edit Fields5",
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "05e297fe-a418-4499-98fd-f88b47ab31af",
+              "name": "output",
+              "value": "={{ $json.output }}\n\n{{ $json.formatedtittles.length > 0 ? '\\n\\nRecommended Papers:\\n' + $json.formatedtittles.join('\\n') : '' }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        7020,
+        1880
+      ],
+      "id": "d731d0e1-5d74-4478-b952-7a328f0983e1",
+      "name": "Edit Fields6"
+    },
+    {
+      "parameters": {
+        "fieldsToAggregate": {
+          "fieldToAggregate": [
+            {
+              "fieldToAggregate": "formatedtittles"
+            },
+            {
+              "fieldToAggregate": "output"
+            }
+          ]
+        },
+        "options": {
+          "mergeLists": false
+        }
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        6780,
+        1880
+      ],
+      "id": "41d80969-d2cf-4409-b8aa-6049e727b37a",
+      "name": "Aggregate2"
+    },
+    {
+      "parameters": {
+        "model": "gemma3:1b",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmOllama",
+      "typeVersion": 1,
+      "position": [
+        4020,
+        2060
+      ],
+      "id": "2c13f2c9-794f-4dba-ad07-00dc727ebf8b",
+      "name": "Model: Gemma3:1b",
+      "credentials": {
+        "ollamaApi": {
+          "id": "xHuYe0MDGOs9IpBW",
+          "name": "Local Ollama service"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": "gemma3:1b",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmOllama",
+      "typeVersion": 1,
+      "position": [
+        4520,
+        1780
+      ],
+      "id": "493ec9a2-a825-4470-bf9f-978bdc898444",
+      "name": "Model: Gemma3:1b (2)",
+      "credentials": {
+        "ollamaApi": {
+          "id": "xHuYe0MDGOs9IpBW",
+          "name": "Local Ollama service"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "7d961dfe-8f7c-465a-95bc-e6ddfbefcaa3",
+              "leftValue": "={{ $json.text }}",
+              "rightValue": "1",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        4900,
+        1680
+      ],
+      "id": "ddbfc4dc-ec18-4d9a-8b21-60093e67ebf2",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "mode": "chooseBranch",
+        "useDataOfInput": 2
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        5240,
+        1740
+      ],
+      "id": "3275112f-73d5-4433-8f63-1d569122e263",
+      "name": "Merge3",
+      "alwaysOutputData": false
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "4709a4c3-5276-46c7-b0b8-619a47d76ff6",
+              "name": "",
+              "value": "=",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        5480,
+        2060
+      ],
+      "id": "dec43889-51d7-4109-9a7a-6bd95a0a76f3",
+      "name": "Edit Fields7",
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.2,
+      "position": [
+        7280,
+        1880
+      ],
+      "id": "88f9c046-beb6-4acd-942a-7dd2ca287071",
+      "name": "Respond to Webhook1",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "command": "python3 /data/shared/cliente_grobid.py"
+      },
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        3360,
+        780
+      ],
+      "id": "b5ea11a4-6886-4687-af85-b4517a506030",
+      "name": "Execute GROBID (local)"
+    },
+    {
+      "parameters": {
+        "operation": "write",
+        "fileName": "=/data/shared/input_papers/{{ $json.name }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        3100,
+        780
+      ],
+      "id": "63ea7aba-64cb-466e-a6a1-11866d1afe6d",
+      "name": "Write Files to input_papers"
+    },
+    {
+      "parameters": {
+        "fileSelector": "/data/shared/output_papers/*",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        3700,
+        1000
+      ],
+      "id": "38b326d1-09a3-4829-8c02-ccf929f0240d",
+      "name": "Read Files from output_papers"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "c9aa1882-ba6d-4861-907d-e479cb13b9ac",
+              "name": "title",
+              "value": "={{ $json.TEI.teiHeader.fileDesc.titleStmt.title._ }}",
+              "type": "string"
+            },
+            {
+              "id": "54eb1f92-95a7-4bd4-93b9-812882052b99",
+              "name": "abstract",
+              "value": "={{ $json.TEI.teiHeader.profileDesc.abstract.div.p }}",
+              "type": "string"
+            },
+            {
+              "id": "2f5b9d69-004d-4b6b-a2e0-4482f582376d",
+              "name": "publisher",
+              "value": "={{ $json.TEI.teiHeader.fileDesc.publicationStmt.publisher }}",
+              "type": "string"
+            },
+            {
+              "id": "ae933669-00f6-4f22-b292-9d5f14f2dc85",
+              "name": "year published",
+              "value": "={{ $json.TEI.teiHeader.fileDesc.publicationStmt.date.when }}",
+              "type": "string"
+            },
+            {
+              "id": "d72a4838-f166-418d-8c2d-46a72b80b6f4",
+              "name": "DOI",
+              "value": "={{ $json.TEI.teiHeader.fileDesc.sourceDesc.biblStruct.idno[1]._ }}",
+              "type": "string"
+            },
+            {
+              "id": "b4c1b600-fbab-4ec0-9918-c74608b2ca64",
+              "name": "keywords",
+              "value": "={{ $json.TEI.teiHeader.profileDesc.textClass.keywords.term }}",
+              "type": "string"
+            },
+            {
+              "id": "1f4f348a-6839-4f34-a840-f6e4b94bdf1d",
+              "name": "BODY_div",
+              "value": "={{ $json.TEI.text.body.div }}",
+              "type": "string"
+            },
+            {
+              "id": "6d48527f-5d8e-4df4-9f51-2c59bf5d6733",
+              "name": "BODY_fig",
+              "value": "={{ $json.TEI.text.body.figure }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        4540,
+        800
+      ],
+      "id": "72d0d2a9-4f4f-4e2b-8868-ed28c914f811",
+      "name": "Information extraction"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "62640d02-a946-4716-8704-079a69bc3988",
+              "name": "INFO_BODY",
+              "value": "={{ $json.BODY_div }} {{ $json.BODY_fig }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        4780,
+        800
+      ],
+      "id": "c0d0810a-c124-43d0-8a23-acaab41d4f99",
+      "name": "Information union"
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "const text =$json['INFO_BODY'].replace(/\\n/g, ' ');\n\n// 1. Partimos en oraciones (capturamos también el espacio que sigue al punto o signo)\nconst sentences = text.match(/[^\\.!\\?]+[\\.!\\?]+(\\s|$)/g) || [];\n\nconst chunks = [];\nconst chunkSize = 1000;\nlet current = '';\n\nfor (const sentence of sentences) {\n  // Si añadiendo esta oración supera el tamaño deseado,\n  // cerramos el chunk actual y arrancamos uno nuevo.\n  if ((current + sentence).length > chunkSize) {\n    if (current) {\n      chunks.push(current.trim());\n    }\n    current = sentence;\n  } else {\n    current += sentence;\n  }\n}\n\n// Añadimos el último trozo si quedó algo\nif (current) {\n  chunks.push(current.trim());\n}\n\nreturn { chunks };"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        5060,
+        800
+      ],
+      "id": "0bfa9972-0694-468c-b757-7d6799c0c950",
+      "name": "Split chunks"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "chunks",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        5260,
+        800
+      ],
+      "id": "7df3ad6b-4d69-4d96-84c9-7b199b3cb10f",
+      "name": "Separe List"
+    },
+    {
+      "parameters": {
+        "batchSize": "=5",
+        "options": {
+          "reset": false
+        }
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        5560,
+        800
+      ],
+      "id": "0d317f3a-a339-42b6-8fff-990b35b2a92c",
+      "name": "Loop"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=<document> \n{{ $('Information union').item.json.INFO_BODY }}\n</document>\nHere is the chunk we want to situate within the whole document\n<chunk> \n{{ $json.chunks }}\n</chunk> \nPlease give a short succinct context to situate this chunk within the overall document for the purposes of improving search retrieval of the chunk. Answer only with the succinct context and nothing else. "
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.6,
+      "position": [
+        5920,
+        620
+      ],
+      "id": "101edcc9-b0b2-48d5-b4fd-8f321b56b9c5",
+      "name": "Create Context",
+      "retryOnFail": true,
+      "waitBetweenTries": 5000
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1974aa93-b72a-4ffa-bf1b-690cde513799",
+              "name": "body.chatInput",
+              "value": "={{ $json.chatInput }}",
+              "type": "string"
+            },
+            {
+              "id": "3868f764-7955-4fa4-ba86-e4a608ba4f7e",
+              "name": "body.sessionId",
+              "value": "={{ $json.sessionId }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        3820,
+        1680
+      ],
+      "id": "7a2781bb-0b9a-4724-bba7-f3e77bb9768f",
+      "name": "Chat and session Id"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are a query optimization expert. Your ONLY task is to convert user messages into clean, concise search queries.\n\nINPUT: A raw user message\nOUTPUT: A single-line search query, with no quotes, no punctuation at the end, max 10 words\n\nRULES:\n- Output ONLY the search query — no explanations, no greetings, no JSON, no formatting\n- Convert questions into search-oriented statements\n- Remove personal info, greetings, filler words\n- Focus on technical terms and core concepts\n- Do NOT use quotation marks or special characters unless necessary in a technical term\n- Output must be clean: no line breaks, no trailing whitespace\n\nEXAMPLES:\nInput: \"Hey, I was wondering if you could tell me something about how Kubernetes works with containers and stuff?\"\nOutput: Kubernetes container orchestration architecture\n\nInput: \"What's the difference between Docker and Kubernetes? I'm a bit confused about this.\"\nOutput: Docker vs Kubernetes comparison differences\n\nInput: \"Hello! My name is John, can you explain what is Kubernetes?\"\nOutput: Kubernetes definition architecture\n\nNOW PROCESS THIS INPUT:\n{{ $json.body.chatInput }}\n\nONLY RETURN THE SEARCH QUERY. NOTHING ELSE.\n",
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [
+        4140,
+        1800
+      ],
+      "id": "0883c8e8-cd55-4e87-af1a-5e8a0f044c21",
+      "name": "Query optimization"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are a classifier. Your task is to analyze the user input and determine if the user is asking for references to scientific papers or academic sources.\n\nInput: \"{{ $json.body.chatInput }}\"\n\nIf the input **clearly** requests references, papers, articles, studies, or citations, return `1`.\n\nIf the input does **not** request references or is unrelated, return `0`.\n\nOnly return a single number: either `1` or `0`. Do not include any explanation or extra text.",
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [
+        4500,
+        1560
+      ],
+      "id": "50ef8768-847d-45e8-a398-16125354b625",
+      "name": "Reference?"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "754aaf76-18f3-4cd2-b91e-477efb40efac",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        1680,
+        1920
+      ],
+      "id": "6a41bcd8-f97e-44a6-9f68-ee79e17096ba",
+      "name": "Webhook2",
+      "webhookId": "754aaf76-18f3-4cd2-b91e-477efb40efac"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "754aaf76-18f3-4cd2-b91e-477efb40efac",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        3560,
+        1980
+      ],
+      "id": "26b3cbe8-3243-4102-952b-bc85868caecb",
+      "name": "Webhook",
+      "webhookId": "754aaf76-18f3-4cd2-b91e-477efb40efac"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://qdrant-search:5000/search",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "=     {\n       \"query\": \"{{ $json.text }}\"\n     }",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        4500,
+        2040
+      ],
+      "id": "d8503700-6f37-413d-9a64-22119650f2d9",
+      "name": "Request qdrant-search"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "results",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        4740,
+        2040
+      ],
+      "id": "709ed9be-a42e-48e9-96bd-f5da36ffa951",
+      "name": "Separate List 2"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "34341c8b-a413-468e-8d36-111b50142e09",
+              "name": "metadata.Title",
+              "value": "={{ $json.metadata.Title }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        5440,
+        1740
+      ],
+      "id": "c1f7484f-3420-4466-957f-85712025c92e",
+      "name": "Titles"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "Chat and session Id",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Content": {
+      "main": [
+        [
+          {
+            "node": "Write Files to input_papers",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Search all Content": {
+      "main": [
+        [
+          {
+            "node": "Get Content",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract from File": {
+      "main": [
+        [
+          {
+            "node": "XML",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "XML": {
+      "main": [
+        [
+          {
+            "node": "Information extraction",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Qdrant Vector Store2": {
+      "main": [
+        [
+          {
+            "node": "Loop",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings Ollama1": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Qdrant Vector Store2",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Recursive Character Text Splitter1": {
+      "ai_textSplitter": [
+        [
+          {
+            "node": "Default Data Loader",
+            "type": "ai_textSplitter",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Default Data Loader": {
+      "ai_document": [
+        [
+          {
+            "node": "Qdrant Vector Store2",
+            "type": "ai_document",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ollama Model2": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Create Context",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent1": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Informacion directa de infopapers1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ollama Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Qdrant Vector Store": {
+      "ai_vectorStore": [
+        [
+          {
+            "node": "infopapers",
+            "type": "ai_vectorStore",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings Ollama": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Qdrant Vector Store",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ollama Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "infopapers",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "infopapers": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Informacion directa de infopapers": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Model: qwen3:8b": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Postgres Chat Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields2": {
+      "main": [
+        [
+          {
+            "node": "Aggregate1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aggregate1": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Remove Duplicates": {
+      "main": [
+        [
+          {
+            "node": "Limit",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Limit": {
+      "main": [
+        [
+          {
+            "node": "Aggregate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aggregate": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Aggregate2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields4": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Edit Fields5": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields6": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aggregate2": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Model: Gemma3:1b": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Query optimization",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Model: Gemma3:1b (2)": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Reference?",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Merge3",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Edit Fields7",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge3": {
+      "main": [
+        [
+          {
+            "node": "Titles",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields7": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute GROBID (local)": {
+      "main": [
+        [
+          {
+            "node": "Read Files from output_papers",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Write Files to input_papers": {
+      "main": [
+        [
+          {
+            "node": "Execute GROBID (local)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read Files from output_papers": {
+      "main": [
+        [
+          {
+            "node": "Extract from File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Information extraction": {
+      "main": [
+        [
+          {
+            "node": "Information union",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Information union": {
+      "main": [
+        [
+          {
+            "node": "Split chunks",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split chunks": {
+      "main": [
+        [
+          {
+            "node": "Separe List",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Separe List": {
+      "main": [
+        [
+          {
+            "node": "Loop",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Create Context",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Context": {
+      "main": [
+        [
+          {
+            "node": "Qdrant Vector Store2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Chat and session Id": {
+      "main": [
+        [
+          {
+            "node": "Query optimization",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Reference?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Query optimization": {
+      "main": [
+        [
+          {
+            "node": "Request qdrant-search",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Reference?": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook2": {
+      "main": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Query optimization",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Reference?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Request qdrant-search": {
+      "main": [
+        [
+          {
+            "node": "Separate List 2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Separate List 2": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields2",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge3",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Titles": {
+      "main": [
+        [
+          {
+            "node": "Remove Duplicates",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "b8d2cbee-c709-4f77-b139-ea39280459ec",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "558d88703fb65b2d0e44613bc35916258b0f0bf983c5d4730c00c424b77ca36a"
+  },
+  "id": "NxLG4jF0dbdt3DMz",
+  "tags": [
+    {
+      "createdAt": "2025-04-16T22:09:05.086Z",
+      "updatedAt": "2025-04-16T22:09:05.086Z",
+      "id": "f56j4qjw8PMfXgs5",
+      "name": "PPS"
+    }
+  ]
+}
