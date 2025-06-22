@@ -86,46 +86,65 @@ Este agente permitirá a los investigadores **acceder y organizar el conocimient
 
 Este repositorio tiene como objetivo proporcionarte la información necesaria para comenzar rápidamente a trabajar con el proyecto en cuestión. Ya seas un desarrollador experimentado o nuevo en el proyecto, esta guía te ayudará a empezar en poco tiempo.
 
-### Prerequisitos
+<!-- INSTALACION -->
+### Instalación
 
-
-📌 **Nota:** Esta sección se actualizará más adelante.
-
-<!--
-* Python
+Actualizar el sistema
   
   ```sh
   sudo apt update
+  sudo apt upgrade
+  ```
+
+Instalar Python
+
+  ```sh
   sudo apt install python
   ```
 
-- Instalar las librerias necesarias
+Instalar Git
 
   ```sh
-  python3 -m venv venv #Crea un nuevo entorno virtual donde se guardan todas las librerias a utilizar
-  source venv/bin/activate
-  pip install -r requirements.txt
+  sudo apt install git
+  git --version ## (para verificar)
   ```
 
-
-- Helm
+Instalar Docker
 
   ```sh
-  curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
-  sudo chmod 700 get_helm.sh
-  ./get_helm.sh
+  sudo apt install docker.io
+  sudo systemctl enable docker
+  sudo systemctl start docker
+  docker --version ## (para verificar)
   ```
 
-  
--->
+Instalar Docker-Compose
 
-### Instalación
-📌 **Nota:** Esta sección se actualizará más adelante.
+  ```sh
+  sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+  sudo chmod +x /usr/local/bin/docker-compose
+  docker-compose --version
+  ```
 
+Clonar el repositorio
 
-<p align="right">(<a href="#readme-top">Volver al Inicio</a>)</p>
+  ```sh
+  git clone git@github.com:danunziata/pps-kevin_haponiuk-2025.git
+  cd self-hosted-ai-starter-kit
+  ```
 
-<!-- USAGE EXAMPLES -->
+Ejecutar el docker-compose.yml
+
+  Para caso de uso con CPU
+  ```sh
+  docker compose --profile cpu up
+  ```
+
+  Para caso de uso con GPU NVIDIA
+  ```sh
+  docker compose --profile gpu-nvidia up
+  ```
+
 
 ## Uso
 
