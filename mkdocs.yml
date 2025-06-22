@@ -34,6 +34,10 @@ strict: true
 nav:
   - Introducción: index.md
 
+  - Workflow Final:
+    - Explicación Workflow: implementacion/00_workflow-completo.md
+    - Implementación: implementacion/01_implementacion-final.md
+    
   - Investigación:
     - Conceptos Previos: investigacion/01_llm.md
     - Metodología de investigación:
@@ -49,11 +53,11 @@ nav:
     - A2A: investigacion/10_a2a.md
     - Interfaz de usuario: investigacion/11_interface-options.md
 
-  - Implementación:
-    - Instalación de n8n / Dependencias necesarias: implementacion/01_install-n8n.md
-    - Ejemplo RAG / CRAG: implementacion/02_ejemplo-rag-crag.md
-    - Ejemplo MCP: implementacion/03_ejemplo-mcp.md
-    - Instalación de GROBID / Ejemplo de uso: implementacion/05_install-grobid.md
+  - Pruebas durante el desarrollo:
+    - Instalación de n8n / Dependencias necesarias: pruebas/01_install-n8n.md
+    - Ejemplo RAG / CRAG: pruebas/02_ejemplo-rag-crag.md
+    - Ejemplo MCP: pruebas/03_ejemplo-mcp.md
+    - Instalación de GROBID / Ejemplo de uso: pruebas/05_install-grobid.md
 
   - Info Proyecto:
     - Metodología de Trabajo: proyecto/01_metodologia.md
