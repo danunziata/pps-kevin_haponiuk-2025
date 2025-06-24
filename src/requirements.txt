@@ -1,0 +1,79 @@
+# Requirements file generated from myenv virtual environment
+# Python version: 3.13.3
+
+# Core data science and analysis
+pandas==2.2.3
+numpy==2.2.6
+pyarrow==20.0.0
+
+# Vector database and embeddings
+qdrant-client==1.14.2
+nomic==3.5.3
+
+# HTTP and API clients
+httpx==0.28.1
+requests==2.32.3
+httpcore==1.0.9
+h2==4.2.0
+h11==0.16.0
+hpack==4.1.0
+hyperframe==6.1.0
+
+# Data validation and serialization
+pydantic==2.11.5
+pydantic-core==2.33.2
+annotated-types==0.7.0
+typing-extensions==4.14.0
+typing-inspection==0.4.1
+
+# Utilities and helpers
+rich==14.0.0
+loguru==0.7.3
+tqdm==4.67.1
+attrs==25.3.0
+attr==0.0.0
+
+# Async and concurrency
+anyio==4.9.0
+sniffio==1.3.1
+
+# Data formats
+jsonlines==4.0.0
+
+# Markdown and text processing
+markdown-it-py==3.0.0
+mdurl==0.1.2
+
+# Image processing
+pillow==11.2.1
+
+# Authentication and security
+PyJWT==2.10.1
+
+# File and system utilities
+portalocker==2.10.1
+win32-setctime==1.2.0
+
+# Date and time
+pytz==2025.2
+tzdata==2025.2
+
+# Windows-specific
+pywin32==310
+
+# Documentation
+mkdocs-material==9.6.11
+mkdocs-material-extensions==1.3.1
+
+# Web and internationalization
+babel==2.17.0
+backrefs==5.8
+
+# Network and certificates
+certifi==2025.1.31
+charset-normalizer==3.4.1
+idna==3.10
+
+# gRPC and protocol buffers
+grpcio==1.72.1
+protobuf==6.31.1 
