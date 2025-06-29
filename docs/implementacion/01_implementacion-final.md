@@ -39,10 +39,13 @@ Clonar el repositorio
 
   ```sh
   git clone git@github.com:danunziata/pps-kevin_haponiuk-2025.git
-  cd self-hosted-ai-starter-kit
+  cd pps-kevin_haponiuk-2025/src/self-hosted-ai-starter-kit
   ```
 
 Ejecutar el docker-compose.yml
+
+Moverse a self-hosted-ai-starter-kit
+
 
   Para caso de uso con CPU
   ```sh
