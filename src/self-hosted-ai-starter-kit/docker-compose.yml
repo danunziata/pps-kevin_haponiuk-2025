@@ -4,6 +4,8 @@ volumes:
   ollama_storage:
   qdrant_storage:
   openwebui-vol:
+  prometheus_data:
+  grafana_data:
 
 
 networks:
@@ -169,11 +171,23 @@ services:
     depends_on:
      - ollama-gpu-amd
 
-  openwebui:
-    image: ghcr.io/open-webui/open-webui:cuda
-    ports:
-      - 3001:8080
+  openwebui-cpu:
+    image: ghcr.io/open-webui/open-webui:main
+    container_name: openwebui-cpu
     networks: ['demo']
+    ports:
+      - "3000:8080"
+    volumes:
+      - openwebui-vol:/app/backend/data
+    profiles: ["cpu"]
+    restart: unless-stopped
+
+  openwebui-gpu:
+    image: ghcr.io/open-webui/open-webui:cuda
+    container_name: openwebui-gpu
+    networks: ['demo']
+    ports:
+      - "3000:8080"
     volumes:
       - openwebui-vol:/app/backend/data
     deploy:
@@ -181,9 +195,10 @@ services:
         reservations:
           devices:
             - driver: nvidia
+              count: all
               capabilities: [gpu]
-    # environment:
-    #   - WEBUI_AUTH=false
+    profiles: ["gpu-nvidia"]
+    restart: unless-stopped
 
   grobid:
     image: grobid/grobid:0.8.2
@@ -200,6 +215,55 @@ services:
               capabilities: [gpu]
     ulimits:
       core: 0
+
+  # Monitoring Services
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:latest
+    container_name: cadvisor
+    networks: ['demo']
+    ports:
+      - "8081:8080"
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+      - /dev/disk/:/dev/disk:ro
+    restart: unless-stopped
+    profiles: ["cpu", "gpu-nvidia", "gpu-amd"]
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    networks: ['demo']
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--storage.tsdb.retention.time=200h'
+      - '--web.enable-lifecycle'
+    restart: unless-stopped
+    profiles: ["cpu", "gpu-nvidia", "gpu-amd"]
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    networks: ['demo']
+    ports:
+      - "3001:3000"
+    volumes:
+      - grafana_data:/var/lib/grafana
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD}
+      - GF_USERS_ALLOW_SIGN_UP=false
+    restart: unless-stopped
+    profiles: ["cpu", "gpu-nvidia", "gpu-amd"]
 
   pgadmin:
     image: dpage/pgadmin4
