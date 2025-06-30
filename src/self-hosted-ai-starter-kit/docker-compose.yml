@@ -200,9 +200,20 @@ services:
     profiles: ["gpu-nvidia"]
     restart: unless-stopped
 
-  grobid:
+  grobid-cpu:
     image: grobid/grobid:0.8.2
-    container_name: grobid
+    container_name: grobid-cpu
+    networks: ['demo']
+    restart: unless-stopped
+    ports:
+      - "8070:8070"
+    ulimits:
+      core: 0
+    profiles: ["cpu"]
+
+  grobid-gpu:
+    image: grobid/grobid:0.8.2
+    container_name: grobid-gpu
     networks: ['demo']
     restart: unless-stopped
     ports:
@@ -215,6 +226,7 @@ services:
               capabilities: [gpu]
     ulimits:
       core: 0
+    profiles: ["gpu-nvidia"]
 
   # Monitoring Services
   cadvisor:
