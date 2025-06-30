@@ -5,10 +5,12 @@ Actualizar el sistema
   sudo apt upgrade
   ```
 
-Instalar Python
 
+Instalar Python
   ```sh
   sudo apt install python
+  sudo apt install python3-pip
+  sudo apt install python3-venv
   ```
 
 Instalar Git
