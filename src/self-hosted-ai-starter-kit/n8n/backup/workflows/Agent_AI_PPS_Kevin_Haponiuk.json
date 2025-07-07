@@ -8,7 +8,7 @@
       "type": "@n8n/n8n-nodes-langchain.chatTrigger",
       "typeVersion": 1.1,
       "position": [
-        3560,
+        3400,
         1680
       ],
       "id": "79a395dc-a650-4200-a790-e515ee1b7c7b",
@@ -491,7 +491,7 @@
       "parameters": {
         "content": "AGENTE AI (search QDRANT manual)",
         "height": 1200,
-        "width": 4170,
+        "width": 4190,
         "color": 4
       },
       "type": "n8n-nodes-base.stickyNote",
@@ -527,7 +527,8 @@
     {
       "parameters": {
         "sessionIdType": "customKey",
-        "sessionKey": "={{ $('Chat and session Id').item.json.body.sessionId }}"
+        "sessionKey": "={{ $('Chat and session Id').item.json.body.sessionId }}",
+        "tableName": "N8N"
       },
       "type": "@n8n/n8n-nodes-langchain.memoryPostgresChat",
       "typeVersion": 1.3,
@@ -1065,23 +1066,26 @@
             {
               "id": "1974aa93-b72a-4ffa-bf1b-690cde513799",
               "name": "body.chatInput",
-              "value": "={{ $json.chatInput }}",
+              "value": "={{ $json.chatInput || $json.body.chatInput }}",
               "type": "string"
             },
             {
               "id": "3868f764-7955-4fa4-ba86-e4a608ba4f7e",
               "name": "body.sessionId",
-              "value": "={{ $json.sessionId }}",
+              "value": "={{ $json.sessionId || $('Webhook').item.json.body.chat_id }}",
               "type": "string"
             }
           ]
         },
-        "options": {}
+        "includeOtherFields": true,
+        "options": {
+          "ignoreConversionErrors": false
+        }
       },
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        3820,
+        3660,
         1680
       ],
       "id": "7a2781bb-0b9a-4724-bba7-f3e77bb9768f",
@@ -1096,8 +1100,8 @@
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.7,
       "position": [
-        4140,
-        1800
+        4200,
+        1860
       ],
       "id": "0883c8e8-cd55-4e87-af1a-5e8a0f044c21",
       "name": "Query optimization"
@@ -1144,7 +1148,7 @@
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
       "position": [
-        3560,
+        3400,
         1980
       ],
       "id": "26b3cbe8-3243-4102-952b-bc85868caecb",
@@ -1214,6 +1218,19 @@
       ],
       "id": "c1f7484f-3420-4466-957f-85712025c92e",
       "name": "Titles"
+    },
+    {
+      "parameters": {
+        "command": "python3 /data/shared/test_grobid.py"
+      },
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        3360,
+        600
+      ],
+      "id": "e0d23182-9e80-473b-ae81-3258c4e599e0",
+      "name": "TEST GROBID"
     }
   ],
   "pinData": {},
@@ -1790,12 +1807,7 @@
       "main": [
         [
           {
-            "node": "Query optimization",
-            "type": "main",
-            "index": 0
-          },
-          {
-            "node": "Reference?",
+            "node": "Chat and session Id",
             "type": "main",
             "index": 0
           }
@@ -1845,7 +1857,7 @@
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "b8d2cbee-c709-4f77-b139-ea39280459ec",
+  "versionId": "454c8031-767b-4eab-b417-86b3cc2830cf",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "558d88703fb65b2d0e44613bc35916258b0f0bf983c5d4730c00c424b77ca36a"

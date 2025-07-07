@@ -95,7 +95,7 @@ En esta sección se explica el funcionamiento del Agente de Inteligencia Artific
 </p>
 
 
-Si se utiliza el primer método este se conecta al nodo **Chat and session Id**, que realiza un mapeo de variables para estandarizar la entrada, asegurando que los nodos posteriores (**Reference?** y **Query optimization**) reciban el mismo formato de datos independientemente del origen.
+Ambos nodos se conectan al nodo **Chat and session Id**, que realiza un mapeo de variables para estandarizar la entrada, asegurando que los nodos posteriores (**Reference?** y **Query optimization**) reciban el mismo formato de datos independientemente del origen.
 
 ### Procesamiento y respuesta de consultas
 

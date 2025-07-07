@@ -127,7 +127,7 @@ services:
       - QDRANT_URL=http://qdrant:6333
     depends_on:
       - qdrant
-    profiles: ["cpu", "gpu-nvidia", "gpu-amd"]
+    profiles: ["cpu", "gpu-nvidia"]
 
   ollama-cpu:
     profiles: ["cpu"]
@@ -144,14 +144,6 @@ services:
               count: 1
               capabilities: [gpu]
 
-  ollama-gpu-amd:
-    profiles: ["gpu-amd"]
-    <<: *service-ollama
-    image: ollama/ollama:rocm
-    devices:
-      - "/dev/kfd"
-      - "/dev/dri"
-
   ollama-pull-llama-cpu:
     profiles: ["cpu"]
     <<: *init-ollama
@@ -163,13 +155,6 @@ services:
     <<: *init-ollama
     depends_on:
       - ollama-gpu
-
-  ollama-pull-llama-gpu-amd:
-    profiles: [gpu-amd]
-    <<: *init-ollama
-    image: ollama/ollama:rocm
-    depends_on:
-     - ollama-gpu-amd
 
   openwebui-cpu:
     image: ghcr.io/open-webui/open-webui:main
@@ -202,7 +187,7 @@ services:
 
   grobid-cpu:
     image: grobid/grobid:0.8.2
-    container_name: grobid-cpu
+    container_name: grobid
     networks: ['demo']
     restart: unless-stopped
     ports:
@@ -213,7 +198,7 @@ services:
 
   grobid-gpu:
     image: grobid/grobid:0.8.2
-    container_name: grobid-gpu
+    container_name: grobid
     networks: ['demo']
     restart: unless-stopped
     ports:
@@ -242,7 +227,7 @@ services:
       - /var/lib/docker/:/var/lib/docker:ro
       - /dev/disk/:/dev/disk:ro
     restart: unless-stopped
-    profiles: ["cpu", "gpu-nvidia", "gpu-amd"]
+    profiles: ["cpu", "gpu-nvidia"]
 
   prometheus:
     image: prom/prometheus:latest
@@ -261,7 +246,7 @@ services:
       - '--storage.tsdb.retention.time=200h'
       - '--web.enable-lifecycle'
     restart: unless-stopped
-    profiles: ["cpu", "gpu-nvidia", "gpu-amd"]
+    profiles: ["cpu", "gpu-nvidia"]
 
   grafana:
     image: grafana/grafana:latest
@@ -275,7 +260,7 @@ services:
       - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD}
       - GF_USERS_ALLOW_SIGN_UP=false
     restart: unless-stopped
-    profiles: ["cpu", "gpu-nvidia", "gpu-amd"]
+    profiles: ["cpu", "gpu-nvidia"]
 
   pgadmin:
     image: dpage/pgadmin4
