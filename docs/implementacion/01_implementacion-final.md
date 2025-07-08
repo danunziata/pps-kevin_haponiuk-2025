@@ -128,7 +128,7 @@ Para poder hacer la consulta al agente mediante el bloque webhook, debemos confi
 5. **Acceder al bloque Webhook**: En N8N, localice y configure el bloque Webhook de la siguiente manera (copie el Test URL generado):
 
 <p align="center">
-  <img src="/images/config-n8n-openweb.png" width="80%">
+  <img src="../../images/config-n8n-openweb.png" width="80%">
 </p>
 
 En las configuraciones de la función, utilice la URL copiada de N8N y realice el siguiente cambio:
@@ -137,13 +137,13 @@ En las configuraciones de la función, utilice la URL copiada de N8N y realice e
    - Mantenga el resto de configuraciones en valores por defecto
 
 <p align="center">
-  <img src="../images/function-2.png" width="60%">
+  <img src="../../images/function-2.png" width="60%">
 </p>
 
 **Activar el workflow**: Active el workflow en N8N para comenzar a recibir solicitudes:
 
 <p align="center">
-  <img src="/images/activate.png" width="50%">
+  <img src="../../images/activate.png" width="50%">
 </p>
 
 **Configurar escucha**: Configure el workflow para escuchar y recibir respuestas externas:

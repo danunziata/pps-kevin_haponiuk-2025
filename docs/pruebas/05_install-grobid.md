@@ -1,7 +1,7 @@
 ## Instalación y Ejecución de GROBID
 
 <p align="center">
-  <img src="/images/grobid-ingesta.webp" width="100%">
+  <img src="../../images/grobid-ingesta.webp" width="100%">
 </p>
 
 La forma más recomendada de utilizar **GROBID** es a través de **Docker**, ejecutándolo como un servidor local.
@@ -83,13 +83,13 @@ python3 cliente_grobid.py
 
 
 <p align="center">
-  <img src="/images/grobid-pdf_xml-example.png" width="100%">
+  <img src="../../images/grobid-pdf_xml-example.png" width="100%">
 </p>
 
 Cada pdf se pasará a XML:
 
 <p align="center">
-  <img src="/images/grobid-pdf_xml-example2.png" width="100%">
+  <img src="../../images/grobid-pdf_xml-example2.png" width="100%">
 </p>
 
 

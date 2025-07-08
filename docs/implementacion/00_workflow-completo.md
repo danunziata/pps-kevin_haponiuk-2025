@@ -1,7 +1,7 @@
 # Explicación del Workflow del Proyecto
 
 <p align="center">
-  <img src="/images/workflow-completo.png" width="100%">
+  <img src="../../images/workflow-completo.png" width="100%">
   <em>Figura 1: Workflow Completo</em>
   <br>
   <strong>🟡 Procesamiento y Carga de Información</strong> | 
@@ -14,7 +14,7 @@ En esta sección se va a explicar el funcionamiento completo del workflow del pr
 ## Procesamiento y Carga de Información
 
 <p align="center">
-  <img src="/images/workflow-cargainfo.png" width="100%">
+  <img src="../../images/workflow-cargainfo.png" width="100%">
   <br>
   <em>Figura 2: Workflow de Procesamiento y Carga de Información</em>
 </p>
@@ -60,7 +60,7 @@ Una vez completado todo el proceso de procesamiento y carga, es posible verifica
 Al seleccionar la colección creada, se podrá visualizar la estructura de los datos almacenados, como se muestra en la siguiente imagen:
 
 <p align="center">
-  <img src="/images/qdrant-collections-example.png" width="100%">
+  <img src="../../images/qdrant-collections-example.png" width="100%">
   <br>
   <em>Figura 3: Estructura de datos en Qdrant Vector Store</em>
 </p>
@@ -76,7 +76,7 @@ Esta estructura permite que el sistema de búsqueda semántica pueda recuperar n
 ## Agent AI
 
 <p align="center">
-  <img src="/images/workflow-agentai.png" width="100%">
+  <img src="../../images/workflow-agentai.png" width="100%">
   <br>
   <em>Figura 4: Workflow completo del Agent AI</em>
 </p>
@@ -89,7 +89,7 @@ En esta sección se explica el funcionamiento del Agente de Inteligencia Artific
 2. **Webhook**: Nodo que espera solicitudes mediante método POST para ser utilizado con OpenWebUI como interfaz final para el usuario.
 
 <p align="center">
-  <img src="/images/workflow-inputs.png" width="100%">
+  <img src="../../images/workflow-inputs.png" width="100%">
   <br>
   <em>Figura 5: Puntos de entrada del Agent AI</em>
 </p>
@@ -104,7 +104,7 @@ El flujo se divide en dos ramas principales donde primero se ejecuta la Rama 1 y
 #### Rama 1: Optimización -> Búsqueda -> Respuesta
 
 <p align="center">
-  <img src="/images/workflow-rama1.png" width="100%">
+  <img src="../../images/workflow-rama1.png" width="100%">
   <br>
   <em>Figura 6: Rama 1 "Optimización, Búsqueda, Respuesta"</em>
 </p>
@@ -134,7 +134,7 @@ El flujo se divide en dos ramas principales donde primero se ejecuta la Rama 1 y
 #### Rama 2: Detección de Referencias
 
 <p align="center">
-  <img src="/images/workflow-rama2.png" width="100%">
+  <img src="../../images/workflow-rama2.png" width="100%">
   <br>
   <em>Figura 7: Rama 2 "Detección y Procesamiento de Referencias"</em>
 </p>
@@ -166,7 +166,7 @@ Si la respuesta es `1` (se pidieron referencias, camino amarillo), el flujo cont
 #### Etapa Final: Unión de ramas
 
 <p align="center">
-  <img src="/images/workflow-unionramas.png" width="100%">
+  <img src="../../images/workflow-unionramas.png" width="100%">
   <br>
   <em>Figura 8: Unión de ramas, respuesta final</em>
 </p>

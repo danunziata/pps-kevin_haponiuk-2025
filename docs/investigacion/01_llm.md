@@ -41,7 +41,7 @@ Con suficiente experiencia, el sistema mejora su desempeño en la tarea, sin nec
 - **Aprendizaje por Refuerzo**: Como entrenar a una mascota con premios y castigos. El algoritmo aprende a través de prueba y error, recibiendo recompensas por buenas acciones y penalizaciones por errores. Es muy usado en videojuegos y robótica, donde el sistema mejora con la experiencia.
 
 <p align="center">
-  <img src="/images/type_ml.webp" width="100%">
+  <img src="../../images/type_ml.webp" width="100%">
   <br>
   <em>Figura 1: Tipos de aprendizajes en machine learning</em>
 </p>
@@ -56,13 +56,13 @@ Por medio de una colección de unidades llamadas *neuronas artificiales*, organi
 Una **neurona biológica** es una célula del cerebro que recibe señales de otras neuronas a través de estructuras llamadas *dendritas*, procesa esa información en el cuerpo celular, y transmite señales hacia otras neuronas a través del *axón*. Cuando recibe suficientes estímulos, la neurona "dispara" una señal eléctrica.
 
 <p align="center">
-  <img src="/images/neurona.png"  width="80%">
+  <img src="../../images/neurona.png"  width="80%">
   <br>
   <em>Figura 2: Una neurona biológica</em>
 </p>
 
 <p align="center">
-  <img src="/images/red_neuronal_humana.png" width="80%">
+  <img src="../../images/red_neuronal_humana.png" width="80%">
   <br>
   <em>Figura 3: Representación de una red neuronal humana</em>
 </p>
@@ -71,7 +71,7 @@ De forma análoga, una **neurona artificial** recibe múltiples entradas numéri
 
 
 <p align="center">
-  <img src="/images/red_neuronal.png" width="60%">
+  <img src="../../images/red_neuronal.png" width="60%">
   <br>
   <em>Figura 4: Representación conceptual de una red neuronal artificial </em>
 </p>
@@ -121,7 +121,7 @@ Lo primero que debemos hacer es **convertir las palabras en un formato que la co
 
 
 <p align="center">
-  <img src="/images/codificacion.png" width="80%">
+  <img src="../../images/codificacion.png" width="80%">
   <br>
   <em>Figura 5: Proceso de codificación</em>
 </p>
@@ -132,7 +132,7 @@ A nuestra red neuronal la **entrenamos alimentándola con una gran cantidad de d
 
 
 <p align="center">
-  <img src="/images/patrones.png" width="80%">
+  <img src="../../images/patrones.png" width="80%">
   <br>
   <em>Figura 6: Red neuronal encontrando patrones</em>
 </p>
@@ -157,7 +157,7 @@ De esta forma, cuando la red procesa una frase como "hola hace frío", en realid
 
 
 <p align="center">
-  <img src="/images/id-token.png" width="80%">
+  <img src="../../images/id-token.png" width="80%">
   <br>
   <em>Figura 7: Representación mediante ID</em>
 </p>
@@ -173,7 +173,7 @@ Esta capacidad de asociar términos según su contexto permite que el modelo gen
 
 
 <p align="center">
-  <img src="/images/la_reina.png" width="80%">
+  <img src="../../images/la_reina.png" width="80%">
   <br>
   <em>Figura 8: Ejemplo de relación </em>
 </p>
@@ -181,7 +181,7 @@ Esta capacidad de asociar términos según su contexto permite que el modelo gen
 De esta manera, puedo encontrar relaciones entre los token y agregar una marca en cada ocasión que tengan relación entre ellos:
 
 <p align="center">
-  <img src="/images/relacion_token.png" width="60%">
+  <img src="../../images/relacion_token.png" width="60%">
   <br>
   <em>Figura 9: marcación entre tokens </em>
 </p>
@@ -189,7 +189,7 @@ De esta manera, puedo encontrar relaciones entre los token y agregar una marca e
 la idea es seguir sumando marcadores entre distintos token, de esta manera el modelo aunque no sabe exactamente qué significan, sí saber como clasificarlos.
 
 <p align="center">
-  <img src="/images/relacion_token2.png" width="70%">
+  <img src="../../images/relacion_token2.png" width="70%">
   <br>
   <em>Figura x: Relación entre tokens </em>
 </p>
@@ -202,7 +202,7 @@ Cada token se representa mediante un **vector numérico de gran dimensión**, do
 
 
 <p align="center">
-  <img src="/images/relacion_token3.png" width="80%">
+  <img src="../../images/relacion_token3.png" width="80%">
   <br>
   <em>Figura 10: Relación entre tokens </em>
 </p>
@@ -217,7 +217,7 @@ Esta idea de "cercanía semántica" nos permite ver, por ejemplo, que tokens com
 
 
 <p align="center">
-  <img src="/images/embedding_argentina.png" width="100%">
+  <img src="../../images/embedding_argentina.png" width="100%">
   <br>
   <em>Figura 11: Representación tridimensional embedding </em>
 </p>
@@ -225,7 +225,7 @@ Esta idea de "cercanía semántica" nos permite ver, por ejemplo, que tokens com
 En este caso, podemos ver que palabras cercanas a "argentina" son:
 
 <p align="center">
-  <img src="/images/puntos_arg.png" width="50%">
+  <img src="../../images/puntos_arg.png" width="50%">
   <br>
   <em>Figura 12: Puntos más cercanos a la palabra "argentina" </em>
 </p>
@@ -285,7 +285,7 @@ Para resolver este problema apareció una arquitectura llamada **Red Neuronal Re
 - No permiten **paralelizar**, por lo que el entrenamiento es más lento.
 
 <p align="center">
-  <img src="/images/rnn.png" width="20%">
+  <img src="../../images/rnn.png" width="20%">
   <br>
   <em>Figura 13: Ejemplo de RNN </em>
 </p>
@@ -322,13 +322,13 @@ El modelo analiza cada palabra en relación con todas las demás. Por ejemplo:
 - "vida" con respecto a todas las demás también.
 
 <p align="center">
-  <img src="/images/ejemplo_atencion.png" width="100%">
+  <img src="../../images/ejemplo_atencion.png" width="100%">
   <br>
   <em>Figura 14: Ejemplo de uso de transformers </em>
 </p>
 
 <p align="center">
-  <img src="/images/paralelizacion.png" width="100%">
+  <img src="../../images/paralelizacion.png" width="100%">
   <br>
   <em>Figura 15: Ejemplo de paralelización </em>
 </p>

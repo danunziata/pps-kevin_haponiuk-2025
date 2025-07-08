@@ -11,7 +11,7 @@ Para instalar los nodos MCP desarrollados por la comunidad, se deben seguir los 
 3. Buscar "n8n-nodes-mcp" y hacer clic en **Install**.
 
 <p align="center">
-  <img src="/images/mcp_install-nodes.png" width="60%">
+  <img src="../../images/mcp_install-nodes.png" width="60%">
   <br>
   <em>Figura 1: Instalación del nodo MCP en n8n</em>
 </p>
@@ -19,7 +19,7 @@ Para instalar los nodos MCP desarrollados por la comunidad, se deben seguir los 
 Una vez instalado, el nodo MCP estará disponible para ser agregado a los flujos de trabajo.
 
 <p align="center">
-  <img src="/images/mcp_install-nodes-2.png" width="50%">
+  <img src="../../images/mcp_install-nodes-2.png" width="50%">
   <br>
   <em>Figura 2: Nodo MCP disponible en n8n</em>
 </p>
@@ -39,7 +39,7 @@ En este ejemplo, se utilizará **Brave Search**. Para ello, se debe localizar el
 La información obtenida debe ser ingresada en el bloque de configuración del cliente MCP:
 
 <p align="center">
-  <img src="/images/mcp_brave-npx.png" width="100%">
+  <img src="../../images/mcp_brave-npx.png" width="100%">
   <br>
   <em>Figura 3: Configuración del cliente MCP con credenciales de Brave</em>
 </p>
@@ -47,7 +47,7 @@ La información obtenida debe ser ingresada en el bloque de configuración del c
 Posteriormente, estos datos deben ser cargados en las credenciales del nodo MCP Client en n8n, como se puede observar, necesitamos agregar la API KEY también:
 
 <p align="center">
-  <img src="/images/mcp_brave-npx-n8n.png" width="80%">
+  <img src="../../images/mcp_brave-npx-n8n.png" width="80%">
   <br>
   <em>Figura 4: Ingreso de credenciales en n8n para MCP Client</em>
 </p>
@@ -57,7 +57,7 @@ la cual puede obtenerse registrándose en:
 [https://api-dashboard.search.brave.com/app/keys](https://api-dashboard.search.brave.com/app/keys)
 
 <p align="center">
-  <img src="/images/mcp_brave.png" width="100%">
+  <img src="../../images/mcp_brave.png" width="100%">
   <br>
   <em>Figura 5: Panel de Brave Search para obtener la API Key</em>
 </p>
@@ -67,7 +67,7 @@ la cual puede obtenerse registrándose en:
 Para verificar las herramientas disponibles, se puede realizar una consulta desde el nodo MCP:
 
 <p align="center">
-  <img src="/images/mcp_brave-npx-n8n-availabletools.png" width="80%">
+  <img src="../../images/mcp_brave-npx-n8n-availabletools.png" width="80%">
   <br>
   <em>Figura 6: Consulta de herramientas disponibles en MCP</em>
 </p>
@@ -75,7 +75,7 @@ Para verificar las herramientas disponibles, se puede realizar una consulta desd
 De igual manera, es posible probar la herramienta de búsqueda de Brave de forma individual:
 
 <p align="center">
-  <img src="/images/mcp_brave-npx-n8n-executetools.png" width="80%">
+  <img src="../../images/mcp_brave-npx-n8n-executetools.png" width="80%">
   <br>
   <em>Figura 7: Ejecución de la herramienta de búsqueda de Brave</em>
 </p>

@@ -19,11 +19,11 @@ Una parte esencial del sistema consiste en definir cómo el usuario final intera
 ### Elección final: `✅ OpenWebUI`
 
 <p align="center">
-  <img src="/images/openwebui-presentation.png" width="100%">
+  <img src="../../images/openwebui-presentation.png" width="100%">
 </p>
 
 <p align="center">
-  <img src="/images/openwebui-use.gif" width="100%">
+  <img src="../../images/openwebui-use.gif" width="100%">
   <br>
   <em>Figura 1: "Ejemplo de uso de OpenWebUI"</em>
 </p>

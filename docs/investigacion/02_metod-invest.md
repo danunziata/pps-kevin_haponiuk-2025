@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="/images/investigacion.webp" alt="Método de investigación" width="80%">
+  <img src="../../images/investigacion.webp" alt="Método de investigación" width="80%">
 </p>
 
 ## ¿Qué es una Metodología de Investigación?
@@ -15,7 +15,7 @@ El objetivo principal es asegurar que el proceso sea **replicable, válido y con
 A continuación, se presenta un mapa metodológico de investigación:
 
 <p align="center">
-  <img src="/images/met-investigacion.png" width="80%">
+  <img src="../../images/met-investigacion.png" width="80%">
   <br>
   <em>Figura 1: "Mapa metodológico de investigación"</em>
 </p>

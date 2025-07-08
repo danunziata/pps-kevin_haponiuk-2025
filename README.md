@@ -18,8 +18,6 @@
 
 </div>
 
-
-
 <!-- TABLE OF CONTENTS -->
 
 <details>
@@ -34,11 +32,11 @@
     <li>
       <a href="#para-comenzar">Para Comenzar</a>
       <ul>
-        <li><a href="#prerequisitos">Prerequisitos</a></li>
+        <li><a href="#explicación-del-workflow">Explicación del Workflow</a></li>
         <li><a href="#instalación">Instalación</a></li>
+        <li><a href="#commits">Commits</a></li>
       </ul>
     </li>
-    <li><a href="#uso">Uso</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#contribuir">Contribuir</a></li>
     <li><a href="#licencia">Licencia</a></li>
@@ -72,11 +70,20 @@ Este agente permitirá a los investigadores **acceder y organizar el conocimient
 
 ### Componentes
 📌 **Nota:** Esta sección se actualizará más adelante con una lista de software utilizado.
-<!--
-[![Kubernetes](https://img.shields.io/badge/kubernetes-%23326ce5.svg?style=for-the-badge&logo=kubernetes&logoColor=white)](https://kubernetes.io)
+
 [![Python](https://img.shields.io/badge/Python-FFD43B?style=for-the-badge&logo=python&logoColor=black)](https://www.python.org/)
-[![Helm](https://img.shields.io/badge/Helm-0F1689?style=for-the-badge&logo=helm&logoColor=white)](https://helm.sh/)
--->
+[![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://www.docker.com/)
+[![Docker Compose](https://img.shields.io/badge/Docker--Compose-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://docs.docker.com/compose/)
+[![Qdrant](https://img.shields.io/badge/Qdrant-6A1AFF?style=for-the-badge&logo=qdrant&logoColor=white)](https://qdrant.tech/)
+[![GROBID](https://img.shields.io/badge/GROBID-008080?style=for-the-badge)](https://github.com/kermitt2/grobid)
+[![n8n](https://img.shields.io/badge/n8n-FE6A16?style=for-the-badge&logo=n8n&logoColor=white)](https://n8n.io/)
+[![Ollama](https://img.shields.io/badge/Ollama-000000?style=for-the-badge)](https://ollama.com/)
+[![OpenWebUI](https://img.shields.io/badge/OpenWebUI-1A1A1A?style=for-the-badge)](https://github.com/open-webui/open-webui)
+[![Prometheus](https://img.shields.io/badge/Prometheus-E6522C?style=for-the-badge&logo=prometheus&logoColor=white)](https://prometheus.io/)
+[![Grafana](https://img.shields.io/badge/Grafana-F46800?style=for-the-badge&logo=grafana&logoColor=white)](https://grafana.com/)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-336791?style=for-the-badge&logo=postgresql&logoColor=white)](https://www.postgresql.org/)
+[![PgAdmin](https://img.shields.io/badge/PgAdmin-FF6F00?style=for-the-badge&logo=pgadmin&logoColor=white)](https://www.pgadmin.org/)
+[![cAdvisor](https://img.shields.io/badge/cAdvisor-0082C9?style=for-the-badge)](https://github.com/google/cadvisor)
 
 <p align="right">(<a href="#readme-top">Volver al Inicio</a>)</p>
 
@@ -86,69 +93,16 @@ Este agente permitirá a los investigadores **acceder y organizar el conocimient
 
 Este repositorio tiene como objetivo proporcionarte la información necesaria para comenzar rápidamente a trabajar con el proyecto en cuestión. Ya seas un desarrollador experimentado o nuevo en el proyecto, esta guía te ayudará a empezar en poco tiempo.
 
+<!-- EXPLICACION WORKFLOW -->
+### Explicación del Workflow
+
+La explicación completa del workflow se encuentra en [la siguiente sección](https://danunziata.github.io/pps-kevin_haponiuk-2025/implementacion/00_workflow-completo/)
+
+
 <!-- INSTALACION -->
 ### Instalación
 
-Actualizar el sistema
-  
-  ```sh
-  sudo apt update
-  sudo apt upgrade
-  ```
-
-Instalar Python
-
-  ```sh
-  sudo apt install python
-  ```
-
-Instalar Git
-
-  ```sh
-  sudo apt install git
-  git --version ## (para verificar)
-  ```
-
-Instalar Docker
-
-  ```sh
-  sudo apt install docker.io
-  sudo systemctl enable docker
-  sudo systemctl start docker
-  docker --version ## (para verificar)
-  ```
-
-Instalar Docker-Compose
-
-  ```sh
-  sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-  sudo chmod +x /usr/local/bin/docker-compose
-  docker-compose --version
-  ```
-
-Clonar el repositorio
-
-  ```sh
-  git clone git@github.com:danunziata/pps-kevin_haponiuk-2025.git
-  cd self-hosted-ai-starter-kit
-  ```
-
-Ejecutar el docker-compose.yml
-
-  Para caso de uso con CPU
-  ```sh
-  docker compose --profile cpu up
-  ```
-
-  Para caso de uso con GPU NVIDIA
-  ```sh
-  docker compose --profile gpu-nvidia up
-  ```
-
-
-## Uso
-
-Para ejemplos e información, por favor diríjase a la [Documentación](https://danunziata.github.io/pps-kevin_haponiuk-2025/)
+Dirigirse a la sección [Implementación](https://danunziata.github.io/pps-kevin_haponiuk-2025/implementacion/01_implementacion-final/) para ver los pasos de instalación.
 
 <p align="right">(<a href="#readme-top">Volver al Inicio</a>)</p>
 
