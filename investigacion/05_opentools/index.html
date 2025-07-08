@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="Haponiuk Kevin Joel" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Resumen Opentools - Agente IA orientado a investigación científica</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../css/custom.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Resumen Opentools";
+        var mkdocs_page_input_path = "investigacion/05_opentools.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> Agente IA orientado a investigación científica
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Introducción</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Workflow Final</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../implementacion/00_workflow-completo/">Explicación Workflow</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../implementacion/01_implementacion-final/">Implementación</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Investigación</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../01_llm/">Conceptos Previos</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >Metodología de investigación</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../02_metod-invest/">Concepto general</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../03_estado-arte/">Revisión Bibliográfica</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../04_arquitectura/">Tipos de Arquitecturas</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" >Software utilizado</a>
+    <ul class="current">
+                <li class="toctree-l2 current"><a class="reference internal current" href="#">Resumen Opentools</a>
+    <ul class="current">
+    <li class="toctree-l3"><a class="reference internal" href="#tabla-de-herramientas">Tabla de herramientas</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#1-n8n">🧠 1. n8n</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#2-grobid">📄 2. GROBID</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#3-vosviewer">🔍 3. VosViewer</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#4-qdrant">🗃️ 4. Qdrant</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#5-ollama">📄 5. Ollama</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#referencias-oficiales">🔗 Referencias Oficiales</a>
+    </li>
+    </ul>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../06_n8n/">n8n</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../07_grobid/">GROBID</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../08_nlp-models/">Modelos de lenguaje</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../09_mcp/">MCP</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../10_a2a/">A2A</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../11_interface-options/">Interfaz de usuario</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Pruebas durante el desarrollo</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pruebas/01_install-n8n/">Instalación de n8n / Dependencias necesarias</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pruebas/02_ejemplo-rag-crag/">Ejemplo RAG / CRAG</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pruebas/03_ejemplo-mcp/">Ejemplo MCP</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pruebas/05_install-grobid/">Instalación de GROBID / Ejemplo de uso</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Info Proyecto</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../proyecto/01_metodologia/">Metodología de Trabajo</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../proyecto/02_contribuir/">Como contribuir</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../proyecto/03_about/">Acerca de</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">Agente IA orientado a investigación científica</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Investigación</li>
+          <li class="breadcrumb-item">Software utilizado</li>
+      <li class="breadcrumb-item active">Resumen Opentools</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/danunziata/pps-kevin_haponiuk-2025/edit/master/docs/investigacion/05_opentools.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="herramientas-open-source-para-el-proyecto">🛠️ Herramientas Open Source para el Proyecto</h1>
+<p>Este documento presenta un resumen de herramientas de código abierto seleccionadas para automatizar flujos de trabajo y procesar documentos científicos. Para cada herramienta, se evaluará su aplicabilidad en el sistema propuesto, considerando sus ventajas, desventajas y casos de uso específicos. Además, se analizará su compatibilidad con Docker, disponibilidad de APIs y capacidad de integración en flujos de automatización. El objetivo es proporcionar una base sólida para la implementación de un sistema eficiente y escalable.</p>
+<h2 id="tabla-de-herramientas">Tabla de herramientas</h2>
+<table>
+<thead>
+<tr>
+<th>Herramienta</th>
+<th>Rol principal</th>
+<th>Aplicabilidad en el sistema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>n8n</td>
+<td>Automatización</td>
+<td>Orquestación de flujos de trabajo</td>
+</tr>
+<tr>
+<td>GROBID</td>
+<td>Extracción de metadatos</td>
+<td>Procesamiento de PDFs científicos</td>
+</tr>
+<tr>
+<td>Qdrant</td>
+<td>Almacenamiento vectorial</td>
+<td>Sistema RAG y búsqueda semántica</td>
+</tr>
+<tr>
+<td>VosViewer</td>
+<td>Análisis bibliométrico</td>
+<td>Visualización de redes de colaboración</td>
+</tr>
+<tr>
+<td>Ollama</td>
+<td>Modelos de lenguaje</td>
+<td>Generación y procesamiento de texto</td>
+</tr>
+</tbody>
+</table>
+<h2 id="1-n8n">🧠 <strong>1. <a href="../06_n8n/">n8n</a></strong></h2>
+<ul>
+<li><strong>Función:</strong> Automatización de flujos de trabajo (workflow automation).</li>
+<li><strong>Aplicabilidad:</strong> Ideal para orquestar procesos como descarga de documentos, extracción de metadatos, IA, carga en base vectorial, notificaciones, etc.</li>
+<li><strong>Ventajas:</strong> Interfaz visual, altamente extensible, soporte para HTTP, Webhooks, Google Drive, Python y más.</li>
+<li><strong>Desventajas:</strong> Curva de aprendizaje inicial, puede requerir recursos significativos para workflows complejos.</li>
+<li><strong>Docker:</strong> ✅ Compatible con Docker, imagen oficial disponible.</li>
+<li><strong>APIs:</strong> ✅ API REST disponible para integración programática.</li>
+</ul>
+<hr />
+<h2 id="2-grobid">📄 <strong>2. <a href="../07_grobid/">GROBID</a></strong></h2>
+<ul>
+<li><strong>Función:</strong> Extracción estructurada de información de documentos científicos en PDF.</li>
+<li><strong>Aplicabilidad:</strong> Extrae título, autores, referencias, secciones, keywords y más en formato XML.</li>
+<li><strong>Ventajas:</strong> Alta precisión en papers académicos, fácil de dockerizar e integrar con Python o n8n.</li>
+<li><strong>Desventajas:</strong> Rendimiento variable según la calidad del PDF, requiere configuración específica para diferentes formatos de documentos.</li>
+<li><strong>Docker:</strong> ✅ Compatible con Docker, imagen oficial disponible.</li>
+<li><strong>APIs:</strong> ✅ API REST disponible para procesamiento de documentos.</li>
+</ul>
+<hr />
+<h2 id="3-vosviewer">🔍 <strong>3. VosViewer</strong></h2>
+<ul>
+<li><strong>Función:</strong> Análisis bibliométrico y visualización de mapas de ciencia.</li>
+<li><strong>Aplicabilidad:</strong> concurrencia de autores.</li>
+<li><strong>Ventajas:</strong> interfaz gráfica simple.</li>
+<li><strong>Desventajas:</strong> Limitado en personalización, requiere datos preprocesados en formatos específicos.</li>
+<li><strong>Docker:</strong> ❌ No compatible con Docker, aplicación de escritorio. (trataremos de hacer una adaptación para que sea compatible)</li>
+<li><strong>APIs:</strong> ❌ No dispone de API oficial.</li>
+</ul>
+<hr />
+<h2 id="4-qdrant">🗃️ <strong>4. Qdrant</strong></h2>
+<ul>
+<li><strong>Función:</strong> Base de datos vectorial.</li>
+<li><strong>Aplicabilidad:</strong> Almacena los embeddings generados desde los textos científicos para el sistema RAG.</li>
+<li><strong>Ventajas:</strong> Rápido, soporte para metadata.</li>
+<li><strong>Desventajas:</strong> Consumo de memoria significativo con grandes volúmenes de datos, requiere optimización para producción.</li>
+<li><strong>Docker:</strong> ✅ Compatible con Docker, imagen oficial disponible.</li>
+<li><strong>APIs:</strong> ✅ API REST y gRPC disponibles para operaciones vectoriales.</li>
+</ul>
+<hr />
+<h2 id="5-ollama">📄 <strong>5. Ollama</strong></h2>
+<ul>
+<li><strong>Función:</strong> Modelos de lenguaje.</li>
+<li><strong>Aplicabilidad:</strong> Generación y procesamiento de texto.</li>
+<li><strong>Ventajas:</strong> Fácil de usar, soporte para múltiples modelos de lenguaje, ejecución local sin necesidad de conexión a internet.</li>
+<li><strong>Desventajas:</strong> Limitado por recursos locales, modelos pueden ser menos potentes que versiones en la nube, requiere gestión de memoria cuidadosa.</li>
+<li><strong>Docker:</strong> ✅ Compatible con Docker, imagen oficial disponible.</li>
+<li><strong>APIs:</strong> ✅ API REST disponible para interacción con modelos.</li>
+</ul>
+<h2 id="referencias-oficiales">🔗 <strong>Referencias Oficiales</strong></h2>
+<p><strong>n8n</strong> : <a href="https://n8n.io/">Sitio oficial</a> | <a href="https://github.com/n8n-io">GitHub</a></p>
+<p><strong>GROBID</strong> : <a href="https://grobid.readthedocs.io/">Sitio oficial</a> | <a href="https://github.com/kermitt2/grobid">GitHub</a></p>
+<p><strong>VosViewer</strong> : <a href="https://www.vosviewer.com/">Sitio oficial</a> | <a href="https://github.com/neesjanvaneck/VOSviewer-Online">GitHub (versión open source utilizada)</a></p>
+<p><strong>Qdrant</strong> : <a href="https://qdrant.tech/">Sitio oficial</a> | <a href="https://github.com/qdrant/qdrant">GitHub</a></p>
+<p><strong>Ollama</strong> : <a href="https://ollama.com/">Sitio oficial</a> | <a href="https://github.com/ollama">GitHub</a></p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../04_arquitectura/" class="btn btn-neutral float-left" title="Tipos de Arquitecturas"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../06_n8n/" class="btn btn-neutral float-right" title="n8n">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p><img src="/images/escudo_unrc.png" alt="Logo UNRC" style="height: 30px; vertical-align: middle; margin-right: 10px;">
+<img src="/images/escudo_ing.png" alt="Logo ING" style="height: 30px; vertical-align: middle; margin-right: 10px;">
+&copy; 2025 <a href="https://www.ing.unrc.edu.ar/inicio.php" target="_blank" rel="noopener">Universidad Nacional de Río Cuarto | Facultad de Ingeniería</a>
+</p>
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/danunziata/pps-kevin_haponiuk-2025" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../04_arquitectura/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../06_n8n/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../js/custom.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
