@@ -4,7 +4,7 @@
 
 <div align="center">
   <a href="https://github.com/danunziata/pps-kevin_haponiuk-2025">
-    <img src="docs/images/logo.png" alt="Logo" width="250" height="250">
+    <img src="docs/images/logo.png" alt="Logo" width="500" height="500">
   </a>
 <h3 align="center">🧠 Desarrollo de un Agente de Inteligencia Artificial para la Investigación Científica</h3>
 
@@ -69,7 +69,6 @@ Este agente permitirá a los investigadores **acceder y organizar el conocimient
 <p align="right">(<a href="#readme-top">Volver al Inicio</a>)</p>
 
 ### Componentes
-📌 **Nota:** Esta sección se actualizará más adelante con una lista de software utilizado.
 
 [![Python](https://img.shields.io/badge/Python-FFD43B?style=for-the-badge&logo=python&logoColor=black)](https://www.python.org/)
 [![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://www.docker.com/)
