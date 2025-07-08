@@ -4,7 +4,7 @@
 
 <div align="center">
   <a href="https://github.com/danunziata/pps-kevin_haponiuk-2025">
-    <img src="docs/images/logo.png" alt="Logo" width="250" height="250">
+    <img src="docs/images/logo.png" alt="Logo" width="500" height="500">
   </a>
 <h3 align="center">🧠 Desarrollo de un Agente de Inteligencia Artificial para la Investigación Científica</h3>
 
