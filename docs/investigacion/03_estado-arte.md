@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="/images/met-rev-biblio.png" width="80%">
+  <img src="../../images/met-rev-biblio.png" width="80%">
 </p>
 
 # Estado del Arte
@@ -19,7 +19,7 @@ El estado del arte es un pilar fundamental en cualquier investigación científi
 ## Mapa: Camino para Elaborar el Estado del Arte en un Paper Científico
 
 <p align="center">
-  <img src="/images/map_estado-arte.png" width="100%">
+  <img src="../../images/map_estado-arte.png" width="100%">
   <br>
   <em>Figura 1: Mapa para elaborar el estado del arte en un paper científico</em>
 </p>

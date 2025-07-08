@@ -1,7 +1,7 @@
 # Instalación de n8n con Self-hosted AI Starter Kit
 
 <p align="center">
-  <img src="/images/self-hosted.gif" width="100%">
+  <img src="../../images/self-hosted.gif" width="100%">
   <br>
   <em>Figura 1: Self-hosted AI Starter Kit</em>
 </p>
@@ -71,7 +71,7 @@ docker compose --profile cpu up
 Se utilizará docker desktop para la visualización y ejecución del entorno.
 
 <p align="center">
-  <img src="/images/docker-desktop.png" width="100%">
+  <img src="../../images/docker-desktop.png" width="100%">
   <br>
   <em>Figura 2: Visualización de docker desktop</em>
 </p>
@@ -79,7 +79,7 @@ Se utilizará docker desktop para la visualización y ejecución del entorno.
 donde podremos observar los contenedores que se están ejecutando.
 
 <p align="center">
-  <img src="/images/docker-containers.png" width="100%">
+  <img src="../../images/docker-containers.png" width="100%">
   <br>
   <em>Figura 3: Visualización de contenedores</em>
 </p>
@@ -93,7 +93,7 @@ Una vez que los contenedores estén en ejecución, podrás acceder a la interfaz
 Una vez que inicies sesión, podrás acceder a la interfaz principal de n8n. En la imagen se muestra un ejemplo de un flujo de trabajo configurado. Si has llegado a este punto y puedes ver la interfaz, significa que n8n está correctamente instalado y listo para comenzar a crear tus propios flujos de trabajo.
 
 <p align="center">
-  <img src="/images/n8n-interface.png" width="100%">
+  <img src="../../images/n8n-interface.png" width="100%">
   <br>
   <em>Figura 4: Interfaz de n8n</em>
 </p>
@@ -117,7 +117,7 @@ ollama pull nomic-embed-text
 con este comando vamos a ir al docker desktop y vamos a pegarlo en esta sección "Exec".
 
 <p align="center">
-  <img src="/images/ollama-nomic.png" width="100%">
+  <img src="../../images/ollama-nomic.png" width="100%">
   <br>
   <em>Figura 5: Instalación de nomic-embed-text</em>
 </p>
@@ -163,7 +163,7 @@ Para vincular servicios de Google con n8n, necesitamos seguir estos pasos:
 4. Una vez configuradas las credenciales, podrás usarlas en tus flujos de trabajo de n8n para interactuar con los servicios de Google.
 
 <p align="center">
-  <img src="/images/credenciales-google.png" width="100%">
+  <img src="../../images/credenciales-google.png" width="100%">
   <br>
   <em>Figura 6: Credenciales de Google</em>
 </p>

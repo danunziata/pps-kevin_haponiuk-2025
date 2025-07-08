@@ -9,7 +9,7 @@ Esto genera una gran desventaja cuando se busca trabajar los datos de forma orga
 Ante esta necesidad, se exploraron soluciones más robustas y específicas para la lectura y estructuración de artículos científicos en PDF. De esta búsqueda surge [GROBID](https://github.com/kermitt2/grobid), una herramienta open-source, dockerizada y ampliamente adoptada en contextos académicos y científicos, que permite una extracción **estructurada y enriquecida** de los documentos.
 
 <p align="center">
-  <img src="/images/grobid-rag.png" width="100%">
+  <img src="../../images/grobid-rag.png" width="100%">
   <br>
   <em>Figura 1: "Ilustración de dónde entraría GROBID en nuestro esquema"</em>
 </p>
@@ -35,7 +35,7 @@ Su modelo se basa en técnicas de **procesamiento de lenguaje natural (NLP)** y 
 En nuestro proyecto, **utilizamos GROBID para transformar documentos PDF en archivos XML**. Esto permite luego procesar los papers por secciones específicas, enriquecer los resúmenes automáticos y alimentar la base de datos vectorial para responder preguntas con mayor precisión.
 
 <p align="center">
-  <img src="/images/grobid-pdf_xml.png" width="50%">
+  <img src="../../images/grobid-pdf_xml.png" width="50%">
   <br>
   <em>Figura 2: "Conversión de PDF a XML estructurado mediante GROBID"</em>
 </p>

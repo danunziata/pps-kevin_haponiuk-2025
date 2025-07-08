@@ -34,11 +34,11 @@ El GCID se sitúa en la vanguardia de la investigación y la innovación en el c
 <div style="display: flex; justify-content: center; align-items: center; gap: 20px; flex-wrap: wrap; margin-top: 20px;">
 
   <a href="https://www.unrc.edu.ar/" target="_blank" rel="noopener">
-    <img src="/images/escudo_unrc.png" alt="Logo UNRC" style="height: 60px;">
+    <img src="../../images/escudo_unrc.png" alt="Logo UNRC" style="height: 60px;">
   </a>
 
   <a href="https://www.ing.unrc.edu.ar/" target="_blank" rel="noopener">
-    <img src="/images/escudo_ing.png" alt="Logo Facultad de Ingeniería" style="height: 60px;">
+    <img src="../../images/escudo_ing.png" alt="Logo Facultad de Ingeniería" style="height: 60px;">
   </a>
 
 </div>

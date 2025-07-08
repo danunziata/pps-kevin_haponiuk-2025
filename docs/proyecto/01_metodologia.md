@@ -9,7 +9,7 @@ El [desarrollo ágil](https://agilemanifesto.org/iso/es/manifesto.html) es un en
 
 
 <p align="center">
-  <img src="/images/met-agil.webp" width="100%">
+  <img src="../../images/met-agil.webp" width="100%">
 </p>
 
 
@@ -29,7 +29,7 @@ Antes de cada sprint, el equipo trabaja con el **Product Backlog (Backlog del Pr
 Cada sprint comienza con una planificación, donde se define el **Sprint Backlog (Backlog del Sprint)**, que es el conjunto específico de tareas y objetivos seleccionados del backlog del producto para ser desarrollados durante ese sprint. Luego, se sigue con la fase de desarrollo, revisión y retrospectiva para mejorar en el siguiente ciclo.
 
 <p align="center">
-  <img src="/images/scrum.jpg" width="100%">
+  <img src="../../images/scrum.jpg" width="100%">
 </p>
 
 

@@ -10,7 +10,7 @@ En primer lugar, se describirá la arquitectura empleada en el presente proyecto
 ### RAG (Retrieval Augmented Generation)
 
 <p align="center">
-  <img src="/images/arquitectura-augmentedLLM.webp" width="100%">
+  <img src="../../images/arquitectura-augmentedLLM.webp" width="100%">
   <br>
   <em>Figura 1: Arquitectura Augmented LLM</em>
 </p>
@@ -21,7 +21,7 @@ Este tipo de arquitectura tiene un modelo de lenguaje (LLM) que dispone de capac
 Este es el modelo que vamos a usar como modelo para nuestro proyecto, a continuación se explica mejor cómo es el proceso del mismo.
 
 <p align="center" id="figura2">
-  <img src="/images/rag.webp" width="100%">
+  <img src="../../images/rag.webp" width="100%">
   <br>
   <em>Figura 2: Arquitectura RAG (Retrieval Augmented Generation)</em>
 </p>
@@ -43,7 +43,7 @@ Luego preparamos estos fragmentos (<a href="#figura2">etapa 2</a>). Existen dos 
 - **Recursive Token Splitter:** realiza divisiones más inteligentes y superpuestas para evitar que se pierda contexto cuando una pregunta coincide justo en los bordes entre fragmentos. Esta técnica permite mantener solapamiento entre fragmentos, como se ilustra en la siguiente imagen.
 
 <p align="center">
-  <img src="/images/fixed-recursive.png" width="40%">
+  <img src="../../images/fixed-recursive.png" width="40%">
   <br>
   <em>Figura 3: Fixed vs Recursive splitting</em>
 </p>
@@ -83,7 +83,7 @@ Es importante destacar que el modelo ya está entrenado previamente, ya que real
 El Contextual RAG (Retrieval Augmented Generation) es una evolución del RAG tradicional que mejora significativamente la precisión y relevancia de las respuestas mediante la incorporación de contexto adicional durante el proceso de recuperación. A diferencia del RAG estándar, que busca fragmentos similares basándose únicamente en la similitud semántica, el Contextual RAG considera múltiples factores para determinar qué información es verdaderamente relevante para la consulta del usuario. La arquitectura se puede ver en la siguiente figura:
 
 <p align="center">
-  <img src="/images/crag.webp" width="100%">
+  <img src="../../images/crag.webp" width="100%">
   <br>
   <em>Figura 4: Arquitectura Contextual RAG</em>
 </p>
@@ -120,7 +120,7 @@ Este proceso enriquece la base de datos vectorial al almacenar no solo el fragme
 Los resultados de la comparación entre RAG tradicional y Contextual RAG muestran una mejora significativa en la precisión de recuperación: el uso de Contextual Embeddings redujo la tasa de fallos en la recuperación de los 20 fragmentos más relevantes en un 35%, pasando de un 5.7% a un 3.7% de fallos. Esto demuestra que el procesamiento contextual adicional mejora sustancialmente la calidad de las búsquedas. (en las graficas aparece tambien BM25, que es un modelo de recuperación de información que se basa en la frecuencia de las palabras en el documento pero no lo vamos a usar)
 
 <p align="center">
-  <img src="/images/crag_vs_rag.webp" width="100%">
+  <img src="../../images/crag_vs_rag.webp" width="100%">
   <br>
   <em>Figura 5: Comparación entre RAG (embedding) y CRAG (contextual embedding)</em>
 </p>
@@ -129,7 +129,7 @@ Los resultados de la comparación entre RAG tradicional y Contextual RAG muestra
 ---
 ### Prompt chaining
 <p align="center">
-  <img src="/images/prompt-chaining.webp" width="100%">
+  <img src="../../images/prompt-chaining.webp" width="100%">
   <br>
   <em>Figura 6: Arquitectura Prompt chaining</em>
 </p>
@@ -139,7 +139,7 @@ El encadenamiento de *prompts* descompone una tarea en una secuencia de pasos, d
 ---
 ### Routing
 <p align="center">
-  <img src="/images/routing.png" width="100%">
+  <img src="../../images/routing.png" width="100%">
   <br>
     <em>Figura 7: Arquitectura Routing </em>
 </p>
@@ -149,7 +149,7 @@ El enrutamiento clasifica una entrada y la dirige a una tarea de seguimiento esp
 ---
 ### Parallelization
 <p align="center">
-  <img src="/images/parallelization.webp" width="100%">
+  <img src="../../images/parallelization.webp" width="100%">
   <br>
     <em>Figura 8: Arquitectura Parallelization</em>
 </p>
@@ -164,7 +164,7 @@ La paralelización es especialmente útil cuando las subtareas pueden procesarse
 ---
 ### Orchestrator-workers
 <p align="center">
-  <img src="/images/orchestrator-workers.webp" width="100%">
+  <img src="../../images/orchestrator-workers.webp" width="100%">
   <br>
   <em>Figura 9: Arquitectura Orchestrator-workers</em>
 </p>
@@ -174,7 +174,7 @@ En el flujo de trabajo de orquestador y trabajadores, un LLM central actúa como
 ---
 ### Evaluator-optimizer
 <p align="center">
-  <img src="/images/evaluator-optimizer.webp" width="100%">
+  <img src="../../images/evaluator-optimizer.webp" width="100%">
   <br>
   <em>Figura 10: Arquitectura Evaluator-optimizer</em>
 </p>

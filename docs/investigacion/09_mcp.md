@@ -3,7 +3,7 @@ https://modelcontextprotocol.io/introduction
 
 ---
 <p align="center">
-  <img src="/images/mcp_logo.png" width="100%">
+  <img src="../../images/mcp_logo.png" width="100%">
 </p>
 
 # ¿Qué es el Model Context Protocol (MCP)?
@@ -13,7 +13,7 @@ Es un estándar abierto diseñado para mejorar la interoperabilidad y la transpa
 MCP es un protocolo abierto que estandariza cómo las aplicaciones proporcionan contexto a los LLMs. Se puede pensar en MCP como el puerto USB-C para las aplicaciones de IA: así como el USB-C ofrece una forma estandarizada de conectar dispositivos a diferentes periféricos y accesorios, MCP proporciona una forma estandarizada de conectar modelos de IA a distintas fuentes de datos y herramientas.
 
 <p align="center">
-  <img src="/images/mcp_before-after.png" width="100%">
+  <img src="../../images/mcp_before-after.png" width="100%">
   <br>
   <em>Figura 1: "Antes y después de MCP"</em>
 </p>
@@ -31,7 +31,7 @@ MCP es un protocolo abierto que estandariza cómo las aplicaciones proporcionan 
 En esencia, MCP sigue una arquitectura cliente-servidor donde una aplicación anfitriona puede conectarse a múltiples servidores:
 
 <p align="center">
-  <img src="/images/mcp_architecture.png" width="80%">
+  <img src="../../images/mcp_architecture.png" width="80%">
   <br>
   <em>Figura 2: "Arquitectura general de MCP"</em>
 </p>

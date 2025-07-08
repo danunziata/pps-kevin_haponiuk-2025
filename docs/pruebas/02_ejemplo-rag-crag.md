@@ -10,7 +10,7 @@ Para comenzar con los ejemplos, necesitamos importar el flujo de trabajo de ejem
 Una vez importado, deberás ver algo como lo siguiente:
 
 <p align="center">
-  <img src="/images/n8n_rag-crag.png" width="100%">
+  <img src="../../images/n8n_rag-crag.png" width="100%">
   <br>
   <em>Figura 1: Ejemplo de RAG y CRAG en n8n</em>
 </p>
@@ -50,7 +50,7 @@ El flujo de trabajo del CRAG implementa una estrategia más sofisticada:
 para la ejecución debemos agregar el bloque **when clicking 'test workflow'** y conectarlo con el bloque de google drive para testear el flujo de trabajo que queremos ejecutar, ya sea RAG o CRAG.
 
 <p align="center">
-  <img src="/images/n8n_rag-ejec.png" width="100%">
+  <img src="../../images/n8n_rag-ejec.png" width="100%">
   <br>
   <em>Figura 2: Ejecución del flujo de trabajo RAG</em>
 </p>
@@ -64,7 +64,7 @@ Para verificar que los datos se han cargado correctamente, se puede acceder al p
 Aquí se puede visualizar las colecciones creadas y verificar que los vectores se hayan almacenado correctamente.
 
 <p align="center">
-  <img src="/images/qdrant-collections.png" width="100%">
+  <img src="../../images/qdrant-collections.png" width="100%">
   <br>
   <em>Figura 3: Colecciones en Qdrant</em>
 </p>
@@ -72,7 +72,7 @@ Aquí se puede visualizar las colecciones creadas y verificar que los vectores s
 una vez llegado a este punto, está preparada la base de datos para que el agente pueda preguntar algo relacionado con el contenido que se cargó.
 
 <p align="center">
-  <img src="/images/n8n-rag-example.png" width="100%">
+  <img src="../../images/n8n-rag-example.png" width="100%">
   <br>
   <em>Figura 4: Pregunta al agente</em>
 </p>
