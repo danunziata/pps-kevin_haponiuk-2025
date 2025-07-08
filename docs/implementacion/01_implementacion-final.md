@@ -137,19 +137,19 @@ En las configuraciones de la función, utilice la URL copiada de N8N y realice e
    - Mantenga el resto de configuraciones en valores por defecto
 
 <p align="center">
-  <img src="/images/function-2.png" width="60%">
+  <img src="../images/function-2.png" width="60%">
 </p>
 
-6. **Activar el workflow**: Active el workflow en N8N para comenzar a recibir solicitudes:
+**Activar el workflow**: Active el workflow en N8N para comenzar a recibir solicitudes:
 
 <p align="center">
   <img src="/images/activate.png" width="50%">
 </p>
 
-7. **Configurar escucha**: Configure el workflow para escuchar y recibir respuestas externas:
+**Configurar escucha**: Configure el workflow para escuchar y recibir respuestas externas:
 
 <p align="center">
-  <img src="/images/execute.png" width="60%">
+  <img src="../../images/execute.png" width="60%">
 </p>
 
 ### Verificación Final
