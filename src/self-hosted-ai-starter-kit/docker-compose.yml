@@ -1,0 +1,277 @@
+volumes:
+  n8n_storage:
+  postgres_storage:
+  ollama_storage:
+  qdrant_storage:
+  openwebui-vol:
+  prometheus_data:
+  grafana_data:
+
+
+networks:
+  demo:
+
+x-n8n: &service-n8n
+  build:
+    context: .
+    dockerfile: Dockerfile.n8n
+  networks: ['demo']
+  environment:
+    - DB_TYPE=postgresdb
+    - DB_POSTGRESDB_HOST=postgres
+    - DB_POSTGRESDB_USER=${POSTGRES_USER}
+    - DB_POSTGRESDB_PASSWORD=${POSTGRES_PASSWORD}
+    - N8N_DIAGNOSTICS_ENABLED=false
+    - N8N_PERSONALIZATION_ENABLED=false
+    - N8N_ENCRYPTION_KEY
+    - N8N_USER_MANAGEMENT_JWT_SECRET
+    - OLLAMA_HOST=ollama:11434
+  env_file:
+    - .env
+
+x-ollama: &service-ollama
+  image: ollama/ollama:latest
+  container_name: ollama
+  networks: ['demo']
+  restart: unless-stopped
+  ports:
+    - 11434:11434
+  volumes:
+    - ollama_storage:/root/.ollama
+
+x-init-ollama: &init-ollama
+  image: ollama/ollama:latest
+  networks: ['demo']
+  container_name: ollama-pull-llama
+  volumes:
+    - ollama_storage:/root/.ollama
+  entrypoint: /bin/sh
+  environment:
+    - OLLAMA_HOST=ollama:11434
+  command:
+    - "-c"
+    - "sleep 3; ollama pull llama3.2"
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    hostname: postgres
+    networks: ['demo']
+    restart: unless-stopped
+    environment:
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+      - POSTGRES_DB
+    volumes:
+      - postgres_storage:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -h localhost -U ${POSTGRES_USER} -d ${POSTGRES_DB}']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  n8n-import:
+    <<: *service-n8n
+    hostname: n8n-import
+    container_name: n8n-import
+    entrypoint: /bin/sh
+    command:
+      - "-c"
+      - "n8n import:credentials --separate --input=/backup/credentials && n8n import:workflow --separate --input=/backup/workflows"
+    volumes:
+      - ./n8n/backup:/backup
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  n8n:
+    <<: *service-n8n
+    hostname: n8n
+    container_name: n8n
+    restart: unless-stopped
+    ports:
+      - 5678:5678
+    volumes:
+      - n8n_storage:/home/node/.n8n
+      - ./n8n/backup:/backup
+      - ./shared:/data/shared
+    depends_on:
+      postgres:
+        condition: service_healthy
+      n8n-import:
+        condition: service_completed_successfully
+
+  qdrant:
+    image: qdrant/qdrant
+    hostname: qdrant
+    container_name: qdrant
+    networks: ['demo']
+    restart: unless-stopped
+    ports:
+      - 6333:6333
+    volumes:
+      - qdrant_storage:/qdrant/storage
+
+  qdrant-search:
+    build:
+      context: ../QDRANT
+      dockerfile: Dockerfile.qdrant-search
+    hostname: qdrant-search
+    container_name: qdrant-search
+    networks: ['demo']
+    restart: unless-stopped
+    ports:
+      - "5000:5000"
+    environment:
+      - OLLAMA_URL=http://ollama:11434
+      - QDRANT_URL=http://qdrant:6333
+    depends_on:
+      - qdrant
+    profiles: ["cpu", "gpu-nvidia"]
+
+  ollama-cpu:
+    profiles: ["cpu"]
+    <<: *service-ollama
+
+  ollama-gpu:
+    profiles: ["gpu-nvidia"]
+    <<: *service-ollama
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+
+  ollama-pull-llama-cpu:
+    profiles: ["cpu"]
+    <<: *init-ollama
+    depends_on:
+      - ollama-cpu
+
+  ollama-pull-llama-gpu:
+    profiles: ["gpu-nvidia"]
+    <<: *init-ollama
+    depends_on:
+      - ollama-gpu
+
+  openwebui-cpu:
+    image: ghcr.io/open-webui/open-webui:main
+    container_name: openwebui-cpu
+    networks: ['demo']
+    ports:
+      - "3000:8080"
+    volumes:
+      - openwebui-vol:/app/backend/data
+    profiles: ["cpu"]
+    restart: unless-stopped
+
+  openwebui-gpu:
+    image: ghcr.io/open-webui/open-webui:cuda
+    container_name: openwebui-gpu
+    networks: ['demo']
+    ports:
+      - "3000:8080"
+    volumes:
+      - openwebui-vol:/app/backend/data
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    profiles: ["gpu-nvidia"]
+    restart: unless-stopped
+
+  grobid-cpu:
+    image: grobid/grobid:0.8.2
+    container_name: grobid
+    networks: ['demo']
+    restart: unless-stopped
+    ports:
+      - "8070:8070"
+    ulimits:
+      core: 0
+    profiles: ["cpu"]
+
+  grobid-gpu:
+    image: grobid/grobid:0.8.2
+    container_name: grobid
+    networks: ['demo']
+    restart: unless-stopped
+    ports:
+      - "8070:8070"
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              capabilities: [gpu]
+    ulimits:
+      core: 0
+    profiles: ["gpu-nvidia"]
+
+  # Monitoring Services
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:latest
+    container_name: cadvisor
+    networks: ['demo']
+    ports:
+      - "8081:8080"
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+      - /dev/disk/:/dev/disk:ro
+    restart: unless-stopped
+    profiles: ["cpu", "gpu-nvidia"]
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    networks: ['demo']
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--storage.tsdb.retention.time=200h'
+      - '--web.enable-lifecycle'
+    restart: unless-stopped
+    profiles: ["cpu", "gpu-nvidia"]
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    networks: ['demo']
+    ports:
+      - "3001:3000"
+    volumes:
+      - grafana_data:/var/lib/grafana
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD}
+      - GF_USERS_ALLOW_SIGN_UP=false
+    restart: unless-stopped
+    profiles: ["cpu", "gpu-nvidia"]
+
+  pgadmin:
+    image: dpage/pgadmin4
+    hostname: pgadmin
+    container_name: pgadmin
+    networks: ['demo']
+    restart: unless-stopped
+    ports:
+      - "5050:80"
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=${PGADMIN_EMAIL}
+      - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_PASSWORD}
+    depends_on:
+      - postgres

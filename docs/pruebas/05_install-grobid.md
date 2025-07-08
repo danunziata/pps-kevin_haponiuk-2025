@@ -15,19 +15,8 @@ Existen dos opciones de imágenes disponibles:
     - Para ejecutarla, se debe utilizar el siguiente comando:
 
       ```bash
-      docker run --rm --gpus all --init --ulimit core=0 -p 8070:8070 grobid/grobid:0.8.1
+      docker run --name grobid --gpus all --init --ulimit core=0 -p 8070:8070 -d grobid/grobid:0.8.2
       ```
-     
-2. **Imagen liviana**
-   Esta versión prioriza el rendimiento en tiempo de ejecución, el menor uso de memoria y un tamaño de imagen más reducido.  
-   - Es adecuada para sistemas con pocos recursos o para quienes necesitan procesar una gran cantidad de PDFs de forma rápida.
-   - Sin embargo, **no incorpora los modelos más precisos**, por lo que la exactitud del procesamiento es inferior.
-
-   Para ejecutarla, se debe utilizar el siguiente comando:
-
-   ```bash
-   docker run --rm --init --ulimit core=0 -p 8070:8070 lfoppiano/grobid:0.8.1
-   ```
 
 **Nota importante:**  
 Durante las pruebas, se intentó utilizar la **imagen liviana** (`lfoppiano/grobid:0.8.1`), pero no estaba disponible en el momento de la ejecución.  
@@ -38,6 +27,16 @@ Una vez que GROBID está en ejecución, se puede verificar su funcionamiento acc
 [http://localhost:8070](http://localhost:8070)
 
 Allí se encuentra la página de bienvenida del servidor, desde donde es posible utilizar los servicios de procesamiento de documentos de manera manual. Sin embargo, para este proyecto, el procesamiento se realiza de forma automatizada mediante clientes Python, como se explica a continuación.
+
+### Instalación del cliente Python de GROBID
+
+Para automatizar el procesamiento de documentos con GROBID desde Python, es necesario instalar el cliente oficial. Este cliente permite interactuar fácilmente con el servidor GROBID desde scripts Python.
+
+```bash
+python3 -m pip install grobid-client-python
+```
+
+Esto instalará la biblioteca `grobid-client` y sus dependencias. Si necesitas instalarlo en un entorno específico (por ejemplo, dentro de un contenedor Docker), asegúrate de ejecutar el comando en ese entorno.
 
 ## Estructura del Entorno de Trabajo
 
@@ -76,7 +75,12 @@ if __name__ == "__main__":
 
 El script utiliza la biblioteca `grobid-client` para interactuar con el servidor GROBID. La función `process` se encarga de procesar los documentos PDF en la carpeta `input_papers`, generando archivos XML que se guardan en la carpeta `output_papers`. Los parámetros adicionales permiten ajustar el comportamiento del procesamiento, como la consolidación de citas y las coordenadas TEI.
 
-Una vez ejecutado el script, se puede verificar el resultado en las carpetas `input_papers` y `output_papers`:
+Para ejecutar el script, se debe usar específicamente Python 3 con el comando:
+
+```python
+python3 cliente_grobid.py
+```
+
 
 <p align="center">
   <img src="/images/grobid-pdf_xml-example.png" width="100%">

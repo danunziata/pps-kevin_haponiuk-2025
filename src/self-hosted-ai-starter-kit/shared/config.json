@@ -1,0 +1,6 @@
+{
+    "grobid_server": "http://grobid:8070",
+    "batch_size": 100,
+    "sleep_time": 5,
+    "timeout": 60
+}
