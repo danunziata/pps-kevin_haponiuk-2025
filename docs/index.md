@@ -1,7 +1,7 @@
 # Agente de Inteligencia Artificial para Investigación Científica
 
 <p align="center">
-  <img src="../../images/logo.png" width="80%">
+  <img src="images/logo.png" width="80%">
 </p>
 
 El proyecto busca diseñar e implementar un agente de inteligencia artificial (IA) para la recomendación y asistencia en investigación científica, utilizando herramientas de código abierto que permitan optimizar la búsqueda, clasificación y análisis de literatura científica. Para su desarrollo, se relevarán tanto herramientas tecnológicas como metodologías y estrategias utilizadas en los procesos de investigación con el fin de diseñar los flujos de trabajo (pipelines) adecuados. Este agente servirá como una herramienta clave en el ámbito académico, facilitando el acceso, la organización del conocimiento y la generación de recomendaciones personalizadas.
