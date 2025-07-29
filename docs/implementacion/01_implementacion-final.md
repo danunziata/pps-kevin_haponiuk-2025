@@ -156,6 +156,44 @@ En las configuraciones de la función, utilice la URL copiada de N8N y realice e
 
 Una vez completados todos los pasos anteriores, ya puede realizar consultas al agente directamente desde n8n o desde Open WebUI.
 
+
+## Visualización de métricas
+
+**cAdvisor (Métricas Raw)**
+
+- URL: `http://localhost:8081`
+- Qué ver: Lista de contenedores y métricas básicas
+- No requiere configuración
+
+**Prometheus (Base de Datos de Métricas)**
+
+- URL: `http://localhost:9090`
+- Qué ver: Interfaz de consultas PromQL
+- No requiere configuración inicial
+
+**Grafana (Dashboards)**
+
+- URL: `http://localhost:3001`
+- Usuario: `admin`
+- Contraseña: `admin`
+
+A continuación se explica cómo configurar Grafana agregando Prometheus como Fuente de Datos
+
+1. Ir a `http://localhost:3001`
+2. Login con `admin/admin`
+3. Ir a **Configuration** → **Data Sources**
+4. Click en **Add data source**
+5. Seleccionar **Prometheus**
+6. URL: `http://prometheus:9090`
+7. Click en **Save & Test**
+
+Luego se debe Importar un Dashboard
+
+1. Ir a **Dashboards** → **Import**
+2. Usar ID: `19908` o `893`
+3. Seleccionar Prometheus como fuente de datos
+4. Click en **Import**
+  
 ## 🛑 Detener la ejecución
 
 ```bash
