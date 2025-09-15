@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="Haponiuk Kevin Joel" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Explicación Workflow - Agente IA orientado a investigación científica</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../css/custom.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Explicaci\u00f3n Workflow";
+        var mkdocs_page_input_path = "implementacion/00_workflow-completo.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> Agente IA orientado a investigación científica
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Introducción</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Workflow Final</span></p>
+              <ul class="current">
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Explicación Workflow</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#procesamiento-y-carga-de-informacion">Procesamiento y Carga de Información</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#agent-ai">Agent AI</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#puntos-de-entrada">Puntos de Entrada</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#procesamiento-y-respuesta-de-consultas">Procesamiento y respuesta de consultas</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#rama-1-optimizacion-busqueda-respuesta">Rama 1: Optimización -&gt; Búsqueda -&gt; Respuesta</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#rama-2-deteccion-de-referencias">Rama 2: Detección de Referencias</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#etapa-final-union-de-ramas">Etapa Final: Unión de ramas</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../01_implementacion-final/">Implementación</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Investigación</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../investigacion/01_llm/">Conceptos Previos</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >Metodología de investigación</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../investigacion/02_metod-invest/">Concepto general</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../investigacion/03_estado-arte/">Revisión Bibliográfica</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../investigacion/04_arquitectura/">Tipos de Arquitecturas</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >Software utilizado</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../investigacion/05_opentools/">Resumen Opentools</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../investigacion/06_n8n/">n8n</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../investigacion/07_grobid/">GROBID</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../investigacion/08_nlp-models/">Modelos de lenguaje</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../investigacion/09_mcp/">MCP</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../investigacion/10_a2a/">A2A</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../investigacion/11_interface-options/">Interfaz de usuario</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Pruebas durante el desarrollo</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pruebas/01_install-n8n/">Instalación de n8n / Dependencias necesarias</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pruebas/02_ejemplo-rag-crag/">Ejemplo RAG / CRAG</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pruebas/03_ejemplo-mcp/">Ejemplo MCP</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pruebas/05_install-grobid/">Instalación de GROBID / Ejemplo de uso</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Info Proyecto</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../proyecto/01_metodologia/">Metodología de Trabajo</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../proyecto/02_contribuir/">Como contribuir</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../proyecto/03_about/">Acerca de</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">Agente IA orientado a investigación científica</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Workflow Final</li>
+      <li class="breadcrumb-item active">Explicación Workflow</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/danunziata/pps-kevin_haponiuk-2025/edit/master/docs/implementacion/00_workflow-completo.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="explicacion-del-workflow-del-proyecto">Explicación del Workflow del Proyecto</h1>
+<p align="center">
+  <img src="../../images/workflow-completo.png" width="100%">
+  <em>Figura 1: Workflow Completo</em>
+  <br>
+  <strong>🟡 Procesamiento y Carga de Información</strong> | 
+  <strong>🔵 Agent AI (primer versión)</strong> | 
+  <strong>🟢 Agent AI (versión final)</strong>
+</p>
+
+<p>En esta sección se va a explicar el funcionamiento completo del workflow del proyecto. Está estructurado en dos grandes secciones principales: la preparación de la base de datos (bloque amarillo) donde se almacena toda la información extraída de los papers, y la implementación del agente que realiza las búsquedas. Se presentan dos tipos de agentes: el bloque azul representa una primera versión que actualmente no funciona correctamente, aunque podría ser funcional con futuras actualizaciones. Para más información sobre esta problemática, se puede consultar la documentación en <a href="../extra_00_problematica-agent/">esta sección</a>, que ayuda a comprender por qué se desarrolló una alternativa más manual que es la que finalmente se utiliza en el proyecto (bloque verde).</p>
+<h2 id="procesamiento-y-carga-de-informacion">Procesamiento y Carga de Información</h2>
+<p align="center">
+  <img src="../../images/workflow-cargainfo.png" width="100%">
+  <br>
+  <em>Figura 2: Workflow de Procesamiento y Carga de Información</em>
+</p>
+
+<p>El flujo comienza con el nodo <strong>When clicking 'Test workflow'</strong> que actúa como disparador/trigger del workflow. Desde allí, el proceso continúa hacia el nodo <strong>Search all Content</strong> donde se debe seleccionar manualmente la carpeta donde se realizará la búsqueda. Este nodo genera como salida un listado completo de todos los elementos contenidos en la carpeta de Drive.</p>
+<p>Posteriormente, el flujo pasa al nodo <strong>Get Content</strong> que se encarga de descargar los archivos. Para procesar todos los archivos listados anteriormente, se configura con un identificador "{{ $json.id }}" que varía iterativamente hasta cubrir todos los elementos listados y los descarga.</p>
+<p>A continuación, el proceso continúa hacia el nodo <strong>Write Files to input_papers</strong>. El objetivo es transferir todos los archivos descargados desde n8n para poder procesarlos con GROBID de manera local. Existe una carpeta compartida entre el contenedor y la PC local, definida en el docker-compose:</p>
+<div class="highlight"><pre><span></span><code>volumes:
+  - ./shared:/data/shared
+</code></pre></div>
+<p>Por lo tanto, todos los archivos se descargan en el directorio '/data/shared/input_papers/{{ $json.name }}'.</p>
+<p>Luego, el nodo <strong>Execute GROBID (local)</strong> ejecuta el comando 'python3 /data/shared/cliente_grobid.py', que convierte todos los archivos PDF a formato XML y los ubica en la carpeta 'output_papers'. Una vez completado el procesamiento, el flujo continúa hacia <strong>Read Files from output_papers</strong>.</p>
+<p>Después, el proceso pasa al nodo <strong>Extract from XML</strong> que está configurado para extraer campos comunes de todos los papers y convertirlos a formato JSON. Al estar bien estructurado gracias a la implementación de GROBID, permite visualizar toda la estructura que mantienen los papers. Luego se realiza un proceso de formateo en el nodo <strong>Information extraction</strong> donde se mapean las variables que se utilizarán para cargar en la base de datos, incluyendo información importante y metadata útil. Las variables extraídas son:</p>
+<ul>
+<li>title (metadata)</li>
+<li>abstract (metadata)</li>
+<li>publisher (metadata)</li>
+<li>year published (metadata)</li>
+<li>DOI (metadata)</li>
+<li>keywords (metadata)</li>
+<li>BODY_div (campo que contiene la información principal)</li>
+<li>BODY_fig (información de todas las figuras y sus descripciones)</li>
+</ul>
+<p>A continuación, el flujo continúa hacia el nodo <strong>Information union</strong> que combina los dos campos mencionados anteriormente en un solo lugar, uniendo BODY_div con BODY_fig para formar INFO_BODY.</p>
+<p>Posteriormente, el proceso pasa al nodo <strong>Split Chunks</strong>, que consiste en un código JavaScript que divide un texto extenso en fragmentos (chunks) más pequeños, respetando los límites de las oraciones para mantener la coherencia del contenido.</p>
+<p>Luego, el nodo <strong>Separe List</strong> se encarga únicamente de separar una lista en varios elementos individuales. Finalmente, se ingresa a la sección final de este proceso, donde se encuentra un nodo <strong>Loop</strong> que permite iterar sobre todos los elementos, procesando 5 chunks a la vez. El flujo continúa hacia <strong>Create context</strong>, que es un nodo básico de LLM conectado a un modelo de Ollama (en este caso "llama3.1:8b"). En este proceso (como se explicó en <a href="../../investigacion/04_arquitectura/#contextual-rag">Contextual RAG</a>), se proporciona el documento completo "INFO_BODY" para generar un contexto específico para cada chunk basado en dicho documento.</p>
+<p>Una vez obtenido el contexto junto con el chunk original, ambos se cargan en la base de datos mediante el nodo <strong>Qdrant Vector Store</strong>, que está conectado a otros dos nodos: <strong>Embeddings Ollama</strong>, donde se define un modelo de Embedding (en este caso "nomic-embed-text"). Es importante destacar que se debe utilizar este mismo modelo al realizar búsquedas posteriores en la base de datos. El segundo nodo conectado es <strong>Default Data Loader</strong>, donde se especifica cómo se cargará la información en la base de datos (incluyendo la metadata en este punto). También tiene configurado un text splitter sin overlap, con una distancia de 5000 chunks size. Dado que anteriormente se realizó un split manual con un tamaño de 1000 al cargar en la base de datos (sumado a un contexto no muy extenso), nunca se alcanza los 5000, por lo que no se realiza un split adicional en esta zona, que es el comportamiento deseado. Finalmente, este proceso se repite en loop hasta completar todos los chunks.</p>
+<p>Una vez completado todo el proceso de procesamiento y carga, es posible verificar que los datos se han almacenado correctamente en la base de datos vectorial. Para ello, se puede acceder al panel de administración de Qdrant a través de la siguiente URL:</p>
+<p><strong>http://localhost:6333/dashboard#/collections/</strong></p>
+<p>Al seleccionar la colección creada, se podrá visualizar la estructura de los datos almacenados, como se muestra en la siguiente imagen:</p>
+<p align="center">
+  <img src="../../images/qdrant-collections-example.png" width="100%">
+  <br>
+  <em>Figura 3: Estructura de datos en Qdrant Vector Store</em>
+</p>
+
+<p>En la visualización de Qdrant se pueden identificar tres componentes principales:</p>
+<ul>
+<li><strong>🔴 Chunk (Rojo)</strong>: Contiene el fragmento original del documento extraído durante el proceso de chunking</li>
+<li><strong>🟡 Contexto (Amarillo)</strong>: Representa el contexto generado por el modelo LLM que sitúa el chunk dentro del documento completo</li>
+<li><strong>🟢 Metadata (Verde)</strong>: Incluye toda la información descriptiva del documento como título, abstract, DOI, keywords, año de publicación, etc.</li>
+</ul>
+<p>Esta estructura permite que el sistema de búsqueda semántica pueda recuperar no solo el contenido relevante, sino también el contexto que lo hace comprensible y la metadata que facilita la identificación del documento fuente.</p>
+<h2 id="agent-ai">Agent AI</h2>
+<p align="center">
+  <img src="../../images/workflow-agentai.png" width="100%">
+  <br>
+  <em>Figura 4: Workflow completo del Agent AI</em>
+</p>
+
+<p>En esta sección se explica el funcionamiento del Agente de Inteligencia Artificial. El sistema ofrece dos formas de interactuar con el agente:</p>
+<h3 id="puntos-de-entrada">Puntos de Entrada</h3>
+<ol>
+<li><strong>When chat message received</strong>: Nodo nativo de n8n que permite interactuar con el agente directamente desde la interfaz de n8n para realizar pruebas de manera rápida.</li>
+<li><strong>Webhook</strong>: Nodo que espera solicitudes mediante método POST para ser utilizado con OpenWebUI como interfaz final para el usuario.</li>
+</ol>
+<p align="center">
+  <img src="../../images/workflow-inputs.png" width="100%">
+  <br>
+  <em>Figura 5: Puntos de entrada del Agent AI</em>
+</p>
+
+<p>Ambos nodos se conectan al nodo <strong>Chat and session Id</strong>, que realiza un mapeo de variables para estandarizar la entrada, asegurando que los nodos posteriores (<strong>Reference?</strong> y <strong>Query optimization</strong>) reciban el mismo formato de datos independientemente del origen.</p>
+<h3 id="procesamiento-y-respuesta-de-consultas">Procesamiento y respuesta de consultas</h3>
+<p>El flujo se divide en dos ramas principales donde primero se ejecuta la Rama 1 y luego la Rama 2 y finalmente ambas rambas convergen en una para poder brindar la respuesta final:</p>
+<h4 id="rama-1-optimizacion-busqueda-respuesta">Rama 1: Optimización -&gt; Búsqueda -&gt; Respuesta</h4>
+<p align="center">
+  <img src="../../images/workflow-rama1.png" width="100%">
+  <br>
+  <em>Figura 6: Rama 1 "Optimización, Búsqueda, Respuesta"</em>
+</p>
+
+<ol>
+<li>
+<p><strong>Query Optimization</strong>: Utiliza un modelo de bajo procesamiento (gemma3:1b) para optimizar, limpiar y extraer solo la información esencial de la consulta del usuario para realizar búsquedas más precisas en la base de datos.</p>
+</li>
+<li>
+<p><strong>Request qdrant-search</strong>: Se conecta al servicio qdrant-search (especificado en el Docker Compose) que escucha en el puerto 5000. Este servicio maneja las consultas a la base de datos vectorial. La configuración de la colección específica se encuentra en el cliente Python (insertar link). El cliente define:</p>
+<ul>
+<li>Cantidad de resultados: 20 mejores coincidencias</li>
+<li>Modelo de embedding: Debe coincidir con el utilizado durante la carga de datos</li>
+</ul>
+</li>
+<li>
+<p><strong>Separate List 2</strong>: Procesa la respuesta única de la base de datos (formato JSON) y la separa en 20 objetos JSON individuales, cada uno conteniendo un chunk con su metadata correspondiente.</p>
+</li>
+<li>
+<p><strong>Edit Fields2</strong>: Realiza un mapeo de variables para preparar los datos.</p>
+</li>
+<li>
+<p><strong>Aggregate1</strong>: Combina toda la información que se proporcionará como entrada al AI Agent.</p>
+</li>
+<li>
+<p><strong>AI Agent</strong>: Utiliza el modelo "qwen3:8b" para generar una respuesta basada en:</p>
+<ul>
+<li>La consulta original del usuario</li>
+<li>La información recuperada de la base de datos</li>
+<li>El contexto de la conversación almacenado en "PostgreSQL Chat Memory"</li>
+</ul>
+</li>
+<li>
+<p><strong>PostgreSQL Chat Memory</strong>: Almacena automáticamente el historial de conversación, identificando usuarios por SessionID.</p>
+</li>
+<li>
+<p><strong>Merge</strong>: Espera a que ambas ramas (Rama 1 y 2) estén completas antes de continuar.</p>
+</li>
+</ol>
+<h4 id="rama-2-deteccion-de-referencias">Rama 2: Detección de Referencias</h4>
+<p align="center">
+  <img src="../../images/workflow-rama2.png" width="100%">
+  <br>
+  <em>Figura 7: Rama 2 "Detección y Procesamiento de Referencias"</em>
+</p>
+
+<ol>
+<li>
+<p><strong>Reference?</strong>: Utiliza el modelo "gemma3:1b" para determinar si el usuario solicitó referencias de papers. Devuelve:</p>
+<ul>
+<li><code>1</code>: Si el usuario pidió referencias</li>
+<li><code>0</code>: Si el usuario no pidió referencias</li>
+</ul>
+</li>
+<li>
+<p><strong>If</strong>: Nodo condicional que evalúa la respuesta del nodo anterior.</p>
+</li>
+</ol>
+<p>Si la respuesta es <code>0</code> (no se pidieron referencias, camino rosa), el flujo pasa directamente al nodo <strong>Merge</strong>.</p>
+<p>Si la respuesta es <code>1</code> (se pidieron referencias, camino amarillo), el flujo continúa por:</p>
+<ol>
+<li>
+<p><strong>Merge3</strong>: Combina la respuesta de la base de datos con el valor de referencia.</p>
+</li>
+<li>
+<p><strong>Titles</strong>: Extrae los títulos de los papers de las 20 mejores coincidencias (ordenadas por puntaje de similitud).</p>
+</li>
+<li>
+<p><strong>Remove Duplicates</strong>: Elimina títulos duplicados, ya que es común que múltiples chunks del mismo paper aparezcan en los resultados.</p>
+</li>
+<li>
+<p><strong>Limit</strong>: Limita la cantidad de referencias (configurado en 3 títulos máximo).</p>
+</li>
+<li>
+<p><strong>Aggregate</strong>: Combina los títulos únicos en un solo objeto JSON.</p>
+</li>
+<li>
+<p><strong>Edit Fields5</strong>: Realiza el mapeo final de variables para las referencias.</p>
+</li>
+<li>
+<p><strong>Merge</strong>: Espera a que ambas ramas (Rama 1 y 2) estén completas antes de continuar. </p>
+</li>
+</ol>
+<h4 id="etapa-final-union-de-ramas">Etapa Final: Unión de ramas</h4>
+<p align="center">
+  <img src="../../images/workflow-unionramas.png" width="100%">
+  <br>
+  <em>Figura 8: Unión de ramas, respuesta final</em>
+</p>
+
+<ol>
+<li>
+<p><strong>Merge</strong>: Espera a que ambas ramas (respuesta principal y referencias) estén completas antes de continuar.</p>
+</li>
+<li>
+<p><strong>Aggregate2</strong>: Combina la respuesta del agente con las referencias (si las hay).</p>
+</li>
+<li>
+<p><strong>Edit Fields6</strong>: Realiza el mapeo final y define el formato de salida, incluyendo la presentación condicional de referencias.</p>
+</li>
+<li>
+<p><strong>Respond to Webhook1</strong>: Devuelve la respuesta final al punto de entrada correspondiente.</p>
+</li>
+</ol>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../.." class="btn btn-neutral float-left" title="Introducción"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../01_implementacion-final/" class="btn btn-neutral float-right" title="Implementación">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p><img src="https://raw.githubusercontent.com/danunziata/pps-kevin_haponiuk-2025/main/docs/images/escudo_unrc.png" alt="Logo UNRC" style="height: 30px; vertical-align: middle; margin-right: 10px;">
+<img src="https://raw.githubusercontent.com/danunziata/pps-kevin_haponiuk-2025/main/docs/images/escudo_ing.png" alt="Logo ING" style="height: 30px; vertical-align: middle; margin-right: 10px;">
+&copy; 2025 <a href="https://www.ing.unrc.edu.ar/inicio.php" target="_blank" rel="noopener">Universidad Nacional de Río Cuarto | Facultad de Ingeniería</a>
+</p>
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/danunziata/pps-kevin_haponiuk-2025" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../.." style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../01_implementacion-final/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../js/custom.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

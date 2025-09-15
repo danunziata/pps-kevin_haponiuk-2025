@@ -1,0 +1,820 @@
+{
+  "name": "ejemplo RAG vs CRAG",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -1340,
+        -460
+      ],
+      "id": "ed97f20e-8c3e-4269-8db4-80a7ab07f18f",
+      "name": "When clicking ‘Test workflow’"
+    },
+    {
+      "parameters": {
+        "operation": "download",
+        "fileId": {
+          "__rl": true,
+          "value": "1QpF2zj4Dsa2Mc40P3ZyfHzUIowG5S97k",
+          "mode": "list",
+          "cachedResultName": "Toward Autonomic Internet of Things_Recent Advances, Evaluation Criteria,_and Future Research Directions.grobid.tei.xml",
+          "cachedResultUrl": "https://drive.google.com/file/d/1QpF2zj4Dsa2Mc40P3ZyfHzUIowG5S97k/view?usp=drivesdk"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        -420,
+        -200
+      ],
+      "id": "2555909c-50d2-4b65-8494-d24e710d1c63",
+      "name": "Google Drive",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "qfIxvff9Pr5p2Nab",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "insert",
+        "qdrantCollection": {
+          "__rl": true,
+          "value": "=prueba_CRAG",
+          "mode": "id"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreQdrant",
+      "typeVersion": 1.1,
+      "position": [
+        100,
+        320
+      ],
+      "id": "583c96cd-40b9-4c35-bb53-ab8b596953dc",
+      "name": "Qdrant Vector Store",
+      "credentials": {
+        "qdrantApi": {
+          "id": "sFfERYppMeBnFNeA",
+          "name": "Local QdrantApi database"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": "nomic-embed-text:latest"
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOllama",
+      "typeVersion": 1,
+      "position": [
+        0,
+        520
+      ],
+      "id": "32e58937-54b6-4b30-9700-98afea25065a",
+      "name": "Embeddings Ollama",
+      "credentials": {
+        "ollamaApi": {
+          "id": "xHuYe0MDGOs9IpBW",
+          "name": "Local Ollama service"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=I have a question related to the contents of a research paper. Please use only the infopapers tool to answer.\n\nMy question:\n{{ $json.chatInput }}",
+        "options": {
+          "systemMessage": "You are a specialized AI assistant. Your **ONLY** source of knowledge is the RAG tool named **\"infopapers\"**, which queries a specific vector store. Do **not** use your internal pre-trained knowledge.\n\n**Key Instructions:**\n\n1. **Mandatory Query:** For **ANY** user question that requires information from papers or specific data, you **MUST** invoke and use the **\"infopapers\"** tool.\n\n2. **Present the Result Directly:** Once the **\"infopapers\"** tool returns information, your response **MUST** consist of presenting that information **directly** to the user. Base your answer **ONLY and EXCLUSIVELY** on the data retrieved by the tool. Do **not** add comments, external information, or use general knowledge.\n\n3. **Handling Missing Information:** If the **\"infopapers\"** tool explicitly indicates that the information is not available or does not return any relevant data for the question, you **MUST** clearly and directly inform the user that the information is not available in the consulted knowledge base. **Do not** invent, assume, or speculate.\n\n4. **Faithfulness to the Result:** Your role is to be a faithful interface to the results of the **\"infopapers\"** tool. If the tool gives an answer, your job is to communicate it as-is.\n\n**Simple Process:** Receive question → Call **\"infopapers\"** → Check **infopapers** result.  \n**IF** relevant result: present it as-is.  \n**IF NOT**: inform that no relevant information was found.  \nDo **nothing else**.",
+          "maxIterations": 10,
+          "returnIntermediateSteps": true,
+          "passthroughBinaryImages": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.8,
+      "position": [
+        -1500,
+        1060
+      ],
+      "id": "5ae1fcbd-abd4-48d9-bbe0-1c509bf2ae3c",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        -1420,
+        1280
+      ],
+      "id": "b0edeeba-d97a-4dc9-9138-b14b8ce0708d",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "model": "llama3.2:latest",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOllama",
+      "typeVersion": 1,
+      "position": [
+        -1540,
+        1280
+      ],
+      "id": "d963fb4d-7c73-4975-8b0f-3d30e0d9f02c",
+      "name": "Ollama Chat Model1",
+      "credentials": {
+        "ollamaApi": {
+          "id": "xHuYe0MDGOs9IpBW",
+          "name": "Local Ollama service"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "qdrantCollection": {
+          "__rl": true,
+          "value": "prueba_CRAG",
+          "mode": "list",
+          "cachedResultName": "prueba_CRAG"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreQdrant",
+      "typeVersion": 1.1,
+      "position": [
+        -1400,
+        1480
+      ],
+      "id": "2de2d76b-70f9-4b87-aa1f-d8182b788317",
+      "name": "Qdrant Vector Store1",
+      "credentials": {
+        "qdrantApi": {
+          "id": "sFfERYppMeBnFNeA",
+          "name": "Local QdrantApi database"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": "nomic-embed-text:latest"
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOllama",
+      "typeVersion": 1,
+      "position": [
+        -1320,
+        1680
+      ],
+      "id": "bc9873d4-cf73-49a6-863a-ba3b80c30553",
+      "name": "Embeddings Ollama2",
+      "credentials": {
+        "ollamaApi": {
+          "id": "xHuYe0MDGOs9IpBW",
+          "name": "Local Ollama service"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -1760,
+        1060
+      ],
+      "id": "48331bd5-3a78-4c6d-b3f1-339bbd2cfef1",
+      "name": "When chat message received",
+      "webhookId": "ff366f26-3b17-40ff-abd9-9148ec591add"
+    },
+    {
+      "parameters": {
+        "name": "infopapers",
+        "description": "It contains all the papers you can consult to get context and answer the user's questions.",
+        "topK": 10
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolVectorStore",
+      "typeVersion": 1,
+      "position": [
+        -1300,
+        1280
+      ],
+      "id": "3ee9930b-6c6b-47da-908d-9096ba499a92",
+      "name": "Answer questions with a vector store"
+    },
+    {
+      "parameters": {
+        "model": "llama3.2:latest",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmOllama",
+      "typeVersion": 1,
+      "position": [
+        -1120,
+        1480
+      ],
+      "id": "47caa540-1290-4d19-a5a9-e5d36763822c",
+      "name": "Ollama Model",
+      "credentials": {
+        "ollamaApi": {
+          "id": "xHuYe0MDGOs9IpBW",
+          "name": "Local Ollama service"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "# EJEMPLO C-RAG",
+        "height": 1120,
+        "width": 1720,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -1240,
+        -260
+      ],
+      "typeVersion": 1,
+      "id": "5cceccd1-df8a-46ee-8ab5-b62be8ab8708",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "# USUARIO",
+        "height": 880,
+        "width": 1190,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -1880,
+        960
+      ],
+      "typeVersion": 1,
+      "id": "c2658da5-cb47-45d5-ac1d-25c6cc5c2c04",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{\n  json: {\n    text: $json.intermediateSteps[0].observation\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -900,
+        1060
+      ],
+      "id": "b297ad13-d7a2-4a89-ba74-d57934a1a952",
+      "name": "Code"
+    },
+    {
+      "parameters": {
+        "content": "# EJEMPLO RAG\n",
+        "height": 1120,
+        "width": 1580
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -2880,
+        -260
+      ],
+      "typeVersion": 1,
+      "id": "3d9352ef-372e-4aab-8ab5-0428894b33b2",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "chunkSize": 5000,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.textSplitterRecursiveCharacterTextSplitter",
+      "typeVersion": 1,
+      "position": [
+        300,
+        700
+      ],
+      "id": "fa9f139a-9627-49de-a8fa-0d3684cb6e7d",
+      "name": "Recursive Character Text Splitter"
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "const text = $json.data.replace(/\\n/g, ' ');\n\n// 1. Partimos en oraciones (capturamos también el espacio que sigue al punto o signo)\nconst sentences = text.match(/[^\\.!\\?]+[\\.!\\?]+(\\s|$)/g) || [];\n\nconst chunks = [];\nconst chunkSize = 1000;\nlet current = '';\n\nfor (const sentence of sentences) {\n  // Si añadiendo esta oración supera el tamaño deseado,\n  // cerramos el chunk actual y arrancamos uno nuevo.\n  if ((current + sentence).length > chunkSize) {\n    if (current) {\n      chunks.push(current.trim());\n    }\n    current = sentence;\n  } else {\n    current += sentence;\n  }\n}\n\n// Añadimos el último trozo si quedó algo\nif (current) {\n  chunks.push(current.trim());\n}\n\nreturn { chunks };"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1060,
+        280
+      ],
+      "id": "f05a92f5-8eea-445f-be8d-05f85918d4da",
+      "name": "Dividir chunks"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "chunks",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        -800,
+        280
+      ],
+      "id": "2042cb3b-b0bd-4d5e-be2d-d567949f2fc5",
+      "name": "Separar lista"
+    },
+    {
+      "parameters": {
+        "batchSize": 5,
+        "options": {
+          "reset": false
+        }
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        -580,
+        280
+      ],
+      "id": "aa349368-4210-4409-bb44-3376a1479c6a",
+      "name": "Loop"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=<document> \n{{ $('Extract from File1').item.json.data }}\n</document>\nAquí está el fragmento que queremos ubicar dentro del documento completo\n<chunk> \n{{ $json.chunks }}\n</chunk> \nPor favor, proporciona un contexto breve y conciso para ubicar este fragmento dentro del documento general con el fin de mejorar el Retrieval Augmented Generation. Responde solo con el contexto conciso y nada más."
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.6,
+      "position": [
+        -360,
+        160
+      ],
+      "id": "7e7ef704-5688-4288-b48f-7550d1adcb5a",
+      "name": "Crear contexto",
+      "retryOnFail": true,
+      "waitBetweenTries": 5000
+    },
+    {
+      "parameters": {
+        "jsonMode": "expressionData",
+        "jsonData": "={{\n{\n  \"content\": `${ $json.text }\\n---\\n${ $('Separar lista').item.json.chunks }`\n}\n}}",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.documentDefaultDataLoader",
+      "typeVersion": 1,
+      "position": [
+        180,
+        540
+      ],
+      "id": "863b0e01-f7f7-455a-bd99-f2c97a7623ba",
+      "name": "Default Data Loader1"
+    },
+    {
+      "parameters": {
+        "operation": "xml",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        -200,
+        -200
+      ],
+      "id": "10f66bc1-859a-43cd-8e6c-0d0a2f616a78",
+      "name": "Extract from File1"
+    },
+    {
+      "parameters": {
+        "model": "llama3.1:8b",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmOllama",
+      "typeVersion": 1,
+      "position": [
+        -220,
+        300
+      ],
+      "id": "fd6a3f35-7ad0-4127-b1fc-2baf7f464fbb",
+      "name": "Ollama Model1",
+      "credentials": {
+        "ollamaApi": {
+          "id": "xHuYe0MDGOs9IpBW",
+          "name": "Local Ollama service"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "download",
+        "fileId": {
+          "__rl": true,
+          "value": "1QpF2zj4Dsa2Mc40P3ZyfHzUIowG5S97k",
+          "mode": "list",
+          "cachedResultName": "Toward Autonomic Internet of Things_Recent Advances, Evaluation Criteria,_and Future Research Directions.grobid.tei.xml",
+          "cachedResultUrl": "https://drive.google.com/file/d/1QpF2zj4Dsa2Mc40P3ZyfHzUIowG5S97k/view?usp=drivesdk"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        -2640,
+        140
+      ],
+      "id": "e2bdf87a-cb41-40bf-8f7b-e73993596dbc",
+      "name": "Google Drive1",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "qfIxvff9Pr5p2Nab",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "insert",
+        "qdrantCollection": {
+          "__rl": true,
+          "value": "=prueba_RAG",
+          "mode": "id"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreQdrant",
+      "typeVersion": 1.1,
+      "position": [
+        -1840,
+        20
+      ],
+      "id": "62b5c253-47ca-4d5b-b36e-05c3dfcbc6ff",
+      "name": "Qdrant Vector Store2",
+      "credentials": {
+        "qdrantApi": {
+          "id": "sFfERYppMeBnFNeA",
+          "name": "Local QdrantApi database"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": "nomic-embed-text:latest"
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOllama",
+      "typeVersion": 1,
+      "position": [
+        -1940,
+        220
+      ],
+      "id": "f74562a2-7a1e-41a2-b9b7-fa92f9c2182c",
+      "name": "Embeddings Ollama1",
+      "credentials": {
+        "ollamaApi": {
+          "id": "xHuYe0MDGOs9IpBW",
+          "name": "Local Ollama service"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chunkSize": 5000,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.textSplitterRecursiveCharacterTextSplitter",
+      "typeVersion": 1,
+      "position": [
+        -1640,
+        400
+      ],
+      "id": "c29fe34b-c6d1-4978-8dd2-639086ec4f58",
+      "name": "Recursive Character Text Splitter1"
+    },
+    {
+      "parameters": {
+        "jsonMode": "expressionData",
+        "jsonData": "={{\n{\n  \"content\": `${ $json.text }\\n---\\n${ $('Separar lista1').item.json.chunks }`\n}\n}}",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.documentDefaultDataLoader",
+      "typeVersion": 1,
+      "position": [
+        -1760,
+        240
+      ],
+      "id": "ed438293-4c46-4c86-9943-a42874702cc1",
+      "name": "Default Data Loader"
+    },
+    {
+      "parameters": {
+        "operation": "xml",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        -2420,
+        140
+      ],
+      "id": "c1b2d99c-155a-40ba-bd0d-6fc1d29e3aa3",
+      "name": "Extract from File"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Test workflow’": {
+      "main": [
+        []
+      ]
+    },
+    "Google Drive": {
+      "main": [
+        [
+          {
+            "node": "Extract from File1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings Ollama": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Qdrant Vector Store",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ollama Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Qdrant Vector Store1": {
+      "ai_tool": [
+        []
+      ],
+      "ai_vectorStore": [
+        [
+          {
+            "node": "Answer questions with a vector store",
+            "type": "ai_vectorStore",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings Ollama2": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Qdrant Vector Store1",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Answer questions with a vector store": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ollama Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Answer questions with a vector store",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Recursive Character Text Splitter": {
+      "ai_textSplitter": [
+        [
+          {
+            "node": "Default Data Loader1",
+            "type": "ai_textSplitter",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Dividir chunks": {
+      "main": [
+        [
+          {
+            "node": "Separar lista",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Separar lista": {
+      "main": [
+        [
+          {
+            "node": "Loop",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Crear contexto",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Crear contexto": {
+      "main": [
+        [
+          {
+            "node": "Qdrant Vector Store",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Default Data Loader1": {
+      "ai_document": [
+        [
+          {
+            "node": "Qdrant Vector Store",
+            "type": "ai_document",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract from File1": {
+      "main": [
+        [
+          {
+            "node": "Dividir chunks",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ollama Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Crear contexto",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Qdrant Vector Store": {
+      "main": [
+        [
+          {
+            "node": "Loop",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Drive1": {
+      "main": [
+        [
+          {
+            "node": "Extract from File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Qdrant Vector Store2": {
+      "main": [
+        []
+      ]
+    },
+    "Embeddings Ollama1": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Qdrant Vector Store2",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Recursive Character Text Splitter1": {
+      "ai_textSplitter": [
+        [
+          {
+            "node": "Default Data Loader",
+            "type": "ai_textSplitter",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Default Data Loader": {
+      "ai_document": [
+        [
+          {
+            "node": "Qdrant Vector Store2",
+            "type": "ai_document",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract from File": {
+      "main": [
+        [
+          {
+            "node": "Qdrant Vector Store2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "cbd24953-46f1-4882-8cda-dc4cd0f02bd7",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "558d88703fb65b2d0e44613bc35916258b0f0bf983c5d4730c00c424b77ca36a"
+  },
+  "id": "ejXH95TYwgZr2EiO",
+  "tags": []
+}
