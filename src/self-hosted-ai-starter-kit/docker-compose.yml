@@ -37,20 +37,20 @@ x-ollama: &service-ollama
   expose:
     - "11434"
   volumes:
-    - ollama_storage:/root/.ollama
+    - /home/daninziata/ollama_data:/root/.ollama
 
 x-init-ollama: &init-ollama
   image: ollama/ollama:latest
   networks: ['demo']
   container_name: ollama-pull-llama-k
   volumes:
-    - ollama_storage:/root/.ollama
+    - /home/daninziata/ollama_data:/root/.ollama
   entrypoint: /bin/sh
   environment:
     - OLLAMA_HOST=ollama-k:11434
   command:
     - "-c"
-    - "sleep 3; ollama pull llama3.2"
+    - "sleep 3; ollama pull llama3.2; ollama run llama3.1:8b; ollama run gemma3:1b; ollama run qwen3:8b; ollama pull nomic-embed-text"
 
 services:
   postgres:
