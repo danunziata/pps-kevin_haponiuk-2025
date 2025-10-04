@@ -181,18 +181,26 @@ services:
   openwebui-cpu:
     image: ghcr.io/open-webui/open-webui:main
     container_name: openwebui-cpu-k
-    networks: ['demo']
+    networks:
+      demo:
+        aliases:
+          - openwebui
     expose:
       - "8080"
     volumes:
       - /home/daninziata/docker_data/openwebui:/app/backend/data
     profiles: ["cpu"]
     restart: unless-stopped
+    environment:
+      - WEBUI_URL=${PUBLIC_BASE_URL}/webui
 
   openwebui-gpu:
     image: ghcr.io/open-webui/open-webui:cuda
     container_name: openwebui-gpu-k
-    networks: ['demo']
+    networks:
+      demo:
+        aliases:
+          - openwebui
     expose:
       - "8080"
     volumes:
@@ -206,6 +214,8 @@ services:
               capabilities: [gpu]
     profiles: ["gpu-nvidia"]
     restart: unless-stopped
+    environment:
+      - WEBUI_URL=${PUBLIC_BASE_URL}/webui
 
   grobid-cpu:
     image: grobid/grobid:0.8.2
@@ -281,6 +291,8 @@ services:
     environment:
       - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD}
       - GF_USERS_ALLOW_SIGN_UP=false
+      - GF_SERVER_ROOT_URL=%(protocol)s://%(domain)s:%(http_port)s/grafana/
+      - GF_SERVER_SERVE_FROM_SUB_PATH=true
     restart: unless-stopped
     profiles: ["cpu", "gpu-nvidia"]
 
@@ -308,3 +320,5 @@ services:
       - ./nginx.conf:/etc/nginx/conf.d/default.conf
     depends_on:
       - n8n
+      - grafana
+      - qdrant
