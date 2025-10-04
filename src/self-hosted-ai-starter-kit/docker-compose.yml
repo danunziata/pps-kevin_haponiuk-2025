@@ -102,12 +102,13 @@ services:
       # Cookies (sin HTTPS en túnel SSH)
       - N8N_SECURE_COOKIE=false
       
-      # URLs base (CRÍTICO para túnel SSH)
+      # URLs base - usar la URL que nginx expone
       - N8N_EDITOR_BASE_URL=http://localhost:51234
       - WEBHOOK_URL=http://localhost:51234
       
-      # Validación de origen - opción más permisiva
-      - N8N_ALLOWED_ORIGINS=*
+      # Host y puerto que n8n debe reportar
+      - N8N_HOST=localhost
+      - N8N_PORT=51234
     depends_on:
       postgres:
         condition: service_healthy
