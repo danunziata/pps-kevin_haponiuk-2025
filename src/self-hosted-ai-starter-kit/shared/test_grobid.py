@@ -1,6 +1,6 @@
 import http.client
 
-host = "grobid"
+host = "grobid-k"
 port = 8070
 
 try:
