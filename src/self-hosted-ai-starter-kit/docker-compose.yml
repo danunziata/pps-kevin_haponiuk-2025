@@ -101,7 +101,8 @@ services:
     environment:
       # Cookies (sin HTTPS en túnel SSH)
       - N8N_SECURE_COOKIE=false
-      
+      - N8N_SKIP_ORIGIN_CHECK=true   # (workaround más permisivo si querés salir rápido)
+
       # URLs base - usar la URL que nginx expone
       - N8N_EDITOR_BASE_URL=http://localhost:51234
       - WEBHOOK_URL=http://localhost:51234
