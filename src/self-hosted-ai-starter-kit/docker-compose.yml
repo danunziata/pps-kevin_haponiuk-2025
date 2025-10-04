@@ -99,13 +99,24 @@ services:
       - ./n8n/backup:/backup
       - ./shared:/data/shared
     environment:
+      # Host y puerto (CRÍTICO para Origin validation)
+      - N8N_HOST=localhost
+      - N8N_PORT=51234
+      - N8N_PROTOCOL=http
+      
       # Cookies (sin HTTPS en túnel SSH)
       - N8N_SECURE_COOKIE=false
+      
       # URLs base (CRÍTICO para túnel SSH)
       - N8N_EDITOR_BASE_URL=http://localhost:51234
       - WEBHOOK_URL=http://localhost:51234
-      # Validación de origen (permitir localhost:51234)
-      - N8N_DEFAULT_EDITOR_BASE_URL=http://localhost:51234
+      
+      # Path donde se sirve n8n (por defecto "/")
+      - N8N_PATH=/
+      
+      # Validación de origen
+      - N8N_ALLOWED_ORIGINS=http://localhost:51234
+      
       # Desactivar validación estricta de protocolo
       - N8N_DISABLE_PROTOCOL_VALIDATION=true
     depends_on:
