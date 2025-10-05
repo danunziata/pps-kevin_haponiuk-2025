@@ -8,8 +8,9 @@ import os
 app = Flask(__name__)
 
 # Configuración desde variables de entorno
-OLLAMA_URL = os.getenv('OLLAMA_URL', 'http://ollama:11434')
-QDRANT_URL = os.getenv('QDRANT_URL', 'http://qdrant:6333')
+OLLAMA_URL = "http://ollama-k:11434"
+QDRANT_URL = "http://qdrant-k:6333"
+collection_name = "TEST_DOROTEA"
 
 def get_embedding(text):
     print(f"\n[DEBUG] Enviando texto a Ollama: {text}")
@@ -51,10 +52,10 @@ def search_qdrant(query):
     except Exception as e:
         return {"error": f"No se pudo conectar a Qdrant: {str(e)}"}, 500
 
-    print("\n[DEBUG] Realizando búsqueda en colección 'prueba_CRAG3'...")
+    print(f"\n[DEBUG] Realizando búsqueda en colección '{collection_name}'...")
     try:
         results = client.search(
-            collection_name="prueba_CRAG3",
+            collection_name=collection_name,
             query_vector=query_embedding,
             limit=20,
             with_payload=True
