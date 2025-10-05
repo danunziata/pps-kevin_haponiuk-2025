@@ -129,8 +129,8 @@ services:
     container_name: qdrant-k
     networks: ['demo']
     restart: unless-stopped
-    expose:
-      - "6333"
+    ports:
+      - "51237:6333"
     volumes:
       - /home/daninziata/docker_data/qdrant:/qdrant/storage
 
@@ -182,8 +182,8 @@ services:
     image: ghcr.io/open-webui/open-webui:main
     container_name: openwebui-cpu-k
     networks: ['demo']
-    expose:
-      - "8080"
+    ports:
+      - "51236:8080"
     volumes:
       - /home/daninziata/docker_data/openwebui:/app/backend/data
     profiles: ["cpu"]
@@ -193,8 +193,8 @@ services:
     image: ghcr.io/open-webui/open-webui:cuda
     container_name: openwebui-gpu-k
     networks: ['demo']
-    expose:
-      - "8080"
+    ports:
+      - "51236:8080"
     volumes:
       - /home/daninziata/docker_data/openwebui:/app/backend/data
     deploy:
@@ -274,8 +274,8 @@ services:
     image: grafana/grafana:latest
     container_name: grafana-k
     networks: ['demo']
-    expose:
-      - "3000"
+    ports:
+      - "51235:3000"
     volumes:
       - /home/daninziata/docker_data/grafana:/var/lib/grafana
     environment:
