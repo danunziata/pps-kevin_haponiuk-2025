@@ -138,18 +138,18 @@ services:
     build:
       context: ../QDRANT
       dockerfile: Dockerfile.qdrant-search
-    hostname: qdrant-search
     container_name: qdrant-search-k
+    hostname: qdrant-search
     networks: ['demo']
-    restart: unless-stopped
     expose:
       - "5000"
     environment:
       - OLLAMA_URL=http://ollama-k:11434
       - QDRANT_URL=http://qdrant-k:6333
+      - COLLECTION_NAME=TEST_DOROTEA
     depends_on:
       - qdrant
-    profiles: ["cpu", "gpu-nvidia"]
+    restart: unless-stopped
 
   ollama-cpu:
     profiles: ["cpu"]
