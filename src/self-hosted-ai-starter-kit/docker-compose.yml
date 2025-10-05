@@ -92,32 +92,30 @@ services:
       - ./n8n/backup:/backup
       - ./shared:/data/shared
     environment:
-      # Seguridad de cookies (sin HTTPS porque el túnel SSH ya cifra)
-      - N8N_SECURE_COOKIE=false
+    # Seguridad de cookies (sin HTTPS porque el túnel SSH ya cifra)
+    - N8N_SECURE_COOKIE=false
 
-      # Origen: desactiva el check estricto (opcional, útil si volvés a ver errores)
-      - N8N_SKIP_ORIGIN_CHECK=true
+    # Origen: desactiva el check estricto (opcional, útil si volvés a ver errores)
+    - N8N_SKIP_ORIGIN_CHECK=true
 
-      # URL base que el editor y los webhooks deben usar (tu túnel SSH local)
-      - N8N_EDITOR_BASE_URL=${PUBLIC_BASE_URL}
-      - N8N_WEBHOOK_URL=${PUBLIC_BASE_URL}
-      - N8N_ALLOWED_FRONTEND_URLS=${PUBLIC_BASE_URL}
+    # URL base que el editor y los webhooks deben usar (tu túnel SSH local)
+    - N8N_EDITOR_BASE_URL=http://localhost:51234
+    - WEBHOOK_URL=http://localhost:51234
 
-      # Host y puerto internos de n8n (estándar 5678 para Docker)
-      - N8N_PROTOCOL=http
-      - N8N_HOST=0.0.0.0
-      - N8N_PORT=5678
+    # Host y puerto internos de n8n (estándar 5678 para Docker)
+    - N8N_HOST=localhost
+    - N8N_PORT=5678
 
-      # Recomendado por los warnings de logs
-      - N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=true
-      - N8N_RUNNERS_ENABLED=true
-      - N8N_BLOCK_ENV_ACCESS_IN_NODE=false
+    # Recomendado por los warnings de logs
+    - N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=true
+    - N8N_RUNNERS_ENABLED=true
+    - N8N_BLOCK_ENV_ACCESS_IN_NODE=false
 
-      # Base de datos
-      - DB_TYPE=postgresdb
-      - DB_POSTGRESDB_HOST=postgres
-      - DB_POSTGRESDB_USER=${POSTGRES_USER}
-      - DB_POSTGRESDB_PASSWORD=${POSTGRES_PASSWORD}
+    # Base de datos
+    - DB_TYPE=postgresdb
+    - DB_POSTGRESDB_HOST=postgres
+    - DB_POSTGRESDB_USER=${POSTGRES_USER}
+    - DB_POSTGRESDB_PASSWORD=${POSTGRES_PASSWORD}
 
     depends_on:
       postgres:
@@ -183,26 +181,18 @@ services:
   openwebui-cpu:
     image: ghcr.io/open-webui/open-webui:main
     container_name: openwebui-cpu-k
-    networks:
-      demo:
-        aliases:
-          - openwebui
+    networks: ['demo']
     expose:
       - "8080"
     volumes:
       - /home/daninziata/docker_data/openwebui:/app/backend/data
     profiles: ["cpu"]
     restart: unless-stopped
-    environment:
-      - WEBUI_URL=${PUBLIC_BASE_URL}/webui
 
   openwebui-gpu:
     image: ghcr.io/open-webui/open-webui:cuda
     container_name: openwebui-gpu-k
-    networks:
-      demo:
-        aliases:
-          - openwebui
+    networks: ['demo']
     expose:
       - "8080"
     volumes:
@@ -216,8 +206,6 @@ services:
               capabilities: [gpu]
     profiles: ["gpu-nvidia"]
     restart: unless-stopped
-    environment:
-      - WEBUI_URL=${PUBLIC_BASE_URL}/webui
 
   grobid-cpu:
     image: grobid/grobid:0.8.2
@@ -293,8 +281,6 @@ services:
     environment:
       - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD}
       - GF_USERS_ALLOW_SIGN_UP=false
-      - GF_SERVER_ROOT_URL=%(protocol)s://%(domain)s:%(http_port)s/grafana/
-      - GF_SERVER_SERVE_FROM_SUB_PATH=true
     restart: unless-stopped
     profiles: ["cpu", "gpu-nvidia"]
 
@@ -322,5 +308,3 @@ services:
       - ./nginx.conf:/etc/nginx/conf.d/default.conf
     depends_on:
       - n8n
-      - grafana
-      - qdrant
