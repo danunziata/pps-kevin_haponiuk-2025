@@ -37,6 +37,7 @@ nav:
   - Workflow Final:
     - Explicación Workflow: implementacion/00_workflow-completo.md
     - Implementación: implementacion/01_implementacion-final.md
+    - Implementación en Dorotea: implementacion/02_implementacion-dorotea.md
     
   - Investigación:
     - Conceptos Previos: investigacion/01_llm.md
