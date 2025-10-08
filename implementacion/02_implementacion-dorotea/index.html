@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="Haponiuk Kevin Joel" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Implementación en Dorotea - Agente IA orientado a investigación científica</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../css/custom.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Implementaci\u00f3n en Dorotea";
+        var mkdocs_page_input_path = "implementacion/02_implementacion-dorotea.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> Agente IA orientado a investigación científica
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Introducción</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Workflow Final</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../00_workflow-completo/">Explicación Workflow</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../01_implementacion-final/">Implementación</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Implementación en Dorotea</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#requisitos-previos-drivers-de-nvidia-instalados-en-rocky-linux">Requisitos Previos: Drivers de NVIDIA Instalados en Rocky Linux</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#docker-instalado">Docker Instalado</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#paso-1-configurar-los-repositorios-de-nvidia">Paso 1: Configurar los Repositorios de NVIDIA</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#paso-2-instalar-el-nvidia-container-toolkit">Paso 2: Instalar el NVIDIA Container Toolkit</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#paso-3-configurar-docker-para-que-use-el-toolkit">Paso 3: Configurar Docker para que Use el Toolkit</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#paso-4-verificar-la-instalacion">Paso 4: Verificar la Instalación ✅</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#resumen-de-la-evolucion-de-la-arquitectura">Resumen de la evolución de la arquitectura</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#opcion-1-nginx-4-servicios-ideal">Opción 1: NGINX → 4 servicios (ideal)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#opcion-2-solamente-nginx-n8n-transicion">Opción 2: solamente NGINX -&gt; N8N (transición)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#opcion-3-4-puertos-via-ssh-implementada">Opción 3: 4 puertos vía SSH (implementada)</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#principales-diferencias-antes-vs-despues">Principales diferencias ANTES vs DESPUÉS</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#ajustes-de-nginx-para-utilizar-n8n-en-la-raiz">Ajustes de NGINX para utilizar n8n en la raíz (/)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#cambio-de-almacenamiento-limitacion-de-var">Cambio de almacenamiento (limitación de /var)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#networking">Networking</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#persistencia">Persistencia</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#nombreshosts">Nombres/hosts</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#monitoreo-cadvisor-prometheus">Monitoreo: cAdvisor + Prometheus</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#servicio-qdrant-search-flask-qdrant-client-ollama">Servicio qdrant-search (Flask + Qdrant Client + Ollama)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#gpu-y-modelos-ollama">GPU y modelos (Ollama)</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#resultados-de-las-pruebas-funcionales-en-dorotea">Resultados de las pruebas funcionales en Dorotea</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#1-pruebas-de-carga-uso-extremo-de-cpu-profile-cpu">1. Pruebas de carga — Uso extremo de CPU (Profile CPU)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#2-monitoreo-con-grafana-y-cadvisor">2. Monitoreo con Grafana y cAdvisor</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#3-carga-de-datos-creacion-de-la-coleccion-test_dorotea">3. Carga de datos — Creación de la colección TEST_DOROTEA</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#resultado">Resultado:</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#4-visualizacion-de-la-coleccion-en-qdrant">4. Visualización de la colección en Qdrant</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#5-pruebas-de-busqueda-semantica">5. Pruebas de búsqueda semántica</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#consulta-1">🔹 Consulta 1</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#consulta-2">🔹 Consulta 2</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#consulta-3">🔹 Consulta 3</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#consulta-4">🔹 Consulta 4</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#consulta-5">🔹 Consulta 5</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#test-usando-openwebui-preguntas-en-ingles">Test usando OpenwebUI + Preguntas en inglés</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#conclusiones">Conclusiones</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#trabajo-futuro">Trabajo futuro</a>
+    </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Investigación</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../investigacion/01_llm/">Conceptos Previos</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >Metodología de investigación</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../investigacion/02_metod-invest/">Concepto general</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../investigacion/03_estado-arte/">Revisión Bibliográfica</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../investigacion/04_arquitectura/">Tipos de Arquitecturas</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >Software utilizado</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../investigacion/05_opentools/">Resumen Opentools</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../investigacion/06_n8n/">n8n</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../investigacion/07_grobid/">GROBID</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../investigacion/08_nlp-models/">Modelos de lenguaje</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../investigacion/09_mcp/">MCP</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../investigacion/10_a2a/">A2A</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../investigacion/11_interface-options/">Interfaz de usuario</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Pruebas durante el desarrollo</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pruebas/01_install-n8n/">Instalación de n8n / Dependencias necesarias</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pruebas/02_ejemplo-rag-crag/">Ejemplo RAG / CRAG</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pruebas/03_ejemplo-mcp/">Ejemplo MCP</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pruebas/05_install-grobid/">Instalación de GROBID / Ejemplo de uso</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Info Proyecto</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../proyecto/01_metodologia/">Metodología de Trabajo</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../proyecto/02_contribuir/">Como contribuir</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../proyecto/03_about/">Acerca de</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">Agente IA orientado a investigación científica</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Workflow Final</li>
+      <li class="breadcrumb-item active">Implementación en Dorotea</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/danunziata/pps-kevin_haponiuk-2025/edit/master/docs/implementacion/02_implementacion-dorotea.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="prueba-en-dorotea-ajustes-de-arquitectura-y-codigo">Prueba en <strong>Dorotea</strong> — Ajustes de arquitectura y código</h1>
+<blockquote>
+<p><strong>Objetivo.</strong> Salir del entorno local y validar el stack en un servidor remoto de altas prestaciones (Dorotea) sin exponer puertos públicos; mantener acceso seguro vía <strong>SSH</strong> y dejar todo listo para pruebas de carga y funcionales.</p>
+</blockquote>
+<hr />
+<h2 id="requisitos-previos-drivers-de-nvidia-instalados-en-rocky-linux">Requisitos Previos: Drivers de NVIDIA Instalados en Rocky Linux</h2>
+<p>El servidor debe tener los drivers propietarios de NVIDIA funcionando correctamente. Para verificarlo, ejecuta este comando:</p>
+<div class="highlight"><pre><span></span><code>nvidia-smi
+</code></pre></div>
+<p>Si ves una tabla con los detalles de tu GPU, estás listo. Si te da un error, necesitas instalar los drivers primero.</p>
+<h3 id="docker-instalado">Docker Instalado</h3>
+<p>Debes tener una instalación funcional de Docker. Puedes verificarlo con:</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>--version
+</code></pre></div>
+<hr />
+<h3 id="paso-1-configurar-los-repositorios-de-nvidia">Paso 1: Configurar los Repositorios de NVIDIA</h3>
+<p>Rocky Linux no sabe dónde encontrar el toolkit por defecto. Primero, debemos agregar los repositorios oficiales de NVIDIA a nuestro sistema.</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>dnf<span class="w"> </span>config-manager<span class="w"> </span>--add-repo<span class="w"> </span>https://nvidia.github.io/libnvidia-container/stable/rpm/nvidia-container-toolkit.repo
+</code></pre></div>
+<h3 id="paso-2-instalar-el-nvidia-container-toolkit">Paso 2: Instalar el NVIDIA Container Toolkit</h3>
+<p>Ahora que el sistema conoce el repositorio, puedes instalar el paquete usando dnf.</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>nvidia-container-toolkit
+</code></pre></div>
+<h3 id="paso-3-configurar-docker-para-que-use-el-toolkit">Paso 3: Configurar Docker para que Use el Toolkit</h3>
+<p>Una vez instalado, tienes que decirle a Docker que lo utilice como un "runtime" para GPUs. El toolkit incluye una herramienta para hacer esto automáticamente.</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>nvidia-ctk<span class="w"> </span>runtime<span class="w"> </span>configure<span class="w"> </span>--runtime<span class="o">=</span>docker
+</code></pre></div>
+<p>Después de configurar, es crucial reiniciar el servicio de Docker para que aplique los cambios.</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>docker
+</code></pre></div>
+<h3 id="paso-4-verificar-la-instalacion">Paso 4: Verificar la Instalación ✅</h3>
+<p>La mejor forma de confirmar que todo funciona es ejecutar un contenedor de prueba que intente acceder a la GPU. El siguiente comando es el estándar para esta prueba:</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>--gpus<span class="w"> </span>all<span class="w"> </span>nvidia/cuda:12.0.0-base-ubuntu22.04<span class="w"> </span>nvidia-smi
+</code></pre></div>
+<hr />
+<h2 id="resumen-de-la-evolucion-de-la-arquitectura">Resumen de la evolución de la arquitectura</h2>
+<h3 id="opcion-1-nginx-4-servicios-ideal">Opción 1: NGINX → 4 servicios (ideal)</h3>
+<p align="center">
+  <img src="../../images/dorotea_op1.png" width="100%">
+</p>
+
+<p>Un solo puerto expuesto por <strong>NGINX</strong> y, detrás, 4 servicios accesibles por <strong>subpath</strong>:</p>
+<pre><code>- `/` → n8n
+- `/grafana/` → Grafana
+- `/webui/` → OpenWebUI
+- `/qdrant/` → Qdrant
+</code></pre>
+<p>Ventaja: 1 túnel SSH, una única puerta de entrada y URLs limpias.</p>
+<ul>
+<li>
+<p><strong>Problemas encontrados</strong></p>
+</li>
+<li>
+<p><strong>WebSockets/SSE de n8n</strong>: el proxy requería <code>proxy_http_version 1.1</code>, headers <code>Upgrade/Connection</code> y timeouts altos. Sin eso, fallaban eventos del editor y la UI mostraba “Could not connect to server”.</p>
+</li>
+<li>
+<p><strong>Subpath</strong>:</p>
+<ul>
+<li><strong>Grafana</strong> requiere <code>GF_SERVER_ROOT_URL</code> apuntando al subpath y <code>GF_SERVER_SERVE_FROM_SUB_PATH=true</code>. Aun con eso, aparecieron 301/redirects a <code>/grafana</code> y recursos estáticos fuera del path.</li>
+<li><strong>OpenWebUI</strong> sirve assets en rutas absolutas; al forzarlo bajo <code>/webui/</code> faltaban archivos (<code>/static/splash.png</code> 404) y la UI quedaba en blanco salvo el loader.</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h3 id="opcion-2-solamente-nginx-n8n-transicion">Opción 2: solamente NGINX -&gt; N8N (transición)</h3>
+<ul>
+<li>1 puerto → NGINX → <strong>solo n8n</strong> en <code>/</code>.</li>
+</ul>
+<p align="center">
+  <img src="../../images/dorotea_op2.png" width="100%">
+</p>
+
+<h3 id="opcion-3-4-puertos-via-ssh-implementada">Opción 3: 4 puertos vía SSH (implementada)</h3>
+<p align="center">
+  <img src="../../images/dorotea_op3.png" width="100%">
+</p>
+
+<p>Se abren <strong>túneles locales</strong> (sin puertos públicos):</p>
+<div class="highlight"><pre><span></span><code>ssh<span class="w"> </span>-i<span class="w"> </span>~/.ssh/dorotea-kevin<span class="w"> </span>-L<span class="w"> </span><span class="m">51234</span>:localhost:51234<span class="w"> </span>daninziata@200.7.141.59
+ssh<span class="w"> </span>-i<span class="w"> </span>~/.ssh/dorotea-kevin<span class="w"> </span>-L<span class="w"> </span><span class="m">51235</span>:localhost:51235<span class="w"> </span>daninziata@200.7.141.59
+ssh<span class="w"> </span>-i<span class="w"> </span>~/.ssh/dorotea-kevin<span class="w"> </span>-L<span class="w"> </span><span class="m">51236</span>:localhost:51236<span class="w"> </span>daninziata@200.7.141.59
+ssh<span class="w"> </span>-i<span class="w"> </span>~/.ssh/dorotea-kevin<span class="w"> </span>-L<span class="w"> </span><span class="m">51237</span>:localhost:51237<span class="w"> </span>daninziata@200.7.141.59
+</code></pre></div>
+<p>Con esto:</p>
+<ul>
+<li><code>http://localhost:51234</code> → <strong>n8n</strong> (pasa por NGINX)</li>
+<li><code>http://localhost:51235</code> → <strong>Grafana</strong></li>
+<li><code>http://localhost:51236</code> → <strong>OpenWebUI</strong></li>
+<li><code>http://localhost:51237/dashboard#/collections</code> → <strong>Qdrant</strong> (dashboard)</li>
+</ul>
+<hr />
+<h2 id="principales-diferencias-antes-vs-despues">Principales diferencias <strong>ANTES</strong> vs <strong>DESPUÉS</strong></h2>
+<h3 id="ajustes-de-nginx-para-utilizar-n8n-en-la-raiz">Ajustes de NGINX para utilizar n8n en la raíz (<code>/</code>)</h3>
+<p>El proxy quedó ajustado para <strong>WebSockets/SSE</strong> y <strong>conexiones largas</strong>:</p>
+<ul>
+<li><code>proxy_http_version 1.1</code></li>
+<li><code>Upgrade</code> / <code>Connection "upgrade"</code></li>
+<li>timeouts altos (<code>proxy_read_timeout</code>, <code>proxy_send_timeout</code>)</li>
+<li><code>proxy_buffering off</code> para <em>server-sent events</em> (SSE)</li>
+</ul>
+<p>Con estos ajustes, el editor de n8n dejó de mostrar errores de conexión y pudo autenticarse y trabajar con normalidad detrás del proxy.</p>
+<h3 id="cambio-de-almacenamiento-limitacion-de-var">Cambio de almacenamiento (limitación de <code>/var</code>)</h3>
+<p><strong>Contexto.</strong> El servidor tiene:</p>
+<div class="highlight"><pre><span></span><code>/dev/mapper/vg_server-lv_root   79G   49G   30G  62%  /
+/dev/nvme1n1p1                   7T  398G  6.2T   6%  /home
+</code></pre></div>
+<p>El <em>runtime</em> de Docker por defecto escribe en <strong><code>/var/lib/docker</code></strong> (dentro de <code>/</code>), lo que <strong>rápidamente agotaba espacio</strong>, especialmente al descargar <strong>modelos de Ollama</strong> y datos persistentes.</p>
+<p><strong>Acción.</strong> Se reemplazaron <strong>volúmenes nombrados</strong> por <strong>bind mounts</strong> hacia <strong><code>/home</code></strong>:</p>
+<ul>
+<li>Postgres → <code>/home/daninziata/docker_data/postgres</code></li>
+<li>Grafana → <code>/home/daninziata/docker_data/grafana</code></li>
+<li>OpenWebUI → <code>/home/daninziata/docker_data/openwebui</code></li>
+<li>Qdrant → <code>/home/daninziata/docker_data/qdrant</code></li>
+<li>Prometheus → <code>/home/daninziata/docker_data/prometheus</code></li>
+<li><strong>Ollama (modelos)</strong> → <code>/home/daninziata/ollama_data</code></li>
+</ul>
+<p><strong>Resultado.</strong> Todo lo pesado sale de <code>/var</code> y pasa al disco grande de <strong>7 TB</strong>, eliminando errores por falta de espacio.</p>
+<h3 id="networking">Networking</h3>
+<p><strong>Antes:</strong> muchos servicios con <code>ports:</code> publicados hacia el host.</p>
+<p><strong>Después:</strong></p>
+<ul>
+<li><strong>n8n</strong> permanece detrás de <strong>NGINX</strong> (publicado en <code>51234</code>).</li>
+<li><strong>Grafana</strong>, <strong>OpenWebUI</strong> y <strong>Qdrant</strong> se publican en <strong>puertos altos</strong> (51235/51236/51237) sólo para <strong>túneles SSH</strong>.</li>
+<li>Servicios internos (Postgres, Prometheus, cAdvisor, etc.) usan <strong><code>expose</code></strong> dentro de la red <code>demo</code> y no se publican al host.</li>
+</ul>
+<h3 id="persistencia">Persistencia</h3>
+<ul>
+<li><strong>Antes:</strong> volúmenes <strong>nombrados</strong> (<code>grafana_data</code>, <code>prometheus_data</code>, etc.).</li>
+<li><strong>Después:</strong> <strong>bind mounts</strong> a rutas en <code>/home/daninziata/...</code> para cada servicio, y <strong><code>/home/daninziata/ollama_data</code></strong> para los modelos.</li>
+</ul>
+<h3 id="nombreshosts">Nombres/hosts</h3>
+<ul>
+<li><strong>Antes:</strong> contenedores cortos (<code>ollama</code>, <code>qdrant</code>).</li>
+<li><strong>Después:</strong> sufijo <code>-k</code> para distinguir el despliegue remoto (ej. <code>ollama-k</code>, <code>qdrant-k</code>, <code>nginx-proxy-k</code>, etc.). Las apps que dependen por URL se actualizaron (ej. <code>OLLAMA_HOST=ollama-k:11434</code>).</li>
+</ul>
+<hr />
+<h3 id="monitoreo-cadvisor-prometheus">Monitoreo: cAdvisor + Prometheus</h3>
+<ul>
+<li><strong>Síntoma inicial en Prometheus:</strong>
+  <code>connect: connection refused</code> al intentar scrapear <code>cadvisor-k:8081/metrics</code>.</li>
+</ul>
+<p><strong>Causa:</strong> El contenedor cAdvisor <strong>escucha en 8080</strong>, pero el <em>job</em> de Prometheus apuntaba a <strong>8081</strong>.</p>
+<p><strong>Arreglo aplicado:</strong></p>
+<ul>
+<li>En Compose: <code>cadvisor</code> con <code>expose: "8080"</code>.</li>
+<li>En Prometheus: job <code>cadvisor</code> → <code>targets: ['cadvisor-k:8080']</code>.</li>
+</ul>
+<hr />
+<h3 id="servicio-qdrant-search-flask-qdrant-client-ollama">Servicio <strong>qdrant-search</strong> (Flask + Qdrant Client + Ollama)</h3>
+<p><strong>Parámetros por variables de entorno</strong> (en Compose):</p>
+<ul>
+<li><code>OLLAMA_URL=http://ollama-k:11434</code></li>
+<li><code>QDRANT_URL=http://qdrant-k:6333</code></li>
+<li><code>COLLECTION_NAME=TEST_DOROTEA</code></li>
+</ul>
+<blockquote>
+<p><strong>Importante:</strong> Si se cambia el nombre de <strong>colección</strong>, hay que <strong>reconstruir</strong> la imagen para propagar variables al contenedor:</p>
+<div class="highlight"><pre><span></span><code><span class="w">  </span>docker<span class="w"> </span>compose<span class="w"> </span>build<span class="w"> </span>--no-cache<span class="w"> </span>qdrant-search
+<span class="w">  </span>docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> </span>-d<span class="w"> </span>qdrant-search
+<span class="w">  </span>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>qdrant-search-k<span class="w"> </span>sh
+<span class="w">  </span>cat<span class="w"> </span>/app/client_qdrant_flask_docker.py<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>collection_name
+</code></pre></div>
+</blockquote>
+<p>El microservicio devolvía <code>Not found: Collection 'prueba_CRAG3' doesn’t exist!</code> aun cuando <code>COLLECTION_NAME=TEST_DOROTEA</code>. <strong>Causa</strong>: el contenedor estaba corriendo con <strong>capa antigua</strong> (variables de una build previa). <strong>Solución</strong>: <strong>rebuild</strong> del servicio. Tras eso, las consultas desde n8n y desde la red Docker funcionaron.</p>
+<h3 id="gpu-y-modelos-ollama">GPU y modelos (Ollama)</h3>
+<ul>
+<li><strong>Verificación</strong> de uso de GPU con <code>nvidia-smi</code>: durante generación se observó <code>GPU-Util 100%</code> en la <strong>A30</strong> y consumo de <strong>VRAM</strong> acorde a los modelos cargados. Sin embargo, solo en una de las 2 placas. también se observó que </li>
+</ul>
+<p align="center">
+  <img src="../../images/dorotea_nvidiauso.png" width="100%">
+</p>
+
+<p>Logs de Ollama mostraron <code>loaded CUDA backend</code>, “VRAM available/required” y selección de <strong>GPULayers</strong>, confirmando aceleración CUDA.
+<strong>Mensaje “truncating input prompt (limit=4096)”</strong>: es el <strong>límite de contexto</strong> del modelo en <strong>tokens</strong>. Si el <em>prompt</em> (incluida la conversación previa) lo supera, Ollama lo recorta. Mitigación: prompts más breves o modelos con mayor contexto (cuando estén disponibles).</p>
+<h2 id="resultados-de-las-pruebas-funcionales-en-dorotea">Resultados de las pruebas funcionales en Dorotea</h2>
+<blockquote>
+<p><strong>Objetivo:</strong> Validar el funcionamiento integral del stack con aceleración GPU, recolección de métricas en Grafana y generación de embeddings mediante Ollama y Qdrant, utilizando la colección <code>TEST_DOROTEA</code> como caso de prueba.</p>
+</blockquote>
+<hr />
+<h3 id="1-pruebas-de-carga-uso-extremo-de-cpu-profile-cpu">1. Pruebas de carga — Uso extremo de CPU (Profile CPU)</h3>
+<p>Durante la primera etapa de las pruebas se intentó ejecutar un perfil intensivo del modelo (<code>Profile CPU</code>), pero el proceso <strong>saturó completamente los núcleos</strong> de la máquina, llevando el uso de CPU al 100% en todos los hilos.</p>
+<p>El proceso fue ejecutado desde Ollama (<code>/usr/bin/ollama runner</code>) con múltiples hilos en paralelo, observándose que cada uno ejecutaba la carga de modelo en puertos independientes (<code>--port 33137</code>).</p>
+<blockquote>
+<p>Este test quedó en ejecución continua sin completar, por lo que se detuvo manualmente para evitar degradar el rendimiento del resto de los contenedores.</p>
+</blockquote>
+<p align="center">
+  <img src="../../images/dorotea_cpu100.png" width="100%">
+</p>
+
+<hr />
+<h3 id="2-monitoreo-con-grafana-y-cadvisor">2. Monitoreo con Grafana y cAdvisor</h3>
+<p>Durante la ejecución se dejó <strong>Grafana activo</strong> con los dashboards de Prometheus y cAdvisor recolectando métricas en tiempo real de todos los contenedores.</p>
+<p>El monitoreo permitió observar:</p>
+<ul>
+<li>Número de contenedores activos: <strong>13</strong></li>
+<li>Procesos más demandantes de CPU:</li>
+<li><code>grobid-k</code> (36.6%)</li>
+<li><code>cadvisor-k</code> (10.9%)</li>
+<li><code>pgadmin-k</code>, <code>n8n-k</code>, <code>prometheus-k</code> en menor proporción</li>
+<li>Consumo de memoria: promedio general bajo, sin indicios de <em>swapping</em> ni saturación.</li>
+</ul>
+<blockquote>
+<p>Estos datos validan que el entorno completo puede ejecutarse de manera estable durante largos periodos, incluso con procesos intensivos como el parsing de papers o la generación de embeddings.</p>
+</blockquote>
+<p align="center">
+  <img src="../../images/dorotea_grafana.png" width="100%">
+</p>
+
+<hr />
+<h3 id="3-carga-de-datos-creacion-de-la-coleccion-test_dorotea">3. Carga de datos — Creación de la colección <code>TEST_DOROTEA</code></h3>
+<p>Tras estabilizar el entorno, se procedió a realizar una carga de <strong>10 papers científicos</strong> en formato JSON procesados por el pipeline Grobid → Ollama → Qdrant.</p>
+<p><strong>Duración total del proceso:</strong> aproximadamente <strong>2 horas</strong>.</p>
+<p>Esto sugiere que el cuello de botella podría encontrarse en:</p>
+<ul>
+<li><strong>Procesamiento de embeddings</strong> dentro de Ollama (<code>nomic-embed-text</code>).</li>
+<li><strong>Paralelización limitada</strong> o falta de optimización en la inserción de datos en Qdrant.</li>
+</ul>
+<blockquote>
+<p>Se recomienda analizar en profundidad la arquitectura de Ollama (modelos, batch size, número de workers) para reducir los tiempos de carga en pruebas futuras.</p>
+</blockquote>
+<h4 id="resultado">Resultado:</h4>
+<p>La colección <code>TEST_DOROTEA</code> se creó correctamente, con estado <strong>green</strong> y <strong>554 puntos vectoriales</strong> distribuidos en <strong>8 segmentos</strong>.</p>
+<p align="center">
+  <img src="../../images/dorotea_collection.png" width="100%">
+</p>
+
+<hr />
+<h3 id="4-visualizacion-de-la-coleccion-en-qdrant">4. Visualización de la colección en Qdrant</h3>
+<p>La exploración de la colección en la interfaz de Qdrant mostró una <strong>distribución coherente</strong> de los embeddings en el espacio vectorial, confirmando que los puntos fueron generados correctamente y los metadatos (contenido, fuente, etc.) se mantienen accesibles.</p>
+<p align="center">
+  <img src="../../images/dorotea_collection_nube.png" width="100%">
+</p>
+
+<hr />
+<h3 id="5-pruebas-de-busqueda-semantica">5. Pruebas de búsqueda semántica</h3>
+<p>Una vez creada la colección, se probaron distintas consultas al agente a través de <code>qdrant-search-k</code>, verificando que las respuestas generadas correspondían a la semántica de las preguntas y retornaban papers relevantes.</p>
+<h4 id="consulta-1">🔹 <strong>Consulta 1</strong></h4>
+<p align="center">
+  <img src="../../images/dorotea_consulta1.png" width="100%">
+</p>
+
+<p><strong>Pregunta:</strong> ¿Qué trabajos hablan sobre Kubernetes o autoscaling en contenedores?</p>
+<p><strong>Respuesta del agente:</strong></p>
+<blockquote>
+<p>No specific information was found in the texts to answer the question regarding the types of jobs (trabajos) related to Kubernetes or autoscaling in containers.  </p>
+<p><strong>Recommended Papers:</strong></p>
+<ul>
+<li>Adaptive AI-based auto-scaling for Kubernetes  </li>
+<li>Predictive Hybrid Autoscaling for Containerized Applications  </li>
+<li>Time series forecasting-based Kubernetes autoscaling using Facebook Prophet and Long Short-Term Memory</li>
+</ul>
+</blockquote>
+<hr />
+<h4 id="consulta-2">🔹 <strong>Consulta 2</strong></h4>
+<p align="center">
+  <img src="../../images/dorotea_consulta2.png" width="100%">
+</p>
+
+<p><strong>Pregunta:</strong> Dame referencias sobre los papers que mencionan MLOps o pipelines de machine learning.</p>
+<p><strong>Respuesta del agente:</strong></p>
+<blockquote>
+<p>Here are the references to papers that mention MLOps or pipelines in machine learning:  </p>
+<ul>
+<li>"MLOps: A Taxonomy and a Methodology"  </li>
+<li>"Towards MLOps: A Case Study of ML Pipeline Platform"  </li>
+<li>"MLOps: A Taxonomy and a Methodology"  </li>
+<li>"MLOps: A Taxonomy and a Methodology"  </li>
+<li>"MLOps: A Taxonomy and a Methodology"  </li>
+</ul>
+<p>These papers provide an overview of the MLOps methodology, its importance, and its application in industrial environments. They also discuss various aspects of MLOps, including pipelines, DevOps principles, and benchmarking tools.  </p>
+<p>The papers also mention other relevant topics such as:  </p>
+<ul>
+<li>Machine Learning Operations (MLOps)  </li>
+<li>ML pipeline platforms  </li>
+<li>CI/CD routines  </li>
+<li>Automated ML triggering  </li>
+<li>Model registry storage  </li>
+<li>Monitoring and performance  </li>
+</ul>
+<p>You can find more information about these papers by accessing the references provided in the database results.  </p>
+<p><strong>Recommended Papers:</strong>  </p>
+<ul>
+<li>MLOps: A Taxonomy and a Methodology  </li>
+<li>Towards MLOps: A Case Study of ML Pipeline Platform</li>
+</ul>
+</blockquote>
+<hr />
+<h4 id="consulta-3">🔹 <strong>Consulta 3</strong></h4>
+<p align="center">
+  <img src="../../images/dorotea_consulta3.png" width="100%">
+</p>
+
+<p><strong>Pregunta:</strong> ¿Qué papers analizan la eficiencia energética o el consumo de energía en la nube?</p>
+<p><strong>Respuesta del agente:</strong></p>
+<blockquote>
+<p>"Energy efficiency is always a major concern in cloud computing and when it comes to the application level many recommendations have been made to optimise energy usage at the system level."  </p>
+<p>"No specific information was found in the texts to answer the question about papers that analyze the efficiency of energy consumption or energy consumption in the nube, specifically about papers with titles that include "Energy efficiency in cloud computing data centers" and "Energy efficiency" or mention "energy consumption"."  </p>
+<p><strong>Recommended Papers:</strong>  </p>
+<ul>
+<li>Energy efficiency in cloud computing data centers: a survey on software technologies  </li>
+<li>Machine Learning-based Orchestration of Containers: A Taxonomy and Future Directions</li>
+</ul>
+</blockquote>
+<hr />
+<h4 id="consulta-4">🔹 <strong>Consulta 4</strong></h4>
+<p align="center">
+  <img src="../../images/dorotea_consulta4.png" width="100%">
+</p>
+
+<p><strong>Pregunta:</strong> ¿Cuáles de los papers hacen una revisión o resumen del estado del arte sobre tecnologías de contenedores?</p>
+<p><strong>Respuesta del agente:</strong></p>
+<blockquote>
+<p>No specific information was found in the texts to answer the question about papers that analyze the efficiency of energy consumption or energy consumption in the nube.  </p>
+<p><strong>Recommended Papers:</strong>  </p>
+<ul>
+<li>Container Technologies for ARM Architecture: A Comprehensive Survey of the State-of-the-Art  </li>
+<li>A novel energy-aware resource management technique using joint VM and container consolidation approach for green computing in cloud data centers</li>
+</ul>
+</blockquote>
+<hr />
+<h4 id="consulta-5">🔹 <strong>Consulta 5</strong></h4>
+<p align="center">
+  <img src="../../images/dorotea_consulta5.png" width="100%">
+</p>
+
+<p><strong>Pregunta:</strong> ¿Qué trabajos proponen nuevos algoritmos o métodos para mejorar la elasticidad o el escalado en la nube?</p>
+<p><strong>Respuesta del agente:</strong></p>
+<blockquote>
+<p>"No specific information was found in the texts to answer the question about new algorithms or methods for improving elasticity or scaling in the cloud."  </p>
+<p><strong>Recommended Papers:</strong>  </p>
+<ul>
+<li>A New Infrastructure Elasticity Control Algorithm for Containerized Cloud  </li>
+<li>Adaptive AI-based auto-scaling for Kubernetes  </li>
+<li>Time series forecasting-based Kubernetes autoscaling using Facebook Prophet and Long Short-Term Memory</li>
+</ul>
+</blockquote>
+<h2 id="test-usando-openwebui-preguntas-en-ingles">Test usando OpenwebUI + Preguntas en inglés</h2>
+<p>Una vez dentro de OpenwebUI, el primer paso es configurar el Pipe que se utilizará. Para ello, sigue los pasos explicados en el archivo <a href="../01_implementacion-final/"><code>01_implementacion-final.md</code></a>. La única diferencia en este caso fue el código empleado para configurar el Pipe, que se encuentra en [<code>DOCUMENTACION/pps-kevin_haponiuk-2025/src/self-hosted-ai-starter-kit/n8n-pipeline-function-dorotea.py</code>].</p>
+<p align="center">
+  <img src="../../images/dorotea-webui1.png" width="100%">
+</p>
+
+<p>Las preguntas realizadas fueron las mismas que en pruebas anteriores, pero esta vez en inglés.</p>
+<p><strong>Which papers discuss Kubernetes or autoscaling in containers?</strong></p>
+<p align="center">
+  <img src="../../images/dorotea-webui-answer1.png" width="100%">
+</p>
+
+<p><strong>Provide references to papers that mention MLOps or machine learning pipelines.</strong></p>
+<p align="center">
+  <img src="../../images/dorotea-webui-answer2-1.png" width="100%">
+</p>
+
+<p>En este caso, se realizó la misma pregunta por segunda vez, ya que la primera respuesta fue algo imprecisa. Esto permitió observar cómo se comporta el sistema al repetir una consulta.</p>
+<p align="center">
+  <img src="../../images/dorotea-webui-answer2.png" width="100%">
+</p>
+
+<p><strong>Which papers analyze energy efficiency or energy consumption in the cloud?</strong></p>
+<p align="center">
+  <img src="../../images/dorotea-webui-answer3.png" width="100%">
+</p>
+
+<p><strong>Which papers provide a review or state-of-the-art summary on container technologies?</strong></p>
+<p align="center">
+  <img src="../../images/dorotea-webui-answer4.png" width="100%">
+</p>
+
+<p><strong>Which papers propose new algorithms or methods to improve elasticity or scaling in the cloud?</strong></p>
+<p align="center">
+  <img src="../../images/dorotea-webui-answer5.png" width="100%">
+</p>
+
+<p>Es importante destacar que las respuestas del agente mejoraron significativamente al realizar las preguntas en inglés. Esto se debe a que el modelo de Ollama está entrenado principalmente en inglés, lo que optimiza la calidad y precisión de las respuestas.</p>
+<h2 id="conclusiones">Conclusiones</h2>
+<ol>
+<li>
+<p><strong>El pipeline completo operó de manera estable</strong>, abarcando desde la extracción y análisis de los papers hasta la indexación vectorial y la consulta semántica.</p>
+</li>
+<li>
+<p><strong>El rendimiento general fue satisfactorio</strong>, aunque la carga inicial de datos resultó <strong>lenta (≈2 horas para 10 documentos)</strong>, indicando posibles cuellos de botella en el procesamiento de embeddings o la inserción en Qdrant.</p>
+</li>
+<li>
+<p><strong>Las respuestas del agente fueron semánticamente relevantes</strong>, con sugerencias precisas y papers correctamente asociados, validando el correcto funcionamiento de los embeddings y la búsqueda vectorial en Qdrant. Además, se observó que el agente mejora significativamente sus respuestas cuando las preguntas se formulan en inglés, debido a que el modelo de Ollama está entrenado principalmente en este idioma. Esto optimiza la calidad y precisión de las respuestas, haciendo que las consultas sean más efectivas.</p>
+</li>
+<li>
+<p>Se recomienda explorar optimizaciones en:</p>
+<ul>
+<li><strong>Uso de GPU en Ollama</strong>: mejorar la paralelización durante la generación de embeddings.</li>
+<li><strong>Segmentación del proceso de carga</strong>: dividir tareas para reducir tiempos.</li>
+<li><strong>Modelos alternativos</strong>: evaluar arquitecturas más eficientes para embeddings masivos.</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p>La infraestructura desplegada en Dorotea demostró ser robusta, con capacidad de procesamiento adecuada y un rendimiento aceptable para pruebas de investigación y desarrollo, así como para futuras escalas.</p>
+</blockquote>
+<hr />
+<h2 id="trabajo-futuro">Trabajo futuro</h2>
+<ol>
+<li>
+<p><strong>Migrar a la Opción 1</strong>: Consolidar los servicios detrás de un único puerto y 4 subpaths en NGINX para simplificar el acceso y mejorar la organización.</p>
+</li>
+<li>
+<p><strong>Fortalecer la seguridad</strong>:</p>
+<ul>
+<li>Implementar autenticación en NGINX o integrar un sistema de inicio de sesión único (SSO).</li>
+<li>Configurar <strong>TLS end-to-end</strong> si se planea exponer los servicios más allá del túnel SSH (actualmente suficiente para pruebas internas).</li>
+</ul>
+</li>
+<li>
+<p><strong>Optimizar el pipeline</strong>:</p>
+<ul>
+<li>Analizar el uso de GPU en Ollama para maximizar la eficiencia.</li>
+<li>Evaluar herramientas o técnicas para acelerar la carga de datos en Qdrant.</li>
+<li>Considerar modelos con mayor capacidad de contexto para mejorar las respuestas semánticas.</li>
+</ul>
+</li>
+<li>
+<p><strong>Monitoreo avanzado</strong>:</p>
+<ul>
+<li>Ampliar los dashboards en Grafana para incluir métricas específicas de GPU y rendimiento de embeddings.</li>
+<li>Automatizar alertas para detectar posibles cuellos de botella o fallos en tiempo real.</li>
+</ul>
+</li>
+</ol>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../01_implementacion-final/" class="btn btn-neutral float-left" title="Implementación"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../../investigacion/01_llm/" class="btn btn-neutral float-right" title="Conceptos Previos">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p><img src="https://raw.githubusercontent.com/danunziata/pps-kevin_haponiuk-2025/main/docs/images/escudo_unrc.png" alt="Logo UNRC" style="height: 30px; vertical-align: middle; margin-right: 10px;">
+<img src="https://raw.githubusercontent.com/danunziata/pps-kevin_haponiuk-2025/main/docs/images/escudo_ing.png" alt="Logo ING" style="height: 30px; vertical-align: middle; margin-right: 10px;">
+&copy; 2025 <a href="https://www.ing.unrc.edu.ar/inicio.php" target="_blank" rel="noopener">Universidad Nacional de Río Cuarto | Facultad de Ingeniería</a>
+</p>
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/danunziata/pps-kevin_haponiuk-2025" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../01_implementacion-final/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../../investigacion/01_llm/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../js/custom.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="Haponiuk Kevin Joel" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Instalación de n8n / Dependencias necesarias - Agente IA orientado a investigación científica</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../css/custom.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Instalaci\u00f3n de n8n / Dependencias necesarias";
+        var mkdocs_page_input_path = "pruebas/01_install-n8n.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> Agente IA orientado a investigación científica
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Introducción</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Workflow Final</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../implementacion/00_workflow-completo/">Explicación Workflow</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../implementacion/01_implementacion-final/">Implementación</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../implementacion/02_implementacion-dorotea/">Implementación en Dorotea</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Investigación</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../investigacion/01_llm/">Conceptos Previos</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >Metodología de investigación</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../investigacion/02_metod-invest/">Concepto general</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../investigacion/03_estado-arte/">Revisión Bibliográfica</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../investigacion/04_arquitectura/">Tipos de Arquitecturas</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >Software utilizado</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../investigacion/05_opentools/">Resumen Opentools</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../investigacion/06_n8n/">n8n</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../investigacion/07_grobid/">GROBID</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../investigacion/08_nlp-models/">Modelos de lenguaje</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../investigacion/09_mcp/">MCP</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../investigacion/10_a2a/">A2A</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../investigacion/11_interface-options/">Interfaz de usuario</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Pruebas durante el desarrollo</span></p>
+              <ul class="current">
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Instalación de n8n / Dependencias necesarias</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#que-es-el-self-hosted-ai-starter-kit">¿Qué es el Self-hosted AI Starter Kit?</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#pasos-de-instalacion">Pasos de instalación</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#1-clonar-el-repositorio">1. Clonar el repositorio</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#2-ejecutar-con-docker-compose">2. Ejecutar con Docker Compose</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#a-usuarios-con-gpu-nvidia">a) Usuarios con GPU Nvidia</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#b-usuarios-con-gpu-amd-linux">b) Usuarios con GPU AMD (Linux)</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#c-usuarios-de-mac-apple-silicon">c) Usuarios de Mac / Apple Silicon</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#d-para-todos-los-demas-cpu">d) Para todos los demás (CPU)</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#3-visualizacion-mediante-docker-desktop">3. Visualización mediante docker desktop</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#instalaciones-dependencias-necesarias">Instalaciones / Dependencias necesarias</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#instalacion-de-modelos-en-ollama">Instalación de modelos en Ollama</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#credenciales-de-google">Credenciales de Google</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#referencias">Referencias</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../02_ejemplo-rag-crag/">Ejemplo RAG / CRAG</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../03_ejemplo-mcp/">Ejemplo MCP</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../05_install-grobid/">Instalación de GROBID / Ejemplo de uso</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Info Proyecto</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../proyecto/01_metodologia/">Metodología de Trabajo</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../proyecto/02_contribuir/">Como contribuir</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../proyecto/03_about/">Acerca de</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">Agente IA orientado a investigación científica</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Pruebas durante el desarrollo</li>
+      <li class="breadcrumb-item active">Instalación de n8n / Dependencias necesarias</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/danunziata/pps-kevin_haponiuk-2025/edit/master/docs/pruebas/01_install-n8n.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="instalacion-de-n8n-con-self-hosted-ai-starter-kit">Instalación de n8n con Self-hosted AI Starter Kit</h1>
+<p align="center">
+  <img src="../../images/self-hosted.gif" width="100%">
+  <br>
+  <em>Figura 1: Self-hosted AI Starter Kit</em>
+</p>
+
+<p>Para instalar <strong>n8n</strong> en un entorno local, utilizaremos el <strong>Self-hosted AI Starter Kit</strong>, una plantilla open-source basada en Docker Compose que permite desplegar rápidamente un entorno completo de desarrollo low-code e inteligencia artificial.</p>
+<h2 id="que-es-el-self-hosted-ai-starter-kit">¿Qué es el Self-hosted AI Starter Kit?</h2>
+<p>El Self-hosted AI Starter Kit es un conjunto de herramientas preconfiguradas que facilita la instalación y puesta en marcha de n8n junto a otros servicios útiles para proyectos de automatización e IA. Incluye:</p>
+<ul>
+<li><strong>n8n</strong>: Plataforma low-code con más de 400 integraciones y componentes avanzados de IA.</li>
+<li><strong>Ollama</strong>: Plataforma para ejecutar modelos de lenguaje (LLM) localmente.</li>
+<li><strong>Qdrant</strong>: Vector store de alto rendimiento, ideal para búsquedas semánticas y almacenamiento de embeddings.</li>
+<li><strong>PostgreSQL</strong>: Base de datos robusta y ampliamente utilizada en ingeniería de datos.</li>
+</ul>
+<hr />
+<h2 id="pasos-de-instalacion">Pasos de instalación</h2>
+<h3 id="1-clonar-el-repositorio">1. Clonar el repositorio</h3>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/n8n-io/self-hosted-ai-starter-kit.git
+<span class="nb">cd</span><span class="w"> </span>self-hosted-ai-starter-kit
+</code></pre></div>
+<h3 id="2-ejecutar-con-docker-compose">2. Ejecutar con Docker Compose</h3>
+<p>Dependiendo de tu hardware, elige la opción adecuada:</p>
+<h4 id="a-usuarios-con-gpu-nvidia">a) Usuarios con GPU Nvidia</h4>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>--profile<span class="w"> </span>gpu-nvidia<span class="w"> </span>up
+</code></pre></div>
+<h4 id="b-usuarios-con-gpu-amd-linux">b) Usuarios con GPU AMD (Linux)</h4>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>--profile<span class="w"> </span>gpu-amd<span class="w"> </span>up
+</code></pre></div>
+<h4 id="c-usuarios-de-mac-apple-silicon">c) Usuarios de Mac / Apple Silicon</h4>
+<blockquote>
+<p><strong>Nota:</strong> En Mac con procesadores M1 o superiores, no es posible exponer la GPU a Docker. Hay dos alternativas:
+- Ejecutar todo el entorno en CPU (ver siguiente sección).
+- Instalar Ollama directamente en tu Mac para inferencia más rápida y conectar n8n a ese servicio.</p>
+</blockquote>
+<p>Para instalar Ollama en Mac, consulta la <a href="https://ollama.com/">página oficial de Ollama</a>.</p>
+<p>Para levantar el entorno en CPU:</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>up
+</code></pre></div>
+<h4 id="d-para-todos-los-demas-cpu">d) Para todos los demás (CPU)</h4>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>--profile<span class="w"> </span>cpu<span class="w"> </span>up
+</code></pre></div>
+<h3 id="3-visualizacion-mediante-docker-desktop">3. Visualización mediante docker desktop</h3>
+<p>Se utilizará docker desktop para la visualización y ejecución del entorno.</p>
+<p align="center">
+  <img src="../../images/docker-desktop.png" width="100%">
+  <br>
+  <em>Figura 2: Visualización de docker desktop</em>
+</p>
+
+<p>donde podremos observar los contenedores que se están ejecutando.</p>
+<p align="center">
+  <img src="../../images/docker-containers.png" width="100%">
+  <br>
+  <em>Figura 3: Visualización de contenedores</em>
+</p>
+
+<p>Una vez que los contenedores estén en ejecución, podrás acceder a la interfaz web de n8n a través de tu navegador utilizando la siguiente URL:</p>
+<p><a href="http://localhost:5678">http://localhost:5678</a></p>
+<blockquote>
+<p><strong>Nota</strong>: Asegúrate de que el puerto 5678 no esté siendo utilizado por otra aplicación en tu sistema.</p>
+</blockquote>
+<p>Una vez que inicies sesión, podrás acceder a la interfaz principal de n8n. En la imagen se muestra un ejemplo de un flujo de trabajo configurado. Si has llegado a este punto y puedes ver la interfaz, significa que n8n está correctamente instalado y listo para comenzar a crear tus propios flujos de trabajo.</p>
+<p align="center">
+  <img src="../../images/n8n-interface.png" width="100%">
+  <br>
+  <em>Figura 4: Interfaz de n8n</em>
+</p>
+
+<h2 id="instalaciones-dependencias-necesarias">Instalaciones / Dependencias necesarias</h2>
+<h3 id="instalacion-de-modelos-en-ollama">Instalación de modelos en Ollama</h3>
+<p>Primero, es necesario instalar las dependencias necesarias para poder ejecutar los ejemplos.</p>
+<p>vamos a usar en ollama un modelo de embeddings que se llama <code>nomic-embed-text</code> y un modelo de lenguaje que se llama <code>llama3.1:8b</code>. para instalarlos, debemos buscarlos en la página de ollama.</p>
+<ul>
+<li><a href="https://ollama.com/library/nomic-embed-text">Repositorio de nomic-embed-text</a></li>
+</ul>
+<p>de esta página, podemos seleccionar la versión que queramos instalar.</p>
+<div class="highlight"><pre><span></span><code>ollama<span class="w"> </span>pull<span class="w"> </span>nomic-embed-text
+</code></pre></div>
+<p>con este comando vamos a ir al docker desktop y vamos a pegarlo en esta sección "Exec".</p>
+<p align="center">
+  <img src="../../images/ollama-nomic.png" width="100%">
+  <br>
+  <em>Figura 5: Instalación de nomic-embed-text</em>
+</p>
+
+<p>de manera similar, podemos instalar el modelo de lenguaje <code>llama3.1:8b</code></p>
+<ul>
+<li><a href="https://ollama.com/library/llama3.1:8b">Repositorio de llama3.1:8b</a></li>
+</ul>
+<div class="highlight"><pre><span></span><code>ollama<span class="w"> </span>pull<span class="w"> </span>llama3.1:8b
+</code></pre></div>
+<h3 id="credenciales-de-google">Credenciales de Google</h3>
+<p>Para vincular servicios de Google con n8n, necesitamos seguir estos pasos:</p>
+<ol>
+<li>
+<p>Primero, necesitamos crear un proyecto en Google Cloud Console y habilitar las APIs que queremos usar:</p>
+<ul>
+<li>Ve a <a href="https://console.cloud.google.com/">Google Cloud Console</a></li>
+<li>Crea un nuevo proyecto o selecciona uno existente</li>
+<li>En el menú lateral, ve a "APIs y servicios" &gt; "Biblioteca"</li>
+<li>Busca y habilita las APIs que necesites (por ejemplo, "Google Drive API", "Google Docs API")</li>
+</ul>
+</li>
+<li>
+<p>Crear credenciales OAuth 2.0:</p>
+<ul>
+<li>En el menú lateral, ve a "APIs y servicios" &gt; "Credenciales"</li>
+<li>Haz clic en "Crear credenciales" &gt; "ID de cliente de OAuth"</li>
+<li>Selecciona "Aplicación web" como tipo de aplicación</li>
+<li>Agrega los URIs de redirección autorizados:<ul>
+<li><code>http://localhost:5678/rest/oauth2-credential/callback</code></li>
+</ul>
+</li>
+<li>Guarda el ID de cliente y el secreto del cliente</li>
+</ul>
+</li>
+<li>
+<p>En n8n:</p>
+<p>Para configurar las credenciales de Google, simplemente abre el nodo que necesitas conectar (por ejemplo, si es Google Drive, arrastra el nodo "Google Drive" a tu flujo de trabajo). Luego, haz clic en el nodo y ve a la pestaña "Credenciales". Aquí verás los campos que necesitas completar:</p>
+<ul>
+<li>OAuth Redirect URL: <code>http://localhost:5678/rest/oauth2-credential/callback</code></li>
+<li>Client ID: El ID de cliente que obtuviste de Google Cloud Console</li>
+<li>Client Secret: El secreto del cliente que obtuviste de Google Cloud Console</li>
+</ul>
+<p>Una vez que ingreses estos datos, n8n manejará automáticamente la configuración OAuth2 necesaria para la autenticación.</p>
+</li>
+<li>
+<p>Una vez configuradas las credenciales, podrás usarlas en tus flujos de trabajo de n8n para interactuar con los servicios de Google.</p>
+</li>
+</ol>
+<p align="center">
+  <img src="../../images/credenciales-google.png" width="100%">
+  <br>
+  <em>Figura 6: Credenciales de Google</em>
+</p>
+
+<blockquote>
+<p><strong>Nota</strong>: Asegúrate de mantener seguras tus credenciales y no compartirlas públicamente. También es importante configurar correctamente los URIs de redirección para que la autenticación funcione correctamente.</p>
+</blockquote>
+<h2 id="referencias">Referencias</h2>
+<ul>
+<li>
+<p><a href="https://github.com/n8n-io/self-hosted-ai-starter-kit">Repositorio oficial de Self-hosted AI Starter Kit</a></p>
+</li>
+<li>
+<p><a href="https://ollama.com/">Repositorio oficial de Ollama</a></p>
+</li>
+<li>
+<p><a href="https://ollama.com/library/nomic-embed-text">Repositorio de nomic-embed-text</a></p>
+</li>
+<li>
+<p><a href="https://ollama.com/library/llama3.1:8b">Repositorio de llama3.1:8b</a></p>
+</li>
+</ul>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../../investigacion/11_interface-options/" class="btn btn-neutral float-left" title="Interfaz de usuario"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../02_ejemplo-rag-crag/" class="btn btn-neutral float-right" title="Ejemplo RAG / CRAG">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p><img src="https://raw.githubusercontent.com/danunziata/pps-kevin_haponiuk-2025/main/docs/images/escudo_unrc.png" alt="Logo UNRC" style="height: 30px; vertical-align: middle; margin-right: 10px;">
+<img src="https://raw.githubusercontent.com/danunziata/pps-kevin_haponiuk-2025/main/docs/images/escudo_ing.png" alt="Logo ING" style="height: 30px; vertical-align: middle; margin-right: 10px;">
+&copy; 2025 <a href="https://www.ing.unrc.edu.ar/inicio.php" target="_blank" rel="noopener">Universidad Nacional de Río Cuarto | Facultad de Ingeniería</a>
+</p>
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/danunziata/pps-kevin_haponiuk-2025" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../../investigacion/11_interface-options/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../02_ejemplo-rag-crag/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../js/custom.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="Haponiuk Kevin Joel" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Modelos de lenguaje - Agente IA orientado a investigación científica</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../css/custom.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Modelos de lenguaje";
+        var mkdocs_page_input_path = "investigacion/08_nlp-models.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> Agente IA orientado a investigación científica
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Introducción</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Workflow Final</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../implementacion/00_workflow-completo/">Explicación Workflow</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../implementacion/01_implementacion-final/">Implementación</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../implementacion/02_implementacion-dorotea/">Implementación en Dorotea</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Investigación</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../01_llm/">Conceptos Previos</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >Metodología de investigación</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../02_metod-invest/">Concepto general</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../03_estado-arte/">Revisión Bibliográfica</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../04_arquitectura/">Tipos de Arquitecturas</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >Software utilizado</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../05_opentools/">Resumen Opentools</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../06_n8n/">n8n</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../07_grobid/">GROBID</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Modelos de lenguaje</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#tecnicas-de-nlp-para-revision-automatizada-de-literatura">Técnicas de NLP para Revisión Automatizada de Literatura</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#comparativa-de-rendimiento">Comparativa de Rendimiento</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#primero-por-que-usar-una-arquitectura-local">Primero, ¿Por qué usar una arquitectura local?</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#segundo-que-modelo-local-escojo">Segundo, ¿Qué modelo local escojo?</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#comparativa-de-modelos-aplicables-al-caso-creo-que-esto-es-mejor-responderlo-luego">Comparativa de modelos aplicables al caso (creo que esto es mejor responderlo luego)</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#referencias">Referencias</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../09_mcp/">MCP</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../10_a2a/">A2A</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../11_interface-options/">Interfaz de usuario</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Pruebas durante el desarrollo</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pruebas/01_install-n8n/">Instalación de n8n / Dependencias necesarias</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pruebas/02_ejemplo-rag-crag/">Ejemplo RAG / CRAG</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pruebas/03_ejemplo-mcp/">Ejemplo MCP</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pruebas/05_install-grobid/">Instalación de GROBID / Ejemplo de uso</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Info Proyecto</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../proyecto/01_metodologia/">Metodología de Trabajo</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../proyecto/02_contribuir/">Como contribuir</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../proyecto/03_about/">Acerca de</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">Agente IA orientado a investigación científica</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Investigación</li>
+      <li class="breadcrumb-item active">Modelos de lenguaje</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/danunziata/pps-kevin_haponiuk-2025/edit/master/docs/investigacion/08_nlp-models.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="modelos-de-nlp-para-revision-automatizada-de-literatura">Modelos de NLP para Revisión Automatizada de Literatura</h1>
+<p>La integración de NLP (Procesamiento de Lenguaje Natural / Natural Language Processing) representa un cambio significativo, permitiendo automatizar tareas manuales y mejorar la precisión de los procesos. Estas tecnologías cierran la brecha entre lenguaje humano y máquina, permitiendo a los sistemas procesar y comprender lenguaje natural. Esta capacidad es fundamental para desarrollar herramientas inteligentes que asistan a los ingenieros en la gestión de requerimientos, facilitando el desarrollo de software más robusto y alineado con las necesidades de los usuarios.</p>
+<h2 id="tecnicas-de-nlp-para-revision-automatizada-de-literatura">Técnicas de NLP para Revisión Automatizada de Literatura</h2>
+<p>Existen tres enfoques principales para el procesamiento de lenguaje natural:</p>
+<ol>
+<li>
+<p><strong>El método basado en frecuencia (Spacy)</strong> es el más simple y ligero, ideal para tareas básicas con bajo consumo de recursos, aunque tiene limitaciones en la comprensión del contexto.</p>
+</li>
+<li>
+<p><strong>Los modelos Transformer</strong> representan un punto medio, ofreciendo mejor comprensión contextual y precisión semántica a costa de mayores recursos y necesidad de más datos de entrenamiento.</p>
+</li>
+<li>
+<p><strong>Los modelos RAG con LLM</strong> son la opción más avanzada, proporcionando el mejor rendimiento en análisis y generación de texto, pero requieren significativos recursos computacionales y una implementación más compleja.</p>
+</li>
+</ol>
+<h3 id="comparativa-de-rendimiento">Comparativa de Rendimiento</h3>
+<table>
+<thead>
+<tr>
+<th>Técnica</th>
+<th>Precisión</th>
+<th>Velocidad</th>
+<th>Recursos</th>
+<th>Coherencia</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Frecuencia</td>
+<td>Baja</td>
+<td>Alta</td>
+<td>Bajos</td>
+<td>Media</td>
+</tr>
+<tr>
+<td>Transformer</td>
+<td>Media</td>
+<td>Media</td>
+<td>Medios</td>
+<td>Alta</td>
+</tr>
+<tr>
+<td>LLM</td>
+<td>Alta</td>
+<td>Baja</td>
+<td>Altos</td>
+<td>Muy Alta</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>Nota</strong>: Los LLMs han demostrado ser la mejor opción según métricas ROUGE-N, aunque requieren más recursos computacionales.</p>
+</blockquote>
+<h2 id="primero-por-que-usar-una-arquitectura-local">Primero, ¿Por qué usar una arquitectura local?</h2>
+<p>Implementar una arquitectura local puede ser una estrategia conveniente según el contexto y los objetivos del proyecto. Estas son algunas de sus principales ventajas:</p>
+<ul>
+<li>
+<p><strong>Privacidad</strong>: Permite mantener los datos dentro de un entorno seguro, sin necesidad de compartir información sensible en la nube. Esto es especialmente importante en contextos empresariales o académicos donde se maneja información crítica.</p>
+</li>
+<li>
+<p><strong>Control</strong>: Ofrece total autonomía sobre la infraestructura y el flujo de trabajo. Las decisiones técnicas no dependen de terceros ni de políticas externas.</p>
+</li>
+<li>
+<p><strong>Costo</strong>: Aunque la inversión inicial en hardware o configuración puede ser más alta, se eliminan los pagos recurrentes de servicios en la nube. Además, si el sistema de IA depende de una API externa (como ChatGPT), el costo será por uso lo que puede escalar rápidamente con el tiempo. También implica un riesgo operativo si esa API deja de funcionar o entra en mantenimiento.</p>
+</li>
+<li>
+<p><strong>Escalabilidad personalizada</strong>: Es posible adaptar la infraestructura a medida que crecen las necesidades del proyecto, sin depender de planes predeterminados o restricciones externas.</p>
+</li>
+<li>
+<p><strong>Latencia</strong>: La respuesta del sistema depende únicamente de tu red y hardware, sin pasar por servidores externos. Esto mejora la velocidad, estabilidad y confiabilidad.</p>
+</li>
+</ul>
+<hr />
+<h2 id="segundo-que-modelo-local-escojo">Segundo, ¿Qué modelo local escojo?</h2>
+<p>Esta es una parte esencial del proyecto. esto va a depender de:</p>
+<p><strong>- ¿Cuantos recursos tengo?</strong></p>
+<p><strong>- ¿Cuanta potencia necesito?</strong></p>
+<p><strong>- ¿Qué tipo de tarea voy a realizar?</strong></p>
+<p>Algunos factores a tener en cuenta:</p>
+<ul>
+<li>Tamaño de modelo: modelos grandes ofrecen más precisión, pero consumen más recursos; modelos más pequeños son rápidos y ligeros.</li>
+<li>Dominio: existen modelos especializados para tareas específicas. por ejemplo: medicina. (en su fase de entrenamiento fueron preparados con una base más orientada a su uso.) Esto es importante porque no siempre un modelo más complejo va a ser mejor para resolver una tarea, con menos recursos un modelo especializado puede responder muchísimo mejor.</li>
+<li>Idioma: algunos modelos están entrenados en idiomas específicos.</li>
+<li>Velocidad vs precisión: modelos ligeros son rápidos para tiempo real; modelos grandes destacan en tareas complejas.</li>
+</ul>
+<p><strong>Parámetros:</strong> Los parámetros en los modelos de inteligencia artificial son valores que el modelo ajusta automáticamente durante el proceso de entrenamiento. Estos determinan cómo el modelo procesa la información y toma decisiones. En redes neuronales, por ejemplo, los parámetros son los pesos y sesgos que se ajustan para minimizar el error entre las predicciones del modelo y los resultados reales. Cuantos más parámetros tiene un modelo, mayor es su capacidad para aprender patrones complejos, aunque también aumenta el riesgo de sobreajuste y la necesidad de más datos y potencia de cómputo.</p>
+<p>Lo que pasa con los modelos es que salen nuevos cada día, y es muy difícil mantenerse al día. Una manera de elegir es basandose en el leaderboard de modelos. En este caso, lo que haremos es usar el leaderboard de Hugging Face como referencia de los modelos que se podrian utilizar.</p>
+<p><a href="https://huggingface.co/spaces/open-llm-leaderboard/open_llm_leaderboard#/">RANKING DE MODELOS EN LOCAL</a></p>
+<blockquote>
+<p><strong>Aclaración:</strong> Actualmente, no existe un leaderboard oficial y centralizado para modelos específicamente preparados para ejecutarse en Ollama, como sí lo hay en Hugging Face. El ranking enlazado corresponde a modelos evaluados y comparados por la comunidad de Hugging Face, pero no necesariamente refleja el rendimiento de esos modelos ejecutados en Ollama. Si bien Ollama soporta varios de estos modelos y permite correrlos localmente, la plataforma no mantiene un ranking propio ni métricas de comparación estandarizadas. Para comparar modelos en Ollama, se recomienda consultar el <a href="https://ollama.com/library">catálogo oficial de modelos</a> o buscar benchmarks independientes realizados por la comunidad.</p>
+</blockquote>
+<h3 id="comparativa-de-modelos-aplicables-al-caso-creo-que-esto-es-mejor-responderlo-luego">Comparativa de modelos aplicables al caso (creo que esto es mejor responderlo luego)</h3>
+<h2 id="referencias">Referencias</h2>
+<ul>
+<li><a href="https://ieeexplore.ieee.org/document/10055568">A Systematic Literature Review on Natural Language Processing (NLP)</a></li>
+<li><a href="https://direct.mit.edu/dint/article/5/3/707/115133/The-State-of-the-Art-of-Natural-Language">The State of the Art of Natural Language</a></li>
+<li><a href="https://arxiv.org/abs/2411.18583">Automated Literature Review Using NLP Techniques and LLM-Based Retrieval-Augmented Generation</a></li>
+<li><a href="https://insights.axtria.com/hubfs/thought-leadership-whitepapers/Axtria-Insights-White-Paper-The-Use-of-Natural-Language-Processing-in-Literature-Reviews.pdf">The Use of Natural Language Processing in Literature Reviews</a></li>
+</ul>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../07_grobid/" class="btn btn-neutral float-left" title="GROBID"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../09_mcp/" class="btn btn-neutral float-right" title="MCP">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p><img src="https://raw.githubusercontent.com/danunziata/pps-kevin_haponiuk-2025/main/docs/images/escudo_unrc.png" alt="Logo UNRC" style="height: 30px; vertical-align: middle; margin-right: 10px;">
+<img src="https://raw.githubusercontent.com/danunziata/pps-kevin_haponiuk-2025/main/docs/images/escudo_ing.png" alt="Logo ING" style="height: 30px; vertical-align: middle; margin-right: 10px;">
+&copy; 2025 <a href="https://www.ing.unrc.edu.ar/inicio.php" target="_blank" rel="noopener">Universidad Nacional de Río Cuarto | Facultad de Ingeniería</a>
+</p>
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/danunziata/pps-kevin_haponiuk-2025" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../07_grobid/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../09_mcp/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../js/custom.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="Haponiuk Kevin Joel" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Tipos de Arquitecturas - Agente IA orientado a investigación científica</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../css/custom.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Tipos de Arquitecturas";
+        var mkdocs_page_input_path = "investigacion/04_arquitectura.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> Agente IA orientado a investigación científica
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Introducción</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Workflow Final</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../implementacion/00_workflow-completo/">Explicación Workflow</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../implementacion/01_implementacion-final/">Implementación</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../implementacion/02_implementacion-dorotea/">Implementación en Dorotea</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Investigación</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../01_llm/">Conceptos Previos</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >Metodología de investigación</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../02_metod-invest/">Concepto general</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../03_estado-arte/">Revisión Bibliográfica</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Tipos de Arquitecturas</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#tipos-de-arquitecturas">Tipos de Arquitecturas</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#rag-retrieval-augmented-generation">RAG (Retrieval Augmented Generation)</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#etapa-1-carga-de-informacion">Etapa 1: Carga de información</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#etapa-2-consulta-del-usuario">Etapa 2: Consulta del usuario</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#contextual-rag">Contextual RAG</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#ventajas-sobre-rag-tradicional">Ventajas sobre RAG tradicional:</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#desventajas-sobre-rag-tradicional">Desventajas sobre RAG tradicional:</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#comparacion-entre-rag-tradicional-y-contextual-rag">Comparación entre RAG tradicional y Contextual RAG</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#prompt-chaining">Prompt chaining</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#routing">Routing</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#parallelization">Parallelization</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#orchestrator-workers">Orchestrator-workers</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#evaluator-optimizer">Evaluator-optimizer</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#referencia">Referencia</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >Software utilizado</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../05_opentools/">Resumen Opentools</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../06_n8n/">n8n</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../07_grobid/">GROBID</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../08_nlp-models/">Modelos de lenguaje</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../09_mcp/">MCP</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../10_a2a/">A2A</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../11_interface-options/">Interfaz de usuario</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Pruebas durante el desarrollo</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pruebas/01_install-n8n/">Instalación de n8n / Dependencias necesarias</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pruebas/02_ejemplo-rag-crag/">Ejemplo RAG / CRAG</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pruebas/03_ejemplo-mcp/">Ejemplo MCP</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pruebas/05_install-grobid/">Instalación de GROBID / Ejemplo de uso</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Info Proyecto</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../proyecto/01_metodologia/">Metodología de Trabajo</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../proyecto/02_contribuir/">Como contribuir</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../proyecto/03_about/">Acerca de</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">Agente IA orientado a investigación científica</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Investigación</li>
+      <li class="breadcrumb-item active">Tipos de Arquitecturas</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/danunziata/pps-kevin_haponiuk-2025/edit/master/docs/investigacion/04_arquitectura.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="arquitecturas-para-el-agente-ia">Arquitecturas para el agente IA</h1>
+<h2 id="tipos-de-arquitecturas">Tipos de Arquitecturas</h2>
+<p>En primer lugar, se describirá la arquitectura empleada en el presente proyecto, brindando una explicación detallada de su funcionamiento. Luego, se mencionarán algunas arquitecturas generales relevantes en el contexto. Cabe destacar que este proyecto tiene un enfoque open source, por lo que, en caso de interés, es posible modificar su estructura o incorporar nuevas capacidades según las necesidades específicas de cada implementación.</p>
+<hr />
+<h3 id="rag-retrieval-augmented-generation">RAG (Retrieval Augmented Generation)</h3>
+<p align="center">
+  <img src="../../images/arquitectura-augmentedLLM.webp" width="100%">
+  <br>
+  <em>Figura 1: Arquitectura Augmented LLM</em>
+</p>
+
+<p>Este tipo de arquitectura tiene un modelo de lenguaje (LLM) que dispone de capacidades como recuperación de información "<strong>retrieval</strong>", uso de herramientas externas "<strong>tools</strong>" y gestión de memoria "<strong>memory</strong>". Estos modelos no solo cuentan con dichas funciones, sino que también son capaces de utilizarlas activamente: pueden generar sus propias consultas de búsqueda, seleccionar las herramientas más adecuadas y decidir qué información conservar a lo largo de una conversación.</p>
+<p>Este es el modelo que vamos a usar como modelo para nuestro proyecto, a continuación se explica mejor cómo es el proceso del mismo.</p>
+<p align="center" id="figura2">
+  <img src="../../images/rag.webp" width="100%">
+  <br>
+  <em>Figura 2: Arquitectura RAG (Retrieval Augmented Generation)</em>
+</p>
+
+<p><strong>¿Cómo funciona RAG?</strong></p>
+<p>Podemos dividir el funcionamiento de RAG en dos grandes etapas:<br />
+1. <strong>Carga de la información a la base de datos vectorial</strong><br />
+2. <strong>Interacción del usuario con el agente</strong></p>
+<h5 id="etapa-1-carga-de-informacion">Etapa 1: Carga de información</h5>
+<p>Comenzamos con una fuente de información, como un archivo PDF. El primer paso es aplicar un proceso llamado <strong>chunking</strong>, que consiste en dividir el contenido en fragmentos más pequeños (<a href="#figura2">etapa 1</a>). Esto permite un tratamiento más eficiente y preciso, especialmente durante las búsquedas semánticas, donde queremos que el sistema encuentre información en partes específicas del documento, y no en su totalidad.</p>
+<p>Luego preparamos estos fragmentos (<a href="#figura2">etapa 2</a>). Existen dos estrategias comunes:</p>
+<ul>
+<li><strong>Fixed Token Splitter:</strong> divide el contenido en fragmentos de longitud fija.</li>
+<li><strong>Recursive Token Splitter:</strong> realiza divisiones más inteligentes y superpuestas para evitar que se pierda contexto cuando una pregunta coincide justo en los bordes entre fragmentos. Esta técnica permite mantener solapamiento entre fragmentos, como se ilustra en la siguiente imagen.</li>
+</ul>
+<p align="center">
+  <img src="../../images/fixed-recursive.png" width="40%">
+  <br>
+  <em>Figura 3: Fixed vs Recursive splitting</em>
+</p>
+
+<p>Luego, Cada fragmento se convierte en un vector mediante un <strong>modelo de embeddings</strong> (<a href="#figura2">etapa 3</a>). Esto transforma el contenido textual en una representación matemática comprensible para el sistema.</p>
+<p>Finalmente, los vectores generados se almacenan en una <strong>base de datos vectorial</strong> (<a href="#figura2">etapa 4</a>), que queda lista para ser consultada durante la etapa de recuperación de información.</p>
+<h5 id="etapa-2-consulta-del-usuario">Etapa 2: Consulta del usuario</h5>
+<p>Cuando el usuario realiza una consulta (<a href="#figura2">etapa 7</a>), esta también se convierte en un vector utilizando el mismo modelo de embeddings (<a href="#figura2">etapa 3</a>). Luego, se compara este vector con los almacenados en la base de datos para encontrar los más similares (esto es el <strong>retrieval</strong>).</p>
+<p>Luego, El sistema recupera (<a href="#figura2">etapa 5</a>):</p>
+<ul>
+<li>El <strong>contexto relevante</strong> desde la base de datos (fragmentos similares).</li>
+<li>La <strong>consulta del usuario</strong> original.</li>
+</ul>
+<p>Ambos elementos se integran en una plantilla de prompt, por ejemplo:</p>
+<div class="highlight"><pre><span></span><code><span class="s2">&quot;Sos un buscador especializado en Bibliografía&quot;</span><span class="w"> </span><span class="o">(</span>esto<span class="w"> </span>sería<span class="w"> </span>el<span class="w"> </span>prompt<span class="o">)</span><span class="w"> </span>
+Responde<span class="w"> </span>esta<span class="w"> </span><span class="s2">&quot;consulta&quot;</span><span class="w"> </span><span class="o">(</span>lo<span class="w"> </span>que<span class="w"> </span>pregunta<span class="w"> </span>el<span class="w"> </span>usuario<span class="o">)</span><span class="w"> </span>
+basandote<span class="w"> </span>en<span class="w"> </span>el<span class="w"> </span>siguiente<span class="w"> </span><span class="s2">&quot;contexto&quot;</span><span class="w"> </span><span class="o">(</span>va<span class="w"> </span>a<span class="w"> </span>ser<span class="w"> </span>lo<span class="w"> </span>que<span class="w"> </span>te<span class="w"> </span>devuelva<span class="w"> </span>la<span class="w"> </span>base<span class="w"> </span>vectorial<span class="o">)</span>
+</code></pre></div>
+<p>Además, en este paso se puede personalizar el comportamiento del agente, indicando que responda con un estilo determinado o como si fuera especialista en un área.</p>
+<p>Finalmente, un modelo de lenguaje (LLM) preentrenado toma ese prompt completo (contexto + consulta) y genera la respuesta final para el usuario (<a href="#figura2">etapa 6</a>).<br />
+Es importante destacar que el modelo ya está entrenado previamente, ya que realizar un entrenamiento desde cero suele ser costoso o técnicamente complejo. Por eso, es importante elegir un modelo que sea eficiente para el uso que le daremos.</p>
+<hr />
+<h3 id="contextual-rag">Contextual RAG</h3>
+<p>El Contextual RAG (Retrieval Augmented Generation) es una evolución del RAG tradicional que mejora significativamente la precisión y relevancia de las respuestas mediante la incorporación de contexto adicional durante el proceso de recuperación. A diferencia del RAG estándar, que busca fragmentos similares basándose únicamente en la similitud semántica, el Contextual RAG considera múltiples factores para determinar qué información es verdaderamente relevante para la consulta del usuario. La arquitectura se puede ver en la siguiente figura:</p>
+<p align="center">
+  <img src="../../images/crag.webp" width="100%">
+  <br>
+  <em>Figura 4: Arquitectura Contextual RAG</em>
+</p>
+
+<p>El Contextual RAG es una arquitectura desarrollada en 2024 que supera una limitación histórica: la capacidad de procesar documentos completos de una sola vez. Aunque su funcionamiento base es similar al RAG tradicional, introduce una etapa adicional de procesamiento contextual. En esta etapa, cada fragmento (chunk) se analiza en relación con el documento completo mediante un prompt estructurado:</p>
+<div class="highlight"><pre><span></span><code>&lt;document&gt;<span class="w"> </span>
+<span class="o">{{</span>WHOLE_DOCUMENT<span class="o">}}</span><span class="w"> </span>
+&lt;/document&gt;<span class="w"> </span>
+Here<span class="w"> </span>is<span class="w"> </span>the<span class="w"> </span>chunk<span class="w"> </span>we<span class="w"> </span>want<span class="w"> </span>to<span class="w"> </span>situate<span class="w"> </span>within<span class="w"> </span>the<span class="w"> </span>whole<span class="w"> </span>document<span class="w"> </span>
+&lt;chunk&gt;<span class="w"> </span>
+<span class="o">{{</span>CHUNK_CONTENT<span class="o">}}</span><span class="w"> </span>
+&lt;/chunk&gt;<span class="w"> </span>
+Please<span class="w"> </span>give<span class="w"> </span>a<span class="w"> </span>short<span class="w"> </span>succinct<span class="w"> </span>context<span class="w"> </span>to<span class="w"> </span>situate<span class="w"> </span>this<span class="w"> </span>chunk<span class="w"> </span>within<span class="w"> </span>the<span class="w"> </span>overall<span class="w"> </span>document<span class="w"> </span><span class="k">for</span><span class="w"> </span>the<span class="w"> </span>purposes<span class="w"> </span>of<span class="w"> </span>improving<span class="w"> </span>search<span class="w"> </span>retrieval<span class="w"> </span>of<span class="w"> </span>the<span class="w"> </span>chunk.<span class="w"> </span>Answer<span class="w"> </span>only<span class="w"> </span>with<span class="w"> </span>the<span class="w"> </span>succinct<span class="w"> </span>context<span class="w"> </span>and<span class="w"> </span>nothing<span class="w"> </span><span class="k">else</span>.<span class="w"> </span>
+</code></pre></div>
+<p>Este proceso enriquece la base de datos vectorial al almacenar no solo el fragmento original, sino también el contexto generado que lo sitúa dentro del documento completo.</p>
+<h4 id="ventajas-sobre-rag-tradicional">Ventajas sobre RAG tradicional:</h4>
+<ul>
+<li><strong>Mayor precisión</strong>: Al considerar el contexto completo, reduce las respuestas fuera de tema o irrelevantes.</li>
+<li><strong>Mejor coherencia</strong>: Mantiene una línea de pensamiento más consistente en las respuestas.</li>
+<li><strong>Respuestas más completas</strong>: Al entender mejor el contexto, puede proporcionar información más relevante y útil.</li>
+</ul>
+<h4 id="desventajas-sobre-rag-tradicional">Desventajas sobre RAG tradicional:</h4>
+<ul>
+<li><strong>Mayor complejidad</strong>: Requiere un procesamiento adicional y una base de datos vectorial más grande.</li>
+<li><strong>Latencia</strong>: Puede ser más lento debido al procesamiento adicional.</li>
+</ul>
+<h4 id="comparacion-entre-rag-tradicional-y-contextual-rag">Comparación entre RAG tradicional y Contextual RAG</h4>
+<p>Los resultados de la comparación entre RAG tradicional y Contextual RAG muestran una mejora significativa en la precisión de recuperación: el uso de Contextual Embeddings redujo la tasa de fallos en la recuperación de los 20 fragmentos más relevantes en un 35%, pasando de un 5.7% a un 3.7% de fallos. Esto demuestra que el procesamiento contextual adicional mejora sustancialmente la calidad de las búsquedas. (en las graficas aparece tambien BM25, que es un modelo de recuperación de información que se basa en la frecuencia de las palabras en el documento pero no lo vamos a usar)</p>
+<p align="center">
+  <img src="../../images/crag_vs_rag.webp" width="100%">
+  <br>
+  <em>Figura 5: Comparación entre RAG (embedding) y CRAG (contextual embedding)</em>
+</p>
+
+<hr />
+<h3 id="prompt-chaining">Prompt chaining</h3>
+<p align="center">
+  <img src="../../images/prompt-chaining.webp" width="100%">
+  <br>
+  <em>Figura 6: Arquitectura Prompt chaining</em>
+</p>
+
+<p>El encadenamiento de <em>prompts</em> descompone una tarea en una secuencia de pasos, donde cada llamada a un modelo de lenguaje procesa la salida de la anterior. Este flujo de trabajo es ideal para situaciones en las que la tarea puede dividirse de forma clara y sencilla en subtareas fijas. El objetivo principal es sacrificar algo de latencia a cambio de una mayor precisión, haciendo que cada llamada al modelo sea una tarea más simple.</p>
+<hr />
+<h3 id="routing">Routing</h3>
+<p align="center">
+  <img src="../../images/routing.png" width="100%">
+  <br>
+    <em>Figura 7: Arquitectura Routing </em>
+</p>
+
+<p>El enrutamiento clasifica una entrada y la dirige a una tarea de seguimiento especializada. Este enfoque permite una clara separación de responsabilidades y la creación de <em>prompts</em> más específicos y eficaces. Sin esta estructura, optimizar el rendimiento para un tipo de entrada podría perjudicar el desempeño en otros casos. El enrutamiento resulta especialmente útil en tareas complejas con categorías bien diferenciadas, donde cada una puede ser tratada de forma más eficiente por separado. La clasificación inicial puede realizarse mediante un modelo de lenguaje o utilizando métodos tradicionales de clasificación.</p>
+<hr />
+<h3 id="parallelization">Parallelization</h3>
+<p align="center">
+  <img src="../../images/parallelization.webp" width="100%">
+  <br>
+    <em>Figura 8: Arquitectura Parallelization</em>
+</p>
+
+<p>Los LLMs pueden abordar múltiples tareas de forma simultánea, y sus resultados pueden combinarse posteriormente mediante programación. Este enfoque, conocido como paralelización, se presenta en dos formas principales:</p>
+<ul>
+<li><strong>Seccionamiento</strong>: consiste en dividir una tarea en subtareas independientes que se ejecutan en paralelo.  </li>
+<li><strong>Votación</strong>: implica ejecutar la misma tarea varias veces para obtener resultados variados y seleccionar el más adecuado.</li>
+</ul>
+<p>La paralelización es especialmente útil cuando las subtareas pueden procesarse simultáneamente para mejorar la velocidad, o cuando se requieren múltiples perspectivas para obtener respuestas más confiables. En tareas complejas con múltiples dimensiones, los LLMs suelen ofrecer mejores resultados cuando cada aspecto se gestiona por separado, permitiendo que cada parte reciba una atención más enfocada.</p>
+<hr />
+<h3 id="orchestrator-workers">Orchestrator-workers</h3>
+<p align="center">
+  <img src="../../images/orchestrator-workers.webp" width="100%">
+  <br>
+  <em>Figura 9: Arquitectura Orchestrator-workers</em>
+</p>
+
+<p>En el flujo de trabajo de orquestador y trabajadores, un LLM central actúa como orquestador: descompone dinámicamente las tareas, las asigna a LLMs especializados (trabajadores) y luego sintetiza sus respuestas. Aunque este enfoque puede parecer similar a la paralelización, su diferencia clave radica en la flexibilidad: las subtareas no están predefinidas, sino que son generadas en tiempo real por el orquestador según la naturaleza de la tarea.</p>
+<hr />
+<h3 id="evaluator-optimizer">Evaluator-optimizer</h3>
+<p align="center">
+  <img src="../../images/evaluator-optimizer.webp" width="100%">
+  <br>
+  <em>Figura 10: Arquitectura Evaluator-optimizer</em>
+</p>
+
+<p>En el flujo de trabajo de evaluador-optimizador, una instancia de LLM genera una respuesta, mientras que otra evalúa su calidad y proporciona retroalimentación, formando un ciclo iterativo. Este enfoque resulta efectivo cuando se disponen de criterios de evaluación bien definidos y cuando la mejora progresiva aporta un valor tangible.</p>
+<hr />
+<h2 id="referencia">Referencia</h2>
+<ul>
+<li><a href="https://www.anthropic.com/engineering/building-effective-agents">Anthropic: Building Effective Agents</a></li>
+<li><a href="https://www.anthropic.com/news/contextual-retrieval">Anthropic: Contextual Retrieval</a></li>
+</ul>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../03_estado-arte/" class="btn btn-neutral float-left" title="Revisión Bibliográfica"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../05_opentools/" class="btn btn-neutral float-right" title="Resumen Opentools">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p><img src="https://raw.githubusercontent.com/danunziata/pps-kevin_haponiuk-2025/main/docs/images/escudo_unrc.png" alt="Logo UNRC" style="height: 30px; vertical-align: middle; margin-right: 10px;">
+<img src="https://raw.githubusercontent.com/danunziata/pps-kevin_haponiuk-2025/main/docs/images/escudo_ing.png" alt="Logo ING" style="height: 30px; vertical-align: middle; margin-right: 10px;">
+&copy; 2025 <a href="https://www.ing.unrc.edu.ar/inicio.php" target="_blank" rel="noopener">Universidad Nacional de Río Cuarto | Facultad de Ingeniería</a>
+</p>
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/danunziata/pps-kevin_haponiuk-2025" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../03_estado-arte/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../05_opentools/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../js/custom.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

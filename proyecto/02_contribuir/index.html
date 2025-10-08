@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="Haponiuk Kevin Joel" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Como contribuir - Agente IA orientado a investigación científica</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../css/custom.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Como contribuir";
+        var mkdocs_page_input_path = "proyecto/02_contribuir.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> Agente IA orientado a investigación científica
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Introducción</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Workflow Final</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../implementacion/00_workflow-completo/">Explicación Workflow</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../implementacion/01_implementacion-final/">Implementación</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../implementacion/02_implementacion-dorotea/">Implementación en Dorotea</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Investigación</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../investigacion/01_llm/">Conceptos Previos</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >Metodología de investigación</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../investigacion/02_metod-invest/">Concepto general</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../investigacion/03_estado-arte/">Revisión Bibliográfica</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../investigacion/04_arquitectura/">Tipos de Arquitecturas</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >Software utilizado</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../investigacion/05_opentools/">Resumen Opentools</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../investigacion/06_n8n/">n8n</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../investigacion/07_grobid/">GROBID</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../investigacion/08_nlp-models/">Modelos de lenguaje</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../investigacion/09_mcp/">MCP</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../investigacion/10_a2a/">A2A</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../investigacion/11_interface-options/">Interfaz de usuario</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Pruebas durante el desarrollo</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pruebas/01_install-n8n/">Instalación de n8n / Dependencias necesarias</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pruebas/02_ejemplo-rag-crag/">Ejemplo RAG / CRAG</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pruebas/03_ejemplo-mcp/">Ejemplo MCP</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pruebas/05_install-grobid/">Instalación de GROBID / Ejemplo de uso</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Info Proyecto</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../01_metodologia/">Metodología de Trabajo</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Como contribuir</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#workflow-seleccionado-git-flow">Workflow seleccionado "Git Flow"</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#como-puedo-contribuir">¿Cómo puedo contribuir?</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#commits">Commits</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../03_about/">Acerca de</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">Agente IA orientado a investigación científica</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Info Proyecto</li>
+      <li class="breadcrumb-item active">Como contribuir</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/danunziata/pps-kevin_haponiuk-2025/edit/master/docs/proyecto/02_contribuir.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="contribuir">Contribuir</h1>
+<h2 id="workflow-seleccionado-git-flow">Workflow seleccionado "Git Flow"</h2>
+<p>El workflow <strong>Git Flow</strong>, creado por Vincent Driessen en 2010, organiza el desarrollo del código en dos ramas principales:  </p>
+<ul>
+<li><strong>master</strong>: Contiene el código en producción.  </li>
+<li><strong>develop</strong>: Contiene el código en pre-producción.  </li>
+</ul>
+<p>Además, utiliza ramas auxiliares para distintas etapas del desarrollo:  </p>
+<ul>
+<li><strong>feature</strong>*: Para nuevas funcionalidades (se crean desde <code>develop</code> y se fusionan en <code>develop</code>).  </li>
+<li><strong>hotfix</strong>*: Para corregir errores críticos en producción (se crean desde <code>master</code> y se fusionan en <code>master</code> y <code>develop</code>).  </li>
+<li><strong>release</strong>*: Para preparar nuevas versiones de producción (se crean desde <code>develop</code> y se fusionan en <code>master</code> y <code>develop</code>).  </li>
+</ul>
+<h2 id="como-puedo-contribuir">¿Cómo puedo contribuir?</h2>
+<p>Nos emociona que estés interesado en contribuir a nuestro proyecto. Esta guía está diseñada para ayudarte a entender cómo puedes colaborar con  nosotros, ya sea corrigiendo errores, mejorando la documentación,  agregando nuevas características o cualquier otra forma de contribución  que desees realizar.</p>
+<p>Para incorporar una función en la rama <code>main</code>, simplemente se crea un "PR" (Pull Request), que deberá ser aprobado por algún colaborador. Cualquier colaborador puede hacerlo, o bien, si no requiere revisión, puede ser aceptado por quien esté incluyendo la funcionalidad.</p>
+<p>Es crucial que el nombre de las ramas creadas sea lo más descriptivo posible. Por ejemplo, si trabajamos en una nueva funcionalidad relacionada con la API, la rama se debe llamar como referencia a la funcionalidad en cuestión. En el caso de tratarse de la corrección de un error en el código de la API, la llamaremos <code>fix-api</code>.</p>
+<p>Este proceso asegura un flujo de trabajo ordenado y facilita la colaboración entre los miembros del equipo.</p>
+<p>Los pasos para contribuir en este proyecto como individuo son:</p>
+<ol>
+<li>Forkear el repositorio (<code>git fork</code>)</li>
+<li>Crear una nueva rama para la función (<code>git checkout -b feature/AmazingFeature</code>)</li>
+<li>Publicar la rama en el repositorio remoto(<code>git push --set-upstream origin &lt;nombre-de-la-nueva-rama&gt;</code>)</li>
+<li>Commit los cambios (<code>git commit -m 'Add some AmazingFeature'</code>)</li>
+<li>Push a la rama (<code>git push origin feature/AmazingFeature</code>)</li>
+<li>Abrir un Pull Request dirigido a la rama <code>develop</code></li>
+</ol>
+<h3 id="commits">Commits</h3>
+<p>Los commits convencionales nos permiten mantener la organización al realizar los commits y facilitan la creación de <code>releases</code> de forma automatizada.</p>
+<p>Se basan en el uso de palabras clave al inicio del mensaje de cada commit, de la siguiente manera:</p>
+<ul>
+<li><strong>feat(tema de la modificación): Breve explicación</strong>: Para cambios significativos o nuevas características.</li>
+<li><strong>fix(tema de la modificación): Breve explicación</strong>: Para correcciones pequeñas.</li>
+<li><strong>chore(tema de la modificación): Breve explicación</strong>: Para cambios menores insignificantes para el usuario.</li>
+<li><strong>docs: Breve explicación</strong>: Para cambios que se realizan a la documentación.</li>
+</ul>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../01_metodologia/" class="btn btn-neutral float-left" title="Metodología de Trabajo"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../03_about/" class="btn btn-neutral float-right" title="Acerca de">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p><img src="https://raw.githubusercontent.com/danunziata/pps-kevin_haponiuk-2025/main/docs/images/escudo_unrc.png" alt="Logo UNRC" style="height: 30px; vertical-align: middle; margin-right: 10px;">
+<img src="https://raw.githubusercontent.com/danunziata/pps-kevin_haponiuk-2025/main/docs/images/escudo_ing.png" alt="Logo ING" style="height: 30px; vertical-align: middle; margin-right: 10px;">
+&copy; 2025 <a href="https://www.ing.unrc.edu.ar/inicio.php" target="_blank" rel="noopener">Universidad Nacional de Río Cuarto | Facultad de Ingeniería</a>
+</p>
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/danunziata/pps-kevin_haponiuk-2025" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../01_metodologia/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../03_about/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../js/custom.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

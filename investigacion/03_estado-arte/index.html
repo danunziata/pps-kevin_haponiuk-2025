@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="Haponiuk Kevin Joel" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Revisión Bibliográfica - Agente IA orientado a investigación científica</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../css/custom.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Revisi\u00f3n Bibliogr\u00e1fica";
+        var mkdocs_page_input_path = "investigacion/03_estado-arte.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> Agente IA orientado a investigación científica
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Introducción</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Workflow Final</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../implementacion/00_workflow-completo/">Explicación Workflow</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../implementacion/01_implementacion-final/">Implementación</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../implementacion/02_implementacion-dorotea/">Implementación en Dorotea</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Investigación</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../01_llm/">Conceptos Previos</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" >Metodología de investigación</a>
+    <ul class="current">
+                <li class="toctree-l2"><a class="reference internal" href="../02_metod-invest/">Concepto general</a>
+                </li>
+                <li class="toctree-l2 current"><a class="reference internal current" href="#">Revisión Bibliográfica</a>
+    <ul class="current">
+    <li class="toctree-l3"><a class="reference internal" href="#mapa-camino-para-elaborar-el-estado-del-arte-en-un-paper-cientifico">Mapa: Camino para Elaborar el Estado del Arte en un Paper Científico</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#1-definicion-y-planificacion">1. Definición y planificación</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#2-busqueda-y-recopilacion-de-literatura">2. Búsqueda y recopilación de literatura</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#3-seleccion-y-filtrado-de-estudios">3. Selección y filtrado de estudios</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#4-organizacion-y-analisis">4. Organización y análisis</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#5-redaccion-del-estado-del-arte">5. Redacción del estado del arte</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#6-revision-y-referencias">6. Revisión y referencias</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#herramientas-recomendadas">Herramientas recomendadas</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#gestores-de-referencias">Gestores de referencias</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#herramientas-de-analisis-bibliometrico">Herramientas de análisis bibliométrico</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#plataformas-para-gestion-de-revisiones-sistematicas">Plataformas para gestión de revisiones sistemáticas</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#herramientas-de-ia-para-investigacion">Herramientas de IA para investigación</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#referencias">Referencias</a>
+    </li>
+    </ul>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../04_arquitectura/">Tipos de Arquitecturas</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >Software utilizado</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../05_opentools/">Resumen Opentools</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../06_n8n/">n8n</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../07_grobid/">GROBID</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../08_nlp-models/">Modelos de lenguaje</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../09_mcp/">MCP</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../10_a2a/">A2A</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../11_interface-options/">Interfaz de usuario</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Pruebas durante el desarrollo</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pruebas/01_install-n8n/">Instalación de n8n / Dependencias necesarias</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pruebas/02_ejemplo-rag-crag/">Ejemplo RAG / CRAG</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pruebas/03_ejemplo-mcp/">Ejemplo MCP</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pruebas/05_install-grobid/">Instalación de GROBID / Ejemplo de uso</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Info Proyecto</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../proyecto/01_metodologia/">Metodología de Trabajo</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../proyecto/02_contribuir/">Como contribuir</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../proyecto/03_about/">Acerca de</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">Agente IA orientado a investigación científica</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Investigación</li>
+          <li class="breadcrumb-item">Metodología de investigación</li>
+      <li class="breadcrumb-item active">Revisión Bibliográfica</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/danunziata/pps-kevin_haponiuk-2025/edit/master/docs/investigacion/03_estado-arte.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <p align="center">
+  <img src="../../images/met-rev-biblio.png" width="80%">
+</p>
+
+<h1 id="estado-del-arte">Estado del Arte</h1>
+<p>El estado del arte es un pilar fundamental en cualquier investigación científica, ya que permite situar el trabajo propio dentro del contexto del conocimiento existente. Su función principal es demostrar que el investigador comprende el campo, identifica los avances, reconoce los vacíos y justifica la relevancia de su propuesta. En áreas como la ingeniería en telecomunicaciones, donde la tecnología y los enfoques evolucionan rápidamente, un estado del arte riguroso asegura que la investigación sea <strong>pertinente, novedosa y alineada con los estándares internacionales.</strong></p>
+<p><strong>¿Por qué es importante?</strong></p>
+<ul>
+<li><strong>Contextualiza la investigación</strong>: Permite entender cómo el problema abordado se relaciona con desarrollos previos y actuales.</li>
+<li><strong>Evita duplicidad</strong>: Ayuda a no repetir trabajos ya realizados y a identificar oportunidades de innovación.</li>
+<li><strong>Identifica vacíos y tendencias</strong>: Señala áreas poco exploradas o en debate, orientando la investigación hacia aportes significativos.</li>
+<li><strong>Justifica la metodología</strong>: Permite seleccionar métodos y enfoques validados por la comunidad científica.</li>
+<li><strong>Aporta credibilidad</strong>: Un buen estado del arte respalda la solidez y originalidad del trabajo ante la comunidad académica.</li>
+</ul>
+<hr />
+<h2 id="mapa-camino-para-elaborar-el-estado-del-arte-en-un-paper-cientifico">Mapa: Camino para Elaborar el Estado del Arte en un Paper Científico</h2>
+<p align="center">
+  <img src="../../images/map_estado-arte.png" width="100%">
+  <br>
+  <em>Figura 1: Mapa para elaborar el estado del arte en un paper científico</em>
+</p>
+
+<h3 id="1-definicion-y-planificacion">1. Definición y planificación</h3>
+<ul>
+<li>Formular preguntas de investigación claras y específicas (por ejemplo, usando el marco PICOC: Población, Intervención, Comparación, Resultados, Contexto).</li>
+<li>Delimitar el alcance temático y temporal de la revisión.</li>
+</ul>
+<h3 id="2-busqueda-y-recopilacion-de-literatura">2. Búsqueda y recopilación de literatura</h3>
+<ul>
+<li>Seleccionar bases de datos y fuentes relevantes (IEEE Xplore, ACM Digital Library, Scopus, Web of Science, etc.).</li>
+<li>Definir términos de búsqueda y combinaciones lógicas (sinónimos, palabras clave, operadores booleanos).</li>
+<li>Consultar expertos y revisar referencias de artículos clave.</li>
+</ul>
+<h3 id="3-seleccion-y-filtrado-de-estudios">3. Selección y filtrado de estudios</h3>
+<ul>
+<li>Eliminar duplicados y versiones repetidas.</li>
+<li>Aplicar criterios de inclusión/exclusión (año, idioma, tipo de publicación, relevancia).</li>
+<li>Evaluar la calidad metodológica de los estudios (claridad de objetivos, justificación de métodos, reproducibilidad, análisis de resultados, etc.).</li>
+</ul>
+<p><strong>Criterios de calidad para la evaluación de estudios</strong></p>
+<p>Se recomienda clasificar cada estudio según los siguientes criterios:</p>
+<ol>
+<li>¿El objetivo de la investigación está claramente definido?</li>
+<li>¿El estudio se contextualiza respecto a investigaciones previas?</li>
+<li>¿Las decisiones de diseño del sistema o algoritmo están justificadas?</li>
+<li>¿El conjunto de datos de prueba es reproducible?</li>
+<li>¿El algoritmo es reproducible?</li>
+<li>¿El procedimiento experimental está claramente explicado y es reproducible?</li>
+<li>¿Se especifica con qué otros algoritmos se compara el propuesto?</li>
+<li>¿Se explican y justifican las métricas de desempeño?</li>
+<li>¿Los resultados de las pruebas están analizados en profundidad?</li>
+<li>¿La evidencia experimental respalda las conclusiones?</li>
+</ol>
+<p>Cada criterio puede puntuarse como sí (1 punto), parcialmente (0,5 puntos) o no (0 puntos). El protocolo debe definir el umbral mínimo de calidad para aceptar un estudio y si es aceptable obtener cero puntos en algún criterio.</p>
+<h3 id="4-organizacion-y-analisis">4. Organización y análisis</h3>
+<ul>
+<li>Agrupar la literatura por enfoques temáticos, metodológicos, cronológicos o teóricos.</li>
+<li>Identificar patrones, tendencias, controversias y vacíos en la literatura.</li>
+<li>Comparar y sintetizar hallazgos relevantes.</li>
+<li>Realizar un mapa de citaciones o de autores más citados: analizar las referencias cruzadas entre los papers revisados para identificar qué trabajos o autores son más influyentes y cómo se relacionan entre sí. Esto ayuda a visualizar la estructura del campo y a detectar los referentes clave en el área de estudio.</li>
+</ul>
+<h3 id="5-redaccion-del-estado-del-arte">5. Redacción del estado del arte</h3>
+<ul>
+<li>Introducción: Presentar el tema, justificar la revisión y explicar el criterio de selección.</li>
+<li>Cuerpo: Desarrollar el análisis agrupado, resaltando avances, debates y limitaciones.</li>
+<li>Conclusión: Resumir los aportes principales, señalar vacíos y proponer líneas futuras de investigación.</li>
+</ul>
+<h3 id="6-revision-y-referencias">6. Revisión y referencias</h3>
+<ul>
+<li>Revisar la coherencia, claridad y estructura del texto.</li>
+<li>Citar correctamente todas las fuentes utilizadas, siguiendo normas académicas.</li>
+</ul>
+<hr />
+<h2 id="herramientas-recomendadas">Herramientas recomendadas</h2>
+<h3 id="gestores-de-referencias">Gestores de referencias</h3>
+<ul>
+<li>
+<p><strong><a href="https://www.zotero.org/">Zotero</a></strong> (Open Source): Gestor de referencias bibliográficas que permite recolectar, organizar, citar y compartir fuentes de investigación. Incluye plugins para navegadores y procesadores de texto.</p>
+</li>
+<li>
+<p><strong><a href="https://www.jabref.org/">JabRef</a></strong> (Open Source): Gestor de referencias bibliográficas especializado en archivos BibTeX, ideal para usuarios de LaTeX. Permite organizar y buscar referencias de manera eficiente.</p>
+</li>
+</ul>
+<h3 id="herramientas-de-analisis-bibliometrico">Herramientas de análisis bibliométrico</h3>
+<ul>
+<li>
+<p><strong><a href="https://www.vosviewer.com/">VosViewer</a></strong> (de pago): Software para construir y visualizar redes bibliométricas. Permite analizar patrones de colaboración, co-citación y co-ocurrencia de términos.</p>
+</li>
+<li>
+<p><strong><a href="https://github.com/neesjanvaneck/VOSviewer-Online">VOSviewer-Online</a></strong> (versión web de VosViewer, Open Source): Versión web de VosViewer que permite realizar análisis bibliométricos directamente desde el navegador. Esta herramienta puede ser utilizada como alternativa para la creación de mapas de citaciones, considerando que VosViewer es una herramienta de pago. Se puede adaptar para casos de uso específicos mediante la implementación de scripts en Python, aprovechando su naturaleza de código abierto.</p>
+</li>
+</ul>
+<h3 id="plataformas-para-gestion-de-revisiones-sistematicas">Plataformas para gestión de revisiones sistemáticas</h3>
+<ul>
+<li><strong><a href="https://parsif.al/">Parsif.al</a></strong> (uso libre): Plataforma web para gestionar revisiones sistemáticas de literatura. Facilita la planificación, ejecución y documentación de revisiones sistemáticas siguiendo metodologías estandarizadas.</li>
+</ul>
+<h3 id="herramientas-de-ia-para-investigacion">Herramientas de IA para investigación</h3>
+<ul>
+<li>
+<p><strong><a href="https://consensus.app/">Consensus</a></strong> (de pago): Plataforma que utiliza IA para analizar y sintetizar hallazgos científicos, ayudando a encontrar respuestas basadas en evidencia en la literatura científica.</p>
+</li>
+<li>
+<p><strong><a href="https://elicit.org/">Elicit</a></strong> (de pago): Herramienta de IA que automatiza partes del proceso de revisión de literatura, ayudando a encontrar, resumir y analizar papers relevantes.</p>
+</li>
+<li>
+<p><strong><a href="https://scite.ai/">Scite</a></strong> (de pago): Plataforma que utiliza IA para analizar cómo los artículos científicos son citados, proporcionando contexto sobre si los hallazgos son apoyados o refutados por investigaciones posteriores.</p>
+</li>
+<li>
+<p><strong><a href="https://typeset.io/">SciSpace</a></strong> (de pago): Plataforma que combina IA y análisis de literatura científica para ayudar a los investigadores a encontrar, leer y comprender papers relevantes de manera más eficiente.</p>
+</li>
+<li>
+<p><strong><a href="https://www.researchrabbit.ai/">Research Rabbit</a></strong> (uso libre): Herramienta que utiliza IA para descubrir y visualizar conexiones entre papers científicos, ayudando a mapear el panorama de la investigación en un campo específico.</p>
+</li>
+</ul>
+<hr />
+<h2 id="referencias">Referencias</h2>
+<ul>
+<li><a href="https://institute-academic-development.ed.ac.uk/study-hub/learning-resources/literature-review">Literature Review University of Edinburgh</a></li>
+<li><a href="https://writing.wisc.edu/handbook/reviewofliterature/">The Literature Review: A Few Tips On Conducting It University of Wisconsin-Madison</a></li>
+<li><a href="https://writingcenter.unc.edu/tips-and-tools/literature-reviews/">Literature Reviews University of North Carolina at Chapel Hill</a></li>
+<li><a href="https://lib.arizona.edu/research/sources/lit-review">Literature Review University of Arizona Libraries</a></li>
+<li><a href="https://arxiv.org/abs/2005.14165">Language Models are Few-Shot Learners</a></li>
+<li><a href="https://arxiv.org/abs/1810.04805">BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding</a></li>
+<li><a href="https://scholar.google.com/">Google Scholar</a></li>
+<li><a href="https://ieeexplore.ieee.org/">IEEE Xplore</a></li>
+<li><a href="https://dl.acm.org/">ACM Digital Library</a></li>
+<li><a href="https://www.sciencedirect.com/">ScienceDirect</a></li>
+<li><a href="https://link.springer.com/">SpringerLink</a></li>
+</ul>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../02_metod-invest/" class="btn btn-neutral float-left" title="Concepto general"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../04_arquitectura/" class="btn btn-neutral float-right" title="Tipos de Arquitecturas">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p><img src="https://raw.githubusercontent.com/danunziata/pps-kevin_haponiuk-2025/main/docs/images/escudo_unrc.png" alt="Logo UNRC" style="height: 30px; vertical-align: middle; margin-right: 10px;">
+<img src="https://raw.githubusercontent.com/danunziata/pps-kevin_haponiuk-2025/main/docs/images/escudo_ing.png" alt="Logo ING" style="height: 30px; vertical-align: middle; margin-right: 10px;">
+&copy; 2025 <a href="https://www.ing.unrc.edu.ar/inicio.php" target="_blank" rel="noopener">Universidad Nacional de Río Cuarto | Facultad de Ingeniería</a>
+</p>
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/danunziata/pps-kevin_haponiuk-2025" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../02_metod-invest/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../04_arquitectura/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../js/custom.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

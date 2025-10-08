@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="Haponiuk Kevin Joel" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Instalación de GROBID / Ejemplo de uso - Agente IA orientado a investigación científica</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../css/custom.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Instalaci\u00f3n de GROBID / Ejemplo de uso";
+        var mkdocs_page_input_path = "pruebas/05_install-grobid.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> Agente IA orientado a investigación científica
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Introducción</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Workflow Final</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../implementacion/00_workflow-completo/">Explicación Workflow</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../implementacion/01_implementacion-final/">Implementación</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../implementacion/02_implementacion-dorotea/">Implementación en Dorotea</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Investigación</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../investigacion/01_llm/">Conceptos Previos</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >Metodología de investigación</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../investigacion/02_metod-invest/">Concepto general</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../investigacion/03_estado-arte/">Revisión Bibliográfica</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../investigacion/04_arquitectura/">Tipos de Arquitecturas</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >Software utilizado</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../investigacion/05_opentools/">Resumen Opentools</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../investigacion/06_n8n/">n8n</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../investigacion/07_grobid/">GROBID</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../investigacion/08_nlp-models/">Modelos de lenguaje</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../investigacion/09_mcp/">MCP</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../investigacion/10_a2a/">A2A</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../investigacion/11_interface-options/">Interfaz de usuario</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Pruebas durante el desarrollo</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../01_install-n8n/">Instalación de n8n / Dependencias necesarias</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../02_ejemplo-rag-crag/">Ejemplo RAG / CRAG</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../03_ejemplo-mcp/">Ejemplo MCP</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Instalación de GROBID / Ejemplo de uso</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#instalacion-del-cliente-python-de-grobid">Instalación del cliente Python de GROBID</a>
+    </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Info Proyecto</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../proyecto/01_metodologia/">Metodología de Trabajo</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../proyecto/02_contribuir/">Como contribuir</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../proyecto/03_about/">Acerca de</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">Agente IA orientado a investigación científica</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Pruebas durante el desarrollo</li>
+      <li class="breadcrumb-item active">Instalación de GROBID / Ejemplo de uso</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/danunziata/pps-kevin_haponiuk-2025/edit/master/docs/pruebas/05_install-grobid.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h2 id="instalacion-y-ejecucion-de-grobid">Instalación y Ejecución de GROBID</h2>
+<p align="center">
+  <img src="../../images/grobid-ingesta.webp" width="100%">
+</p>
+
+<p>La forma más recomendada de utilizar <strong>GROBID</strong> es a través de <strong>Docker</strong>, ejecutándolo como un servidor local.</p>
+<p>Existen dos opciones de imágenes disponibles:</p>
+<ol>
+<li>
+<p><strong>Imagen completa</strong><br />
+    Esta imagen ofrece la mejor precisión, ya que incluye todas las bibliotecas necesarias de Python, TensorFlow, soporte para GPU y todos los modelos de Deep Learning.  </p>
+<ul>
+<li>Es ideal para quienes disponen de una computadora con buena capacidad (preferentemente con GPU) y trabajan con una cantidad limitada de archivos PDF.</li>
+<li>Requiere más recursos de hardware.</li>
+<li>Para ejecutarla, se debe utilizar el siguiente comando:</li>
+</ul>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>--name<span class="w"> </span>grobid<span class="w"> </span>--gpus<span class="w"> </span>all<span class="w"> </span>--init<span class="w"> </span>--ulimit<span class="w"> </span><span class="nv">core</span><span class="o">=</span><span class="m">0</span><span class="w"> </span>-p<span class="w"> </span><span class="m">8070</span>:8070<span class="w"> </span>-d<span class="w"> </span>grobid/grobid:0.8.2
+</code></pre></div>
+</li>
+</ol>
+<p><strong>Nota importante:</strong><br />
+Durante las pruebas, se intentó utilizar la <strong>imagen liviana</strong> (<code>lfoppiano/grobid:0.8.1</code>), pero no estaba disponible en el momento de la ejecución.<br />
+Por este motivo, se optó por utilizar la <strong>imagen completa</strong> (<code>grobid/grobid:0.8.1</code>), que ofrece una mejor precisión y rendimiento en la extracción de datos de los documentos PDF.</p>
+<p>Una vez que GROBID está en ejecución, se puede verificar su funcionamiento accediendo, desde un navegador web, a:</p>
+<p><a href="http://localhost:8070">http://localhost:8070</a></p>
+<p>Allí se encuentra la página de bienvenida del servidor, desde donde es posible utilizar los servicios de procesamiento de documentos de manera manual. Sin embargo, para este proyecto, el procesamiento se realiza de forma automatizada mediante clientes Python, como se explica a continuación.</p>
+<h3 id="instalacion-del-cliente-python-de-grobid">Instalación del cliente Python de GROBID</h3>
+<p>Para automatizar el procesamiento de documentos con GROBID desde Python, es necesario instalar el cliente oficial. Este cliente permite interactuar fácilmente con el servidor GROBID desde scripts Python.</p>
+<div class="highlight"><pre><span></span><code>python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>grobid-client-python
+</code></pre></div>
+<p>Esto instalará la biblioteca <code>grobid-client</code> y sus dependencias. Si necesitas instalarlo en un entorno específico (por ejemplo, dentro de un contenedor Docker), asegúrate de ejecutar el comando en ese entorno.</p>
+<h2 id="estructura-del-entorno-de-trabajo">Estructura del Entorno de Trabajo</h2>
+<p>En el flujo de trabajo propuesto, se define una estructura simple con los siguientes elementos clave:</p>
+<ul>
+<li>📁 input_papers: Carpeta que contiene los archivos PDF a procesar.</li>
+<li>📁 output_papers: Carpeta donde se guardarán los archivos XML generados por GROBID.</li>
+<li>📄 config.json: Archivo de configuración del cliente GROBID.</li>
+<li>📄 cliente_grobid.py: Script Python para ejecutar la conversión masiva.</li>
+</ul>
+<h3 id="configjson"><code>📄 config.json</code></h3>
+<p>Este archivo es necesario para establecer la configuración del cliente. En este caso, no requiere modificación:</p>
+<div class="highlight"><pre><span></span><code>{
+    &quot;grobid_server&quot;: &quot;http://localhost:8070&quot;,
+    &quot;batch_size&quot;: 100,
+    &quot;sleep_time&quot;: 5,
+    &quot;timeout&quot;: 60,
+    &quot;coordinates&quot;: [ &quot;persName&quot;, &quot;figure&quot;, &quot;ref&quot;, &quot;biblStruct&quot;, &quot;formula&quot;, &quot;s&quot;, &quot;note&quot;, &quot;title&quot; ]
+}
+</code></pre></div>
+<h3 id="cliente_grobidpy"><code>📄 cliente_grobid.py</code></h3>
+<p>Este script ejecuta el cliente GROBID para transformar todos los archivos .pdf en la carpeta <code>input_papers</code> y guardar los .xml resultantes en <code>output_papers</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">grobid_client.grobid_client</span><span class="w"> </span><span class="kn">import</span> <span class="n">GrobidClient</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">client</span> <span class="o">=</span> <span class="n">GrobidClient</span><span class="p">(</span><span class="n">config_path</span><span class="o">=</span><span class="s2">&quot;./config.json&quot;</span><span class="p">)</span>
+    <span class="n">client</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="s2">&quot;processFulltextDocument&quot;</span><span class="p">,</span> <span class="s2">&quot;input_papers&quot;</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s2">&quot;output_papers/&quot;</span><span class="p">,</span> <span class="n">consolidate_citations</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">tei_coordinates</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</code></pre></div>
+<p>El script utiliza la biblioteca <code>grobid-client</code> para interactuar con el servidor GROBID. La función <code>process</code> se encarga de procesar los documentos PDF en la carpeta <code>input_papers</code>, generando archivos XML que se guardan en la carpeta <code>output_papers</code>. Los parámetros adicionales permiten ajustar el comportamiento del procesamiento, como la consolidación de citas y las coordenadas TEI.</p>
+<p>Para ejecutar el script, se debe usar específicamente Python 3 con el comando:</p>
+<div class="highlight"><pre><span></span><code><span class="n">python3</span> <span class="n">cliente_grobid</span><span class="o">.</span><span class="n">py</span>
+</code></pre></div>
+<p align="center">
+  <img src="../../images/grobid-pdf_xml-example.png" width="100%">
+</p>
+
+<p>Cada pdf se pasará a XML:</p>
+<p align="center">
+  <img src="../../images/grobid-pdf_xml-example2.png" width="100%">
+</p>
+
+<h2 id="referencia">Referencia</h2>
+<ul>
+<li><a href="https://github.com/kermitt2/grobid">GROBID GitHub</a></li>
+<li><a href="https://grobid.readthedocs.io/en/latest/">GROBID Documentación</a></li>
+<li><a href="https://hub.docker.com/r/grobid/grobid">GROBID Docker</a></li>
+</ul>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../03_ejemplo-mcp/" class="btn btn-neutral float-left" title="Ejemplo MCP"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../../proyecto/01_metodologia/" class="btn btn-neutral float-right" title="Metodología de Trabajo">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p><img src="https://raw.githubusercontent.com/danunziata/pps-kevin_haponiuk-2025/main/docs/images/escudo_unrc.png" alt="Logo UNRC" style="height: 30px; vertical-align: middle; margin-right: 10px;">
+<img src="https://raw.githubusercontent.com/danunziata/pps-kevin_haponiuk-2025/main/docs/images/escudo_ing.png" alt="Logo ING" style="height: 30px; vertical-align: middle; margin-right: 10px;">
+&copy; 2025 <a href="https://www.ing.unrc.edu.ar/inicio.php" target="_blank" rel="noopener">Universidad Nacional de Río Cuarto | Facultad de Ingeniería</a>
+</p>
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/danunziata/pps-kevin_haponiuk-2025" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../03_ejemplo-mcp/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../../proyecto/01_metodologia/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../js/custom.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

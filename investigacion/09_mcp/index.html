@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="Haponiuk Kevin Joel" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>MCP - Agente IA orientado a investigación científica</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../css/custom.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "MCP";
+        var mkdocs_page_input_path = "investigacion/09_mcp.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> Agente IA orientado a investigación científica
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Introducción</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Workflow Final</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../implementacion/00_workflow-completo/">Explicación Workflow</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../implementacion/01_implementacion-final/">Implementación</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../implementacion/02_implementacion-dorotea/">Implementación en Dorotea</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Investigación</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../01_llm/">Conceptos Previos</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >Metodología de investigación</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../02_metod-invest/">Concepto general</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../03_estado-arte/">Revisión Bibliográfica</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../04_arquitectura/">Tipos de Arquitecturas</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >Software utilizado</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../05_opentools/">Resumen Opentools</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../06_n8n/">n8n</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../07_grobid/">GROBID</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../08_nlp-models/">Modelos de lenguaje</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">MCP</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#objetivos-principales-del-mcp">Objetivos principales del MCP</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#arquitectura-general-de-mcp">Arquitectura general de MCP</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#referencias">Referencias</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../10_a2a/">A2A</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../11_interface-options/">Interfaz de usuario</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Pruebas durante el desarrollo</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pruebas/01_install-n8n/">Instalación de n8n / Dependencias necesarias</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pruebas/02_ejemplo-rag-crag/">Ejemplo RAG / CRAG</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pruebas/03_ejemplo-mcp/">Ejemplo MCP</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pruebas/05_install-grobid/">Instalación de GROBID / Ejemplo de uso</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Info Proyecto</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../proyecto/01_metodologia/">Metodología de Trabajo</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../proyecto/02_contribuir/">Como contribuir</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../proyecto/03_about/">Acerca de</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">Agente IA orientado a investigación científica</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Investigación</li>
+      <li class="breadcrumb-item active">MCP</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/danunziata/pps-kevin_haponiuk-2025/edit/master/docs/investigacion/09_mcp.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <hr />
+<p align="center">
+  <img src="../../images/mcp_logo.png" width="100%">
+</p>
+
+<h1 id="que-es-el-model-context-protocol-mcp">¿Qué es el Model Context Protocol (MCP)?</h1>
+<p>Es un estándar abierto diseñado para mejorar la interoperabilidad y la transparencia en el uso de modelos de inteligencia artificial, especialmente los modelos de lenguaje. MCP fue presentado por Anthropic y otros colaboradores de la industria con el objetivo de facilitar la integración, el control y la comprensión de cómo los modelos procesan y utilizan el contexto proporcionado por los usuarios y las aplicaciones.</p>
+<p>MCP es un protocolo abierto que estandariza cómo las aplicaciones proporcionan contexto a los LLMs. Se puede pensar en MCP como el puerto USB-C para las aplicaciones de IA: así como el USB-C ofrece una forma estandarizada de conectar dispositivos a diferentes periféricos y accesorios, MCP proporciona una forma estandarizada de conectar modelos de IA a distintas fuentes de datos y herramientas.</p>
+<p align="center">
+  <img src="../../images/mcp_before-after.png" width="100%">
+  <br>
+  <em>Figura 1: "Antes y después de MCP"</em>
+</p>
+
+<h2 id="objetivos-principales-del-mcp">Objetivos principales del MCP</h2>
+<ol>
+<li>
+<p><strong>Interoperabilidad y flexibilidad:</strong> Permite la conexión directa con integraciones preconstruidas y facilita el intercambio entre diferentes proveedores de LLMs, estandarizando la forma en que los modelos y aplicaciones comparten información contextual.</p>
+</li>
+<li>
+<p><strong>Transparencia y control:</strong> Estandariza la descripción y transmisión del contexto a los modelos, permitiendo a usuarios y desarrolladores entender mejor qué información se utiliza en cada interacción, mientras mantiene los datos dentro de la infraestructura propia.</p>
+</li>
+<li>
+<p><strong>Seguridad y cumplimiento:</strong> Permite especificar y auditar qué datos se incluyen en el contexto, mejorando la privacidad y el cumplimiento de normativas mediante mejores prácticas de seguridad.</p>
+</li>
+</ol>
+<h2 id="arquitectura-general-de-mcp">Arquitectura general de MCP</h2>
+<p>En esencia, MCP sigue una arquitectura cliente-servidor donde una aplicación anfitriona puede conectarse a múltiples servidores:</p>
+<p align="center">
+  <img src="../../images/mcp_architecture.png" width="80%">
+  <br>
+  <em>Figura 2: "Arquitectura general de MCP"</em>
+</p>
+
+<ul>
+<li><strong>MCP Hosts:</strong> Programas como Claude Desktop, IDEs o herramientas de IA que desean acceder a datos a través de MCP.</li>
+<li><strong>MCP Clients:</strong> Clientes de protocolo que mantienen conexiones 1:1 con los servidores.</li>
+<li><strong>MCP Servers:</strong> Programas ligeros que exponen capacidades específicas mediante el protocolo MCP estandarizado.</li>
+<li><strong>Fuentes de datos locales:</strong> Archivos, bases de datos y servicios de tu computadora a los que los servidores MCP pueden acceder de forma segura.</li>
+<li><strong>Servicios remotos:</strong> Sistemas externos disponibles en internet (por ejemplo, a través de APIs) a los que los servidores MCP pueden conectarse.</li>
+</ul>
+<hr />
+<h2 id="referencias">Referencias</h2>
+<ul>
+<li>Anthropic. (2024). <a href="https://www.anthropic.com/news/model-context-protocol">Model Context Protocol</a></li>
+<li>Model Context Protocol. (2024). <a href="https://modelcontextprotocol.io/introduction">Introduction</a></li>
+<li>Model Context Protocol. (2024). <a href="https://github.com/modelcontextprotocol">GitHub Repository</a></li>
+</ul>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../08_nlp-models/" class="btn btn-neutral float-left" title="Modelos de lenguaje"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../10_a2a/" class="btn btn-neutral float-right" title="A2A">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p><img src="https://raw.githubusercontent.com/danunziata/pps-kevin_haponiuk-2025/main/docs/images/escudo_unrc.png" alt="Logo UNRC" style="height: 30px; vertical-align: middle; margin-right: 10px;">
+<img src="https://raw.githubusercontent.com/danunziata/pps-kevin_haponiuk-2025/main/docs/images/escudo_ing.png" alt="Logo ING" style="height: 30px; vertical-align: middle; margin-right: 10px;">
+&copy; 2025 <a href="https://www.ing.unrc.edu.ar/inicio.php" target="_blank" rel="noopener">Universidad Nacional de Río Cuarto | Facultad de Ingeniería</a>
+</p>
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/danunziata/pps-kevin_haponiuk-2025" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../08_nlp-models/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../10_a2a/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../js/custom.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="Haponiuk Kevin Joel" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Implementación - Agente IA orientado a investigación científica</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../css/custom.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Implementaci\u00f3n";
+        var mkdocs_page_input_path = "implementacion/01_implementacion-final.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> Agente IA orientado a investigación científica
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Introducción</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Workflow Final</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../00_workflow-completo/">Explicación Workflow</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Implementación</a>
+    <ul class="current">
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../02_implementacion-dorotea/">Implementación en Dorotea</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Investigación</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../investigacion/01_llm/">Conceptos Previos</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >Metodología de investigación</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../investigacion/02_metod-invest/">Concepto general</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../investigacion/03_estado-arte/">Revisión Bibliográfica</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../investigacion/04_arquitectura/">Tipos de Arquitecturas</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >Software utilizado</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../investigacion/05_opentools/">Resumen Opentools</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../investigacion/06_n8n/">n8n</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../investigacion/07_grobid/">GROBID</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../investigacion/08_nlp-models/">Modelos de lenguaje</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../investigacion/09_mcp/">MCP</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../investigacion/10_a2a/">A2A</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../investigacion/11_interface-options/">Interfaz de usuario</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Pruebas durante el desarrollo</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pruebas/01_install-n8n/">Instalación de n8n / Dependencias necesarias</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pruebas/02_ejemplo-rag-crag/">Ejemplo RAG / CRAG</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pruebas/03_ejemplo-mcp/">Ejemplo MCP</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pruebas/05_install-grobid/">Instalación de GROBID / Ejemplo de uso</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Info Proyecto</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../proyecto/01_metodologia/">Metodología de Trabajo</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../proyecto/02_contribuir/">Como contribuir</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../proyecto/03_about/">Acerca de</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">Agente IA orientado a investigación científica</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Workflow Final</li>
+      <li class="breadcrumb-item active">Implementación</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/danunziata/pps-kevin_haponiuk-2025/edit/master/docs/implementacion/01_implementacion-final.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h2 id="requisitos-previos">Requisitos Previos</h2>
+<p>Actualización del Sistema
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>update
+sudo<span class="w"> </span>apt<span class="w"> </span>upgrade
+</code></pre></div></p>
+<p>Instalación de Python
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>python<span class="w"> </span>python3-pip<span class="w"> </span>python3-venv
+</code></pre></div></p>
+<p>Instalación de Docker
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>docker.io
+sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>docker
+sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>docker
+docker<span class="w"> </span>--version
+</code></pre></div></p>
+<p>Instalación de Docker-Compose
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>curl<span class="w"> </span>-L<span class="w"> </span><span class="s2">&quot;https://github.com/docker/compose/releases/latest/download/docker-compose-</span><span class="k">$(</span>uname<span class="w"> </span>-s<span class="k">)</span><span class="s2">-</span><span class="k">$(</span>uname<span class="w"> </span>-m<span class="k">)</span><span class="s2">&quot;</span><span class="w"> </span>-o<span class="w"> </span>/usr/local/bin/docker-compose
+sudo<span class="w"> </span>chmod<span class="w"> </span>+x<span class="w"> </span>/usr/local/bin/docker-compose
+docker-compose<span class="w"> </span>--version
+</code></pre></div></p>
+<h2 id="puesta-en-marcha">Puesta en Marcha</h2>
+<h3 id="clonacion-del-repositorio">Clonación del Repositorio</h3>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>git@github.com:danunziata/pps-kevin_haponiuk-2025.git
+<span class="nb">cd</span><span class="w"> </span>pps-kevin_haponiuk-2025/src/self-hosted-ai-starter-kit
+</code></pre></div>
+<h3 id="ejecucion-con-docker-compose">Ejecución con Docker Compose</h3>
+<p>El proyecto soporta dos perfiles de ejecución según el hardware disponible:</p>
+<table>
+<thead>
+<tr>
+<th>Perfil</th>
+<th>Comando</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>CPU</strong></td>
+<td><code>docker compose --profile cpu up</code></td>
+</tr>
+<tr>
+<td><strong>GPU NVIDIA (recomendado)</strong></td>
+<td><code>docker compose --profile gpu-nvidia up</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="descarga-de-modelos-en-ollama">Descarga de Modelos en Ollama</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Acceder al contenedor de Ollama</span>
+docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>ollama<span class="w"> </span>bash
+
+<span class="c1"># Descargar modelos necesarios</span>
+ollama<span class="w"> </span>run<span class="w"> </span>llama3.1:8b
+ollama<span class="w"> </span>run<span class="w"> </span>gemma3:1b
+ollama<span class="w"> </span>run<span class="w"> </span>qwen3:8b
+ollama<span class="w"> </span>pull<span class="w"> </span>nomic-embed-text
+</code></pre></div>
+<p><strong>Nota</strong>: Al finalizar cada ejecución de modelo, salir con <code>/bye</code>.</p>
+<h2 id="configuracion-de-servicios">Configuración de Servicios</h2>
+<h3 id="n8n">N8N</h3>
+<ol>
+<li>Acceder a <a href="http://localhost:5678">http://localhost:5678</a></li>
+<li>Configurar credenciales locales:<ul>
+<li>Email: prueba@gmail.com</li>
+<li>First Name: Prueba</li>
+<li>Last Name: Prueba</li>
+<li>Password: Prueba123</li>
+</ul>
+</li>
+<li>Verificar que aparezca el workflow "Agent-AI-PPS_Kevin-Haponiuk"... Si no aparece, importar desde: <code>pps-kevin_haponiuk-2025/src/self-hosted-ai-starter-kit/n8n/backup/workflows/Agent-AI-PPS_Kevin-Haponiuk.json</code></li>
+</ol>
+<h3 id="credenciales-de-google">Credenciales de Google</h3>
+<p>Configurar las credenciales de Google siguiendo la <a href="../../pruebas/01_install-n8n/#credenciales-de-google">guía de instalación</a>.</p>
+<h3 id="verificacion-de-grobid">Verificación de GROBID</h3>
+<ol>
+<li><strong>Prueba desde navegador</strong>: <a href="http://localhost:8070/api/isalive">http://localhost:8070/api/isalive</a> debe retornar <code>true</code></li>
+<li><strong>Prueba desde N8N</strong>: Ejecutar el bloque "TEST GROBID" para verificar la conectividad</li>
+</ol>
+<h2 id="procesamiento-de-datos">Procesamiento de Datos</h2>
+<h3 id="carga-de-informacion">Carga de Información</h3>
+<ol>
+<li>Configurar la carpeta de PDFs en el bloque "Search all Content"</li>
+<li>Ejecutar el workflow "CARGA DE INFORMACIÓN" en N8N</li>
+<li>Verificar la carga en <a href="http://localhost:6333/dashboard#/collections">http://localhost:6333/dashboard#/collections</a></li>
+</ol>
+<h3 id="configuracion-de-postgresql">Configuración de PostgreSQL</h3>
+<p>Obtener la IP del servicio de postgres:
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>inspect<span class="w"> </span>-f<span class="w"> </span><span class="s1">&#39;{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}&#39;</span><span class="w"> </span>self-hosted-ai-starter-kit-postgres-1
+</code></pre></div></p>
+<p>Configurar credenciales del nodo de Postgres en N8N:</p>
+<ul>
+<li>Host: [IP obtenida]</li>
+<li>Database: n8n</li>
+<li>Username: root</li>
+<li>Password: password</li>
+</ul>
+<h3 id="pgadmin-opcional">PgAdmin (Opcional)</h3>
+<ol>
+<li>Acceder a <a href="http://localhost:5050/">http://localhost:5050/</a></li>
+<li>Login: admin@admin.com / admin</li>
+<li>Agregar nuevo servidor con la IP de postgres y mismos parámetros utilizados en el punto anterior.</li>
+</ol>
+<h2 id="consulta-al-agente">Consulta al Agente</h2>
+<p>Existen dos formas de interactuar con el agente:</p>
+<ol>
+<li><strong>Chat directo</strong>: Usar el bloque "when chat message received" en N8N</li>
+<li><strong>Webhook con OpenWebUI</strong>: Configurar integración externa</li>
+</ol>
+<h3 id="configuracion-de-openwebui">Configuración de OpenWebUI</h3>
+<p>Para poder hacer la consulta al agente mediante el bloque webhook, debemos configurar el servicio de OpenWebUI.</p>
+<ol>
+<li>
+<p><strong>Acceder a OpenWebUI</strong>: Ir a <code>http://localhost:3000</code> y logearse con un mail y password.</p>
+</li>
+<li>
+<p><strong>Crear nueva función</strong>: Ir abajo a la izquierda y entrar al <strong>Admin Panel</strong> → <strong>Functions</strong> y crear una nueva función.</p>
+</li>
+<li>
+<p><strong>Código de la función</strong>: Copiar el siguiente código en la función:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Código completo disponible en: src/self-hosted-ai-starter-kit/n8n-pipeline-function.py</span>
+</code></pre></div>
+</li>
+<li>
+<p><strong>Configurar parámetros</strong>: Configure los siguientes parámetros en la función creada:</p>
+<ul>
+<li><strong>Nombre</strong>: "N8N Pipeline" </li>
+<li><strong>Descripción</strong>: "Pipeline para interactuar con N8N"</li>
+</ul>
+</li>
+<li>
+<p><strong>Acceder al bloque Webhook</strong>: En N8N, localice y configure el bloque Webhook de la siguiente manera (copie el Test URL generado):</p>
+</li>
+</ol>
+<p align="center">
+  <img src="../../images/config-n8n-openweb.png" width="80%">
+</p>
+
+<p>En las configuraciones de la función, utilice la URL copiada de N8N y realice el siguiente cambio:</p>
+<ul>
+<li>Reemplace <code>localhost</code> por el nombre del contenedor de N8N (en este caso "n8n")</li>
+<li>Mantenga el resto de configuraciones en valores por defecto</li>
+</ul>
+<p align="center">
+  <img src="../../images/function-2.png" width="60%">
+</p>
+
+<p><strong>Activar el workflow</strong>: Active el workflow en N8N para comenzar a recibir solicitudes:</p>
+<p align="center">
+  <img src="../../images/activate.png" width="50%">
+</p>
+
+<p><strong>Configurar escucha</strong>: Configure el workflow para escuchar y recibir respuestas externas:</p>
+<p align="center">
+  <img src="../../images/execute.png" width="60%">
+</p>
+
+<h3 id="verificacion-final">Verificación Final</h3>
+<p>Una vez completados todos los pasos anteriores, ya puede realizar consultas al agente directamente desde n8n o desde Open WebUI.</p>
+<h2 id="visualizacion-de-metricas">Visualización de métricas</h2>
+<p><strong>cAdvisor (Métricas Raw)</strong></p>
+<ul>
+<li>URL: <code>http://localhost:8081</code></li>
+<li>Qué ver: Lista de contenedores y métricas básicas</li>
+<li>No requiere configuración</li>
+</ul>
+<p><strong>Prometheus (Base de Datos de Métricas)</strong></p>
+<ul>
+<li>URL: <code>http://localhost:9090</code></li>
+<li>Qué ver: Interfaz de consultas PromQL</li>
+<li>No requiere configuración inicial</li>
+</ul>
+<p><strong>Grafana (Dashboards)</strong></p>
+<ul>
+<li>URL: <code>http://localhost:3001</code></li>
+<li>Usuario: <code>admin</code></li>
+<li>Contraseña: <code>admin</code></li>
+</ul>
+<p>A continuación se explica cómo configurar Grafana agregando Prometheus como Fuente de Datos</p>
+<ol>
+<li>Ir a <code>http://localhost:3001</code></li>
+<li>Login con <code>admin/admin</code></li>
+<li>Ir a <strong>Configuration</strong> → <strong>Data Sources</strong></li>
+<li>Click en <strong>Add data source</strong></li>
+<li>Seleccionar <strong>Prometheus</strong></li>
+<li>URL: <code>http://prometheus:9090</code></li>
+<li>Click en <strong>Save &amp; Test</strong></li>
+</ol>
+<p>Luego se debe Importar un Dashboard</p>
+<ol>
+<li>Ir a <strong>Dashboards</strong> → <strong>Import</strong></li>
+<li>Usar ID: <code>19908</code> o <code>893</code></li>
+<li>Seleccionar Prometheus como fuente de datos</li>
+<li>Click en <strong>Import</strong></li>
+</ol>
+<h2 id="detener-la-ejecucion">🛑 Detener la ejecución</h2>
+<div class="highlight"><pre><span></span><code><span class="c1"># Para perfil CPU</span>
+docker<span class="w"> </span>compose<span class="w"> </span>--profile<span class="w"> </span>cpu<span class="w"> </span>down
+
+<span class="c1"># Para perfil GPU NVIDIA</span>
+docker<span class="w"> </span>compose<span class="w"> </span>--profile<span class="w"> </span>gpu-nvidia<span class="w"> </span>down
+</code></pre></div>
+<h2 id="puertos-utilizados">Puertos Utilizados</h2>
+<table>
+<thead>
+<tr>
+<th>Servicio</th>
+<th>Puerto</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>N8N</td>
+<td>5678</td>
+</tr>
+<tr>
+<td>Ollama</td>
+<td>11434</td>
+</tr>
+<tr>
+<td>PgAdmin</td>
+<td>5050</td>
+</tr>
+<tr>
+<td>Qdrant</td>
+<td>6333</td>
+</tr>
+<tr>
+<td>Qdrant Search</td>
+<td>5000</td>
+</tr>
+<tr>
+<td>PostgreSQL</td>
+<td>5432</td>
+</tr>
+<tr>
+<td>OpenWebUI</td>
+<td>3000</td>
+</tr>
+<tr>
+<td>Grobid</td>
+<td>8070</td>
+</tr>
+<tr>
+<td>Cadvisor</td>
+<td>8081</td>
+</tr>
+<tr>
+<td>Prometheus</td>
+<td>9090</td>
+</tr>
+<tr>
+<td>Grafana</td>
+<td>3001</td>
+</tr>
+</tbody>
+</table>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../00_workflow-completo/" class="btn btn-neutral float-left" title="Explicación Workflow"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../02_implementacion-dorotea/" class="btn btn-neutral float-right" title="Implementación en Dorotea">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p><img src="https://raw.githubusercontent.com/danunziata/pps-kevin_haponiuk-2025/main/docs/images/escudo_unrc.png" alt="Logo UNRC" style="height: 30px; vertical-align: middle; margin-right: 10px;">
+<img src="https://raw.githubusercontent.com/danunziata/pps-kevin_haponiuk-2025/main/docs/images/escudo_ing.png" alt="Logo ING" style="height: 30px; vertical-align: middle; margin-right: 10px;">
+&copy; 2025 <a href="https://www.ing.unrc.edu.ar/inicio.php" target="_blank" rel="noopener">Universidad Nacional de Río Cuarto | Facultad de Ingeniería</a>
+</p>
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/danunziata/pps-kevin_haponiuk-2025" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../00_workflow-completo/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../02_implementacion-dorotea/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../js/custom.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

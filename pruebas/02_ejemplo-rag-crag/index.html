@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="Haponiuk Kevin Joel" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Ejemplo RAG / CRAG - Agente IA orientado a investigación científica</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../css/custom.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Ejemplo RAG / CRAG";
+        var mkdocs_page_input_path = "pruebas/02_ejemplo-rag-crag.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> Agente IA orientado a investigación científica
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Introducción</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Workflow Final</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../implementacion/00_workflow-completo/">Explicación Workflow</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../implementacion/01_implementacion-final/">Implementación</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../implementacion/02_implementacion-dorotea/">Implementación en Dorotea</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Investigación</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../investigacion/01_llm/">Conceptos Previos</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >Metodología de investigación</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../investigacion/02_metod-invest/">Concepto general</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../investigacion/03_estado-arte/">Revisión Bibliográfica</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../investigacion/04_arquitectura/">Tipos de Arquitecturas</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >Software utilizado</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../investigacion/05_opentools/">Resumen Opentools</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../investigacion/06_n8n/">n8n</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../investigacion/07_grobid/">GROBID</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../investigacion/08_nlp-models/">Modelos de lenguaje</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../investigacion/09_mcp/">MCP</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../investigacion/10_a2a/">A2A</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../investigacion/11_interface-options/">Interfaz de usuario</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Pruebas durante el desarrollo</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../01_install-n8n/">Instalación de n8n / Dependencias necesarias</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Ejemplo RAG / CRAG</a>
+    <ul class="current">
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../03_ejemplo-mcp/">Ejemplo MCP</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../05_install-grobid/">Instalación de GROBID / Ejemplo de uso</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Info Proyecto</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../proyecto/01_metodologia/">Metodología de Trabajo</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../proyecto/02_contribuir/">Como contribuir</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../proyecto/03_about/">Acerca de</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">Agente IA orientado a investigación científica</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Pruebas durante el desarrollo</li>
+      <li class="breadcrumb-item active">Ejemplo RAG / CRAG</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/danunziata/pps-kevin_haponiuk-2025/edit/master/docs/pruebas/02_ejemplo-rag-crag.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <p>En esta sección se presentarán dos ejemplos prácticos de implementación de las arquitecturas <strong>RAG</strong> y <strong>CRAG</strong> que fueron explicadas en detalle en la sección de <a href="../../investigacion/04_arquitectura/">Tipos de Arquitecturas</a>. Estos ejemplos demostrarán cómo aplicar los conceptos teóricos en casos reales.</p>
+<p>Para comenzar con los ejemplos, necesitamos importar el flujo de trabajo de ejemplo en n8n. El archivo <code>ejemplo_RAG_vs_CRAG.json</code> contiene la configuración completa de ambos ejemplos. Para importarlo:</p>
+<ol>
+<li>En la interfaz de n8n, haz clic en el botón "Workflows" en el menú lateral</li>
+<li>Haz clic en el botón "Import from File" en la esquina superior derecha</li>
+<li>Navega hasta la carpeta <code>docs/implementacion/files</code> y selecciona el archivo <code>ejemplo_RAG_vs_CRAG.json</code></li>
+<li>Haz clic en "Import"</li>
+</ol>
+<p>Una vez importado, deberás ver algo como lo siguiente:</p>
+<p align="center">
+  <img src="../../images/n8n_rag-crag.png" width="100%">
+  <br>
+  <em>Figura 1: Ejemplo de RAG y CRAG en n8n</em>
+</p>
+
+<p>La implementación se divide en tres bloques principales:</p>
+<ol>
+<li><strong>Bloque RAG (Amarillo)</strong>: Implementa el flujo de trabajo del RAG tradicional</li>
+<li><strong>Bloque CRAG (Rojo)</strong>: Implementa el flujo de trabajo del CRAG</li>
+<li><strong>Bloque de Consultas (Azul)</strong>: Permite realizar consultas a la base de datos vectorial</li>
+</ol>
+<h3 id="configuracion-de-las-colecciones">Configuración de las Colecciones</h3>
+<p>Cada bloque de base de datos vectorial debe configurarse con su colección correspondiente:</p>
+<ul>
+<li>El bloque RAG se conecta a la colección <code>prueba_RAG</code></li>
+<li>El bloque CRAG se conecta a la colección <code>prueba_CRAG</code></li>
+<li>El bloque de consultas permite seleccionar la colección a consultar</li>
+</ul>
+<h3 id="flujo-de-trabajo-rag">Flujo de Trabajo RAG</h3>
+<p>El flujo de trabajo del RAG sigue estos pasos:</p>
+<ol>
+<li>Descarga un archivo XML desde Google Drive (extraído previamente de un paper mediante GROBID)</li>
+<li>Procesa el archivo para extraer el texto contenido</li>
+<li>Carga el contenido en la base de datos vectorial con una configuración recursiva que permite que cada chunk contenga información de contexto de los chunks adyacentes</li>
+</ol>
+<h3 id="flujo-de-trabajo-crag">Flujo de Trabajo CRAG</h3>
+<p>El flujo de trabajo del CRAG implementa una estrategia más sofisticada:</p>
+<ol>
+<li>Realiza la misma descarga y extracción inicial que el RAG</li>
+<li>Divide manualmente el contenido en chunks</li>
+<li>Procesa los chunks en grupos de 5 mediante un loop</li>
+<li>Para cada grupo, utiliza un modelo de lenguaje para generar contexto individual basado en el documento completo</li>
+<li>Carga los chunks enriquecidos en la base de datos vectorial<ul>
+<li>Nota: No se utiliza la configuración recursiva ya que la separación y enriquecimiento de chunks se realiza previamente</li>
+</ul>
+</li>
+</ol>
+<h2 id="ejecucion-del-flujo-de-trabajo">Ejecución del flujo de trabajo</h2>
+<p>para la ejecución debemos agregar el bloque <strong>when clicking 'test workflow'</strong> y conectarlo con el bloque de google drive para testear el flujo de trabajo que queremos ejecutar, ya sea RAG o CRAG.</p>
+<p align="center">
+  <img src="../../images/n8n_rag-ejec.png" width="100%">
+  <br>
+  <em>Figura 2: Ejecución del flujo de trabajo RAG</em>
+</p>
+
+<p>Una vez ejecutado el flujo de trabajo, se puede observar el proceso completo en acción:</p>
+<p>Para verificar que los datos se han cargado correctamente, se puede acceder al panel de control de Qdrant a través de:</p>
+<ul>
+<li><a href="http://localhost:6333/dashboard#/collections">http://localhost:6333/dashboard#/collections</a></li>
+</ul>
+<p>Aquí se puede visualizar las colecciones creadas y verificar que los vectores se hayan almacenado correctamente.</p>
+<p align="center">
+  <img src="../../images/qdrant-collections.png" width="100%">
+  <br>
+  <em>Figura 3: Colecciones en Qdrant</em>
+</p>
+
+<p>una vez llegado a este punto, está preparada la base de datos para que el agente pueda preguntar algo relacionado con el contenido que se cargó.</p>
+<p align="center">
+  <img src="../../images/n8n-rag-example.png" width="100%">
+  <br>
+  <em>Figura 4: Pregunta al agente</em>
+</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../01_install-n8n/" class="btn btn-neutral float-left" title="Instalación de n8n / Dependencias necesarias"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../03_ejemplo-mcp/" class="btn btn-neutral float-right" title="Ejemplo MCP">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p><img src="https://raw.githubusercontent.com/danunziata/pps-kevin_haponiuk-2025/main/docs/images/escudo_unrc.png" alt="Logo UNRC" style="height: 30px; vertical-align: middle; margin-right: 10px;">
+<img src="https://raw.githubusercontent.com/danunziata/pps-kevin_haponiuk-2025/main/docs/images/escudo_ing.png" alt="Logo ING" style="height: 30px; vertical-align: middle; margin-right: 10px;">
+&copy; 2025 <a href="https://www.ing.unrc.edu.ar/inicio.php" target="_blank" rel="noopener">Universidad Nacional de Río Cuarto | Facultad de Ingeniería</a>
+</p>
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/danunziata/pps-kevin_haponiuk-2025" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../01_install-n8n/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../03_ejemplo-mcp/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../js/custom.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

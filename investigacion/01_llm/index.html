@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="Haponiuk Kevin Joel" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Conceptos Previos - Agente IA orientado a investigación científica</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../css/custom.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Conceptos Previos";
+        var mkdocs_page_input_path = "investigacion/01_llm.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> Agente IA orientado a investigación científica
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Introducción</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Workflow Final</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../implementacion/00_workflow-completo/">Explicación Workflow</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../implementacion/01_implementacion-final/">Implementación</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../implementacion/02_implementacion-dorotea/">Implementación en Dorotea</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Investigación</span></p>
+              <ul class="current">
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Conceptos Previos</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#que-es-machine-learning">¿Qué es Machine Learning?</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#un-ejemplo-cotidiano">Un ejemplo cotidiano</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#tipos-de-aprendizaje-en-machine-learning">Tipos de aprendizaje en Machine Learning</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#que-es-una-red-neuronal">¿Qué es una red neuronal?</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#inspiracion-biologica">Inspiración biológica</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#un-poco-de-historia">Un poco de historia</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#que-es-un-llm">¿Qué es un LLM?</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#que-es-el-lenguaje-natural-y-como-puede-interpretarlo-la-ia">¿Qué es el lenguaje natural y cómo puede interpretarlo la IA?</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#1-codificacion-numerica">1. Codificación numérica</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#2-tokenizacion">2. Tokenización</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#3-compresion">3. Compresión</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#4-marcadores-embedding">4. Marcadores / Embedding</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#5-normalizacion-y-lematizacion">5. Normalización y Lematización</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#6-sampling">6. Sampling</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#evolucion-de-las-redes-neuronales">Evolución de las Redes Neuronales</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#redes-neuronales-recurrentes-rnn">Redes Neuronales Recurrentes (RNN)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#lstm-long-short-term-memory">LSTM (Long Short-Term Memory)</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#el-gran-cambio-transformers">El Gran Cambio: Transformers</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#que-aportan-los-transformers">¿Qué aportan los Transformers?</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#ejemplo-con-self-attention">Ejemplo con Self-Attention</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >Metodología de investigación</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../02_metod-invest/">Concepto general</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../03_estado-arte/">Revisión Bibliográfica</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../04_arquitectura/">Tipos de Arquitecturas</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >Software utilizado</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../05_opentools/">Resumen Opentools</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../06_n8n/">n8n</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../07_grobid/">GROBID</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../08_nlp-models/">Modelos de lenguaje</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../09_mcp/">MCP</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../10_a2a/">A2A</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../11_interface-options/">Interfaz de usuario</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Pruebas durante el desarrollo</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pruebas/01_install-n8n/">Instalación de n8n / Dependencias necesarias</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pruebas/02_ejemplo-rag-crag/">Ejemplo RAG / CRAG</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pruebas/03_ejemplo-mcp/">Ejemplo MCP</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pruebas/05_install-grobid/">Instalación de GROBID / Ejemplo de uso</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Info Proyecto</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../proyecto/01_metodologia/">Metodología de Trabajo</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../proyecto/02_contribuir/">Como contribuir</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../proyecto/03_about/">Acerca de</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">Agente IA orientado a investigación científica</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Investigación</li>
+      <li class="breadcrumb-item active">Conceptos Previos</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/danunziata/pps-kevin_haponiuk-2025/edit/master/docs/investigacion/01_llm.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="como-funciona-un-modelo-de-lenguaje-generativo">¿Cómo funciona un Modelo de Lenguaje Generativo? 🧠💬</h1>
+<p>Para poder desarrollar una solución efectiva, es fundamental comprender qué ocurre detrás de escena cuando le hacemos una solicitud a una inteligencia artificial de texto generativo como puede ser ChatGPT.</p>
+<p>En esta sección vamos a desglosar y explicar, de forma simple y conceptual, los elementos esenciales que conforman un modelo de lenguaje generativo.</p>
+<hr />
+<h2 id="que-es-machine-learning">¿Qué es Machine Learning?</h2>
+<p>El <em>Machine Learning</em> es una rama de la inteligencia artificial que permite a las computadoras <strong>aprender de los datos</strong> sin que sea necesario programarlas explícitamente para cada tarea.</p>
+<p>Una definición clásica lo describe así:</p>
+<blockquote>
+<p><em>Machine Learning es el campo de estudio que da a las computadoras la capacidad de aprender sin ser explícitamente programadas.</em><br />
+— Arthur Samuel, 1959</p>
+</blockquote>
+<p>Otra, más enfocada en su aplicación, dice:</p>
+<blockquote>
+<p><em>Un programa aprende de la experiencia (E), con respecto a una tarea (T) y una medida de rendimiento (P), si mejora su rendimiento en T, medido por P, gracias a E.</em><br />
+— Tom Mitchell, 1997</p>
+</blockquote>
+<h3 id="un-ejemplo-cotidiano">Un ejemplo cotidiano</h3>
+<p>Tomemos como ejemplo el <strong>filtro de spam</strong>. Este sistema analiza miles de correos que los usuarios marcaron como spam o no spam, y con eso <strong>aprende a detectar patrones</strong> para clasificar correctamente nuevos correos.<br />
+Aquí:</p>
+<ul>
+<li><strong>Tarea (T):</strong> Clasificar correos como spam o no spam.  </li>
+<li><strong>Experiencia (E):</strong> Correos etiquetados por usuarios.  </li>
+<li><strong>Rendimiento (P):</strong> Porcentaje de correos clasificados correctamente (precisión o <em>accuracy</em>).</li>
+</ul>
+<p>Con suficiente experiencia, el sistema mejora su desempeño en la tarea, sin necesidad de reglas escritas por humanos.</p>
+<h3 id="tipos-de-aprendizaje-en-machine-learning">Tipos de aprendizaje en Machine Learning</h3>
+<ul>
+<li>
+<p><strong>Aprendizaje Supervisado</strong>: Es como aprender a tocar el piano con un profesor. El algoritmo se entrena con datos etiquetados, es decir, con las respuestas correctas ya conocidas. Aprende comparando sus resultados con las respuestas reales y ajustando su comportamiento. Se utiliza, por ejemplo, en sistemas que filtran correos spam.</p>
+</li>
+<li>
+<p><strong>Aprendizaje No Supervisado</strong>: Similar a armar un rompecabezas sin saber cómo debería verse al final. No se proporcionan etiquetas ni respuestas, y el algoritmo debe descubrir patrones o agrupaciones por sí mismo. Un uso común es la segmentación de clientes en marketing.</p>
+</li>
+<li>
+<p><strong>Aprendizaje por Refuerzo</strong>: Como entrenar a una mascota con premios y castigos. El algoritmo aprende a través de prueba y error, recibiendo recompensas por buenas acciones y penalizaciones por errores. Es muy usado en videojuegos y robótica, donde el sistema mejora con la experiencia.</p>
+</li>
+</ul>
+<p align="center">
+  <img src="../../images/type_ml.webp" width="100%">
+  <br>
+  <em>Figura 1: Tipos de aprendizajes en machine learning</em>
+</p>
+
+<h2 id="que-es-una-red-neuronal">¿Qué es una red neuronal?</h2>
+<p>Las redes neuronales artificiales (<em>Artificial Neural Networks</em>, o ANN) son <strong>modelos matemáticos inspirados en el funcionamiento del cerebro humano</strong>.
+Por medio de una colección de unidades llamadas <em>neuronas artificiales</em>, organizadas en capas y conectadas entre sí, que <strong>aprende a realizar tareas complejas mediante la experiencia</strong>, es decir, ajustando sus parámetros a partir de los datos de entrenamiento. Gracias a esta capacidad, pueden realizar tareas como clasificar imágenes, reconocer voz o jugar videojuegos, todo esto <strong>aprendiendo a partir de datos</strong>.</p>
+<h3 id="inspiracion-biologica">Inspiración biológica</h3>
+<p>Una <strong>neurona biológica</strong> es una célula del cerebro que recibe señales de otras neuronas a través de estructuras llamadas <em>dendritas</em>, procesa esa información en el cuerpo celular, y transmite señales hacia otras neuronas a través del <em>axón</em>. Cuando recibe suficientes estímulos, la neurona "dispara" una señal eléctrica.</p>
+<p align="center">
+  <img src="../../images/neurona.png"  width="80%">
+  <br>
+  <em>Figura 2: Una neurona biológica</em>
+</p>
+
+<p align="center">
+  <img src="../../images/red_neuronal_humana.png" width="80%">
+  <br>
+  <em>Figura 3: Representación de una red neuronal humana</em>
+</p>
+
+<p>De forma análoga, una <strong>neurona artificial</strong> recibe múltiples entradas numéricas (como los datos de una imagen o un texto), las combina mediante una función matemática y produce una salida. Las conexiones entre neuronas se representan con pesos, que determinan la importancia de cada entrada. Al entrenar la red, estos pesos se ajustan para mejorar el desempeño del modelo.</p>
+<p align="center">
+  <img src="../../images/red_neuronal.png" width="60%">
+  <br>
+  <em>Figura 4: Representación conceptual de una red neuronal artificial </em>
+</p>
+
+<h3 id="un-poco-de-historia">Un poco de historia</h3>
+<p>Las primeras redes neuronales fueron propuestas en 1943 por <strong>McCulloch y Pitts</strong>, quienes crearon un modelo muy simplificado de neurona artificial capaz de realizar cálculos lógicos (como AND, OR y NOT). Este fue el punto de partida para una larga evolución.</p>
+<p>Durante décadas, las redes neuronales pasaron por varios ciclos de entusiasmo y olvido, hasta que en la última década resurgieron con fuerza, gracias a:</p>
+<ul>
+<li>la disponibilidad de <strong>grandes cantidades de datos</strong> (Big Data),</li>
+<li>el aumento exponencial de la <strong>capacidad de cómputo</strong> (especialmente con GPUs y TPUs),</li>
+<li>y las mejoras en los <strong>algoritmos de entrenamiento</strong> (como el descenso por gradiente y sus variantes).</li>
+</ul>
+<p>Todo esto permitió entrenar redes neuronales más profundas y complejas, dando lugar al auge de ia que hoy presenciamos.</p>
+<h2 id="que-es-un-llm">¿Qué es un LLM?</h2>
+<p>Un <strong>LLM</strong> (<em>Large Language Model</em>, o <em>Modelo de Lenguaje Grande</em>) es un tipo de modelo de inteligencia artificial entrenado para comprender, generar y trabajar con lenguaje natural de manera fluida. Estos modelos están basados en redes neuronales profundas, especialmente en arquitecturas conocidas como <strong>transformers</strong> (explicado más adelante), que le permite procesar y generar texto a gran escala.</p>
+<p>Lo que hace especial a un LLM es la enorme cantidad de datos con los que ha sido entrenado (normalmente textos provenientes de libros, artículos, páginas web y otros contenidos públicos) y la gran cantidad de parámetros que posee, muchas veces llegando a <strong>miles de millones de conexiones</strong>. Gracias a esto, los LLM pueden:</p>
+<ul>
+<li>Redactar textos coherentes y contextuales.</li>
+<li>Traducir entre distintos idiomas.</li>
+<li>Resumir documentos extensos.</li>
+<li>Responder preguntas de forma informada.</li>
+<li>Asistir en programación, análisis de datos, y mucho más.</li>
+</ul>
+<h2 id="que-es-el-lenguaje-natural-y-como-puede-interpretarlo-la-ia">¿Qué es el lenguaje natural y cómo puede interpretarlo la IA?</h2>
+<p>El <strong>lenguaje natural</strong> es la forma de comunicación que usamos los seres humanos en nuestra vida cotidiana, como el español, inglés, francés, etc. Se caracteriza por ser <strong>rico, flexible y ambiguo</strong>, y está lleno de matices culturales, contextuales y emocionales.</p>
+<p>En el ámbito de la computación, cuando se habla de <strong>procesamiento de lenguaje natural (NLP "Natural Language Processing", por sus siglas en inglés)</strong>, se hace referencia a la capacidad de una máquina para <strong>entender, interpretar, generar y responder</strong> a textos o conversaciones escritos u orales del mismo modo en que lo haría una persona.</p>
+<p>Cuando escribimos un texto como:</p>
+<div class="highlight"><pre><span></span><code>&quot;El gato duerme en el sofá&quot;
+</code></pre></div>
+<p>Este texto pasa por varios pasos para que la IA lo entienda:</p>
+<h3 id="1-codificacion-numerica">1. Codificación numérica</h3>
+<p>Lo primero que debemos hacer es <strong>convertir las palabras en un formato que la computadora pueda entender</strong>, como por ejemplo una codificación numérica. Una forma sencilla de hacerlo es utilizando códigos como <strong>ASCII</strong>, donde a cada carácter se le asigna un número específico.</p>
+<p align="center">
+  <img src="../../images/codificacion.png" width="80%">
+  <br>
+  <em>Figura 5: Proceso de codificación</em>
+</p>
+
+<h3 id="2-tokenizacion">2. Tokenización</h3>
+<p>A nuestra red neuronal la <strong>entrenamos alimentándola con una gran cantidad de datos ya codificados</strong>. A medida que procesa esta información, <strong>aprende a reconocer patrones repetitivos</strong> en el lenguaje. Estos patrones, conocidos como <strong>tokens</strong>, se van organizando y catalogando en una especie de vocabulario interno o lista, que luego usará para comprender y generar texto.</p>
+<p align="center">
+  <img src="../../images/patrones.png" width="80%">
+  <br>
+  <em>Figura 6: Red neuronal encontrando patrones</em>
+</p>
+
+<blockquote>
+<p>🔍 <strong>Aclaración:</strong> un <em>token</em> no es necesariamente una palabra. Puede ser una palabra completa, una parte de una palabra, o incluso un conjunto de palabras o símbolos, dependiendo del modelo y del sistema de tokenización utilizado.</p>
+</blockquote>
+<h3 id="3-compresion">3. Compresión</h3>
+<p>Una vez que nuestra red neuronal ha identificado los patrones en los datos, <strong>el siguiente paso es representar cada token mediante un número o identificador único (ID)</strong>. Esta conversión permite <strong>simplificar el procesamiento y optimizar el almacenamiento</strong>, ya que trabajar con números es mucho más eficiente que hacerlo directamente con texto.</p>
+<p>Por ejemplo:</p>
+<table>
+<thead>
+<tr>
+<th>Token</th>
+<th>Token completo</th>
+<th>ID</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>hola</td>
+<td>72 111 108 97</td>
+<td>1923</td>
+</tr>
+<tr>
+<td>hace</td>
+<td>104 97 99 101</td>
+<td>1234</td>
+</tr>
+<tr>
+<td>frío</td>
+<td>102 114 237 111</td>
+<td>6543</td>
+</tr>
+</tbody>
+</table>
+<p>De esta forma, cuando la red procesa una frase como "hola hace frío", en realidad está trabajando internamente con una secuencia de números: <code>1923, 1234, 6543</code>.</p>
+<p align="center">
+  <img src="../../images/id-token.png" width="80%">
+  <br>
+  <em>Figura 7: Representación mediante ID</em>
+</p>
+
+<h3 id="4-marcadores-embedding">4. Marcadores / Embedding</h3>
+<p>Es importante entender que <strong>el modelo no "sabe" lo que significa cada palabra</strong> como lo haría una persona. No tiene una comprensión semántica real de los términos. Sin embargo, <strong>sí puede identificar qué tokens están relacionados entre sí</strong> gracias a cómo se organizan en el espacio de embedding.</p>
+<p>Por ejemplo, puede aprender que el token <code>"la"</code> aparece frecuentemente cerca de <code>"reina"</code>, y por eso los ubica <strong>cerca en el espacio vectorial</strong>. Esa proximidad representa una relación estadística, no un entendimiento real del lenguaje.</p>
+<p>Esta capacidad de asociar términos según su contexto permite que el modelo genere texto coherente y mantenga el sentido general, aunque no comprenda el significado como lo haríamos nosotros.</p>
+<p align="center">
+  <img src="../../images/la_reina.png" width="80%">
+  <br>
+  <em>Figura 8: Ejemplo de relación </em>
+</p>
+
+<p>De esta manera, puedo encontrar relaciones entre los token y agregar una marca en cada ocasión que tengan relación entre ellos:</p>
+<p align="center">
+  <img src="../../images/relacion_token.png" width="60%">
+  <br>
+  <em>Figura 9: marcación entre tokens </em>
+</p>
+
+<p>la idea es seguir sumando marcadores entre distintos token, de esta manera el modelo aunque no sabe exactamente qué significan, sí saber como clasificarlos.</p>
+<p align="center">
+  <img src="../../images/relacion_token2.png" width="70%">
+  <br>
+  <em>Figura x: Relación entre tokens </em>
+</p>
+
+<p>Esto se puede extender hasta <strong>cientos o miles de marcadores</strong> (dimensiones), formando lo que podríamos imaginar como un tipo de <strong>ADN de la palabra</strong> (o del token, en general).</p>
+<p>Cada token se representa mediante un <strong>vector numérico de gran dimensión</strong>, donde <strong>cada posición del vector captura una característica o relación aprendida del contexto</strong>. Así, dos tokens con significados o usos similares tendrán vectores parecidos.</p>
+<blockquote>
+<p>📌 Nota: aunque en este caso hablamos de "token = palabra", un token también puede ser parte de una palabra o incluso una secuencia de palabras, según el modelo de tokenización utilizado.</p>
+</blockquote>
+<p align="center">
+  <img src="../../images/relacion_token3.png" width="80%">
+  <br>
+  <em>Figura 10: Relación entre tokens </em>
+</p>
+
+<p>Otra forma de representar estos vectores es imaginarlos en un <strong>espacio tridimensional</strong>. En la práctica, cada marcador corresponde a una dimensión, por lo que los vectores pueden tener <strong>cientos o miles de dimensiones</strong>. Sin embargo, al proyectarlos en 3D podemos visualizar mejor la <strong>relación de cercanía entre tokens</strong>.</p>
+<p>Esta idea de "cercanía semántica" nos permite ver, por ejemplo, que tokens como <code>"rey"</code> y <code>"reina"</code> están más cerca entre sí que de <code>"auto"</code>.</p>
+<blockquote>
+<p>Esta representación permite entender cómo el modelo "comprende" las relaciones entre conceptos sin saber realmente qué significan.</p>
+</blockquote>
+<p>El siguiente ejemplo fue obtenido de <a href="https://projector.tensorflow.org/">esta herramienta de visualización de embeddings de TensorFlow</a>, donde podés explorar estas relaciones en 2D o 3D de forma interactiva.</p>
+<p align="center">
+  <img src="../../images/embedding_argentina.png" width="100%">
+  <br>
+  <em>Figura 11: Representación tridimensional embedding </em>
+</p>
+
+<p>En este caso, podemos ver que palabras cercanas a "argentina" son:</p>
+<p align="center">
+  <img src="../../images/puntos_arg.png" width="50%">
+  <br>
+  <em>Figura 12: Puntos más cercanos a la palabra "argentina" </em>
+</p>
+
+<p>Esto permite realizar operaciones matemáticas entre vectores que representan palabras, también conocidos como <em>embeddings</em>. Gracias a esta propiedad, se pueden hacer analogías semánticas, como por ejemplo:</p>
+<ul>
+<li><strong>"CORONA" + "HOMBRE" ≈ "REY"</strong></li>
+<li><strong>"REY" - "HOMBRE" + "MUJER" ≈ "REINA"</strong></li>
+</ul>
+<p>Estos cálculos se basan en relaciones semánticas aprendidas por el modelo a partir de grandes cantidades de texto. Así, los embeddings no solo capturan el significado de las palabras, sino también sus relaciones contextuales.</p>
+<h3 id="5-normalizacion-y-lematizacion">5. Normalización y Lematización</h3>
+<p>Cuando trabajamos con texto, especialmente al darle instrucciones a una IA, hay muchos términos que no aportan valor significativo. Palabras como <strong>"la", "lo", "el", "y", "con"</strong>, o incluso los <strong>signos de puntuación</strong>, suelen ser irrelevantes para el análisis, ya que aparecen en casi todos los contextos y no cambian el significado central de una frase.</p>
+<p>Para simplificar y optimizar el procesamiento, lo primero que hacemos es <strong>limpiar</strong> los textos antes de pasarlos al sistema. Veamos un ejemplo con la frase:</p>
+<blockquote>
+<p><strong>"El gato está durmiendo en el sofá."</strong></p>
+</blockquote>
+<ol>
+<li>
+<p><strong>Frase original:</strong><br />
+<code>"El gato está durmiendo en el sofá."</code></p>
+</li>
+<li>
+<p><strong>Eliminación de palabras irrelevantes y signos de puntuación:</strong><br />
+<code>"gato está durmiendo sofá"</code></p>
+</li>
+<li>
+<p><strong>Lematización (reducción de las palabras a su forma base):</strong><br />
+<code>"gato es dormir sofá"</code></p>
+</li>
+<li>
+<p><strong>Tokenización (división en unidades básicas):</strong><br />
+<code>"gato", "dormir", "sofá"</code></p>
+</li>
+</ol>
+<p>Esta frase queda <strong>comprimida</strong> y más eficiente para el procesamiento por parte del modelo. En lugar de trabajar con muchas palabras y tokens innecesarios, esta versión reduce el texto a su <strong>mínima expresión útil</strong>, acelerando la búsqueda y el análisis dentro del modelo.</p>
+<p>Modelos como ChatGPT <strong>preparan internamente nuestra entrada</strong> de esta forma para compararla con representaciones (embeddings) similares y generar una respuesta adecuada. Este proceso implica una <strong>pérdida de información</strong>, ya que comprimimos el mensaje original. Sin embargo, esto no es algo negativo: la IA no repite textualmente, sino que genera una <strong>respuesta original</strong> basada en la comprensión del contenido.</p>
+<blockquote>
+<p>Un buen ejemplo sería escuchar una clase y al día siguiente explicarle el concepto a alguien más: no recordamos todas las palabras exactas, pero sí entendemos y transmitimos la idea principal.</p>
+</blockquote>
+<h3 id="6-sampling">6. Sampling</h3>
+<p>El <em>sampling</em> (muestreo) es una técnica que permite al modelo generar respuestas de forma más <strong>variada y creativa</strong>, introduciendo un <strong>componente aleatorio</strong> en el proceso de generación de texto.</p>
+<p>En lugar de elegir siempre la palabra más probable según el modelo, el sampling permite explorar otras opciones que, aunque sean ligeramente menos probables, siguen siendo <strong>coherentes</strong> dentro del contexto. Es como moverse ligeramente dentro del <strong>espacio de embeddings</strong>, eligiendo caminos diferentes que llevan a respuestas distintas pero igualmente válidas.</p>
+<blockquote>
+<p>Esto evita que el modelo siempre dé las mismas respuestas ante los mismos inputs y permite generar resultados más <strong>naturales y diversos</strong>, sin perder el sentido general de la conversación.</p>
+</blockquote>
+<h2 id="evolucion-de-las-redes-neuronales">Evolución de las Redes Neuronales</h2>
+<p>Las redes neuronales tradicionales tienen una gran limitación: <strong>no tienen memoria</strong>. Es decir, procesan cada entrada (input) de manera aislada, sin recordar lo que pasó antes. Pero, ¿cómo puede una red entender el contexto de una conversación o el significado completo de una frase si solo ve una palabra a la vez?</p>
+<h3 id="redes-neuronales-recurrentes-rnn">Redes Neuronales Recurrentes (RNN)</h3>
+<p>Para resolver este problema apareció una arquitectura llamada <strong>Red Neuronal Recurrente</strong> (RNN), que introduce la idea de "memoria" al alimentar el resultado de un paso como entrada del siguiente.</p>
+<ul>
+<li>Procesan palabra por palabra en <strong>secuencia</strong>.</li>
+<li>Cada palabra se analiza considerando lo anterior.</li>
+<li>Problema: <strong>pierden contexto</strong> cuando el texto es muy largo.</li>
+<li>No permiten <strong>paralelizar</strong>, por lo que el entrenamiento es más lento.</li>
+</ul>
+<p align="center">
+  <img src="../../images/rnn.png" width="20%">
+  <br>
+  <em>Figura 13: Ejemplo de RNN </em>
+</p>
+
+<h3 id="lstm-long-short-term-memory">LSTM (Long Short-Term Memory)</h3>
+<p>Las <strong>LSTM</strong> son una mejora de las RNN tradicionales. Introducen una especie de "filtro de memoria" que decide qué información mantener y cuál olvidar.</p>
+<ul>
+<li>Manejan mejor el contexto de largo plazo.</li>
+<li>Son más precisas que las RNN simples.</li>
+<li>Aun así, siguen siendo <strong>secuenciales</strong> y <strong>no paralelizables</strong>, lo que limita su eficiencia.</li>
+</ul>
+<h2 id="el-gran-cambio-transformers">El Gran Cambio: Transformers</h2>
+<p>El gran salto llegó en 2017 con el paper <a href="https://arxiv.org/abs/1706.03762"><strong>“Attention is All You Need”</strong></a>, que introdujo el modelo <strong>Transformer</strong>. Esta arquitectura cambió por completo la forma en que las redes procesan secuencias.</p>
+<h3 id="que-aportan-los-transformers">¿Qué aportan los Transformers?</h3>
+<ul>
+<li>Utilizan un mecanismo llamado <strong>Self-Attention</strong> para identificar la importancia de cada palabra en relación con todas las demás, <strong>en paralelo</strong>.</li>
+<li>Permiten analizar <strong>todas las palabras al mismo tiempo</strong>, no de forma secuencial.</li>
+<li>Esto facilita el entrenamiento y mejora la comprensión del <strong>contexto completo</strong>.</li>
+<li>Son <strong>altamente paralelizables</strong>, lo que acelera enormemente el proceso.</li>
+</ul>
+<h3 id="ejemplo-con-self-attention">Ejemplo con Self-Attention</h3>
+<p>En la frase:</p>
+<blockquote>
+<p>“La vida es bella, así que vívela cada día.”</p>
+</blockquote>
+<p>El modelo analiza cada palabra en relación con todas las demás. Por ejemplo:</p>
+<ul>
+<li>"la" con respecto a "vida", "bella", "vívela", etc.</li>
+<li>"vida" con respecto a todas las demás también.</li>
+</ul>
+<p align="center">
+  <img src="../../images/ejemplo_atencion.png" width="100%">
+  <br>
+  <em>Figura 14: Ejemplo de uso de transformers </em>
+</p>
+
+<p align="center">
+  <img src="../../images/paralelizacion.png" width="100%">
+  <br>
+  <em>Figura 15: Ejemplo de paralelización </em>
+</p>
+
+<p>Esto permite entender cuáles son las palabras más importantes para construir el significado global de la frase, incluso si están separadas por otras palabras.</p>
+<p>Gracias a los Transformers, hoy podemos contar con modelos como GPT, BERT y otros LLM (Large Language Models) que comprenden mejor el lenguaje y generan respuestas más coherentes, rápidas y útiles.</p>
+<hr />
+<p>Bibliografía:</p>
+<p>https://www.youtube.com/watch?v=FdZ8LKiJBhQ&amp;list=PL3ei_Xb7-ic5pkJDTplPxWvE8t13mm19W&amp;index=8
+https://www.ntiva.com/blog/what-is-machine-learning
+Aurélien Géron - Hands-On Machine Learning with Scikit-Learn, Keras and TensorFlow
+http://personal.cimat.mx:8181/~mrivera/cursos/aprendizaje_profundo/RNN_LTSM/introduccion_rnn.html
+https://visajourneypro.com/
+https://projector.tensorflow.org/
+https://arxiv.org/abs/1706.03762</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../../implementacion/02_implementacion-dorotea/" class="btn btn-neutral float-left" title="Implementación en Dorotea"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../02_metod-invest/" class="btn btn-neutral float-right" title="Concepto general">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p><img src="https://raw.githubusercontent.com/danunziata/pps-kevin_haponiuk-2025/main/docs/images/escudo_unrc.png" alt="Logo UNRC" style="height: 30px; vertical-align: middle; margin-right: 10px;">
+<img src="https://raw.githubusercontent.com/danunziata/pps-kevin_haponiuk-2025/main/docs/images/escudo_ing.png" alt="Logo ING" style="height: 30px; vertical-align: middle; margin-right: 10px;">
+&copy; 2025 <a href="https://www.ing.unrc.edu.ar/inicio.php" target="_blank" rel="noopener">Universidad Nacional de Río Cuarto | Facultad de Ingeniería</a>
+</p>
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/danunziata/pps-kevin_haponiuk-2025" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../../implementacion/02_implementacion-dorotea/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../02_metod-invest/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../js/custom.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="Haponiuk Kevin Joel" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>n8n - Agente IA orientado a investigación científica</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../css/custom.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "n8n";
+        var mkdocs_page_input_path = "investigacion/06_n8n.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> Agente IA orientado a investigación científica
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Introducción</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Workflow Final</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../implementacion/00_workflow-completo/">Explicación Workflow</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../implementacion/01_implementacion-final/">Implementación</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../implementacion/02_implementacion-dorotea/">Implementación en Dorotea</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Investigación</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../01_llm/">Conceptos Previos</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >Metodología de investigación</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../02_metod-invest/">Concepto general</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../03_estado-arte/">Revisión Bibliográfica</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../04_arquitectura/">Tipos de Arquitecturas</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" >Software utilizado</a>
+    <ul class="current">
+                <li class="toctree-l2"><a class="reference internal" href="../05_opentools/">Resumen Opentools</a>
+                </li>
+                <li class="toctree-l2 current"><a class="reference internal current" href="#">n8n</a>
+    <ul class="current">
+    <li class="toctree-l3"><a class="reference internal" href="#caracteristicas-principales">Características principales</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#como-se-usa">¿Cómo se usa?</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#1-crear-un-nuevo-flujo">1. Crear un nuevo flujo</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#2-encadenar-nodos">2. Encadenar nodos</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#aplicacion-en-este-proyecto">Aplicación en este proyecto</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#ventajas-de-usar-n8n-en-el-proyecto">Ventajas de usar n8n en el proyecto</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#instalacion">Instalación</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#1-instalacion-global-mediante-npm">1. Instalación global mediante npm</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#2-instalacion-mediante-docker">2. Instalación mediante Docker</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#3-instalacion-self-hosted-ai-starter-kit">3. Instalación Self-hosted AI starter kit</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#conclusion">Conclusión</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#referencia">Referencia</a>
+    </li>
+    </ul>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../07_grobid/">GROBID</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../08_nlp-models/">Modelos de lenguaje</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../09_mcp/">MCP</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../10_a2a/">A2A</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../11_interface-options/">Interfaz de usuario</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Pruebas durante el desarrollo</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pruebas/01_install-n8n/">Instalación de n8n / Dependencias necesarias</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pruebas/02_ejemplo-rag-crag/">Ejemplo RAG / CRAG</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pruebas/03_ejemplo-mcp/">Ejemplo MCP</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pruebas/05_install-grobid/">Instalación de GROBID / Ejemplo de uso</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Info Proyecto</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../proyecto/01_metodologia/">Metodología de Trabajo</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../proyecto/02_contribuir/">Como contribuir</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../proyecto/03_about/">Acerca de</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">Agente IA orientado a investigación científica</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Investigación</li>
+          <li class="breadcrumb-item">Software utilizado</li>
+      <li class="breadcrumb-item active">n8n</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/danunziata/pps-kevin_haponiuk-2025/edit/master/docs/investigacion/06_n8n.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="n8n">n8n</h1>
+<p><strong>n8n</strong> es una herramienta de automatización de flujos de trabajo (<em>workflow automation</em>) basada en nodos, de código abierto y altamente personalizable. Permite conectar diferentes servicios, APIs y procesos de manera visual e intuitiva, ideal para integrar tareas complejas sin necesidad de escribir mucho código.</p>
+<p align="center">
+  <img src="../../images/workflow-n8n.gif" width="100%">
+  <br>
+  <em>Figura 1: Ejemplo Interfaz gráfica de n8n</em>
+</p>
+
+<h2 id="caracteristicas-principales">Características principales</h2>
+<ul>
+<li>⚙️ <strong>Basado en nodos</strong>: cada paso del flujo es un nodo que realiza una tarea (leer un archivo, hacer una petición HTTP, analizar texto, etc.).</li>
+<li>🔁 <strong>Automatización condicional</strong>: permite bifurcar flujos según condiciones lógicas, errores, o datos.</li>
+<li>🌐 <strong>Integración con cientos de servicios</strong>: Google Drive, APIs REST, bases de datos, herramientas de IA, entre otros.</li>
+<li>🤖 <strong>Extensible con código</strong>: se pueden usar códigos JavaScript o Python personalizados.</li>
+<li>💾 <strong>Self-hosted o en la nube</strong>: puede desplegarse localmente, en servidores propios, o usar su versión cloud.</li>
+</ul>
+<h2 id="como-se-usa">¿Cómo se usa?</h2>
+<h3 id="1-crear-un-nuevo-flujo">1. Crear un nuevo flujo</h3>
+<p>Los flujos en n8n comienzan desde un nodo gatillo (trigger), como por ejemplo:</p>
+<ul>
+<li>Un archivo subido a Google Drive</li>
+<li>Una petición entrante por HTTP</li>
+<li>Un webhook desde una aplicación externa</li>
+<li>mediante otro workflow</li>
+</ul>
+<h3 id="2-encadenar-nodos">2. Encadenar nodos</h3>
+<p>Luego del nodo de inicio, se encadenan nodos de procesamiento:</p>
+<ul>
+<li>Transformaciones con nodos como <code>Set</code>, <code>Function</code>, <code>Merge</code></li>
+<li>Interacciones externas como <code>HTTP Request</code>, <code>Google Sheets</code>, <code>Email</code></li>
+<li>Análisis de datos, consultas a bases, o comunicación con APIs de IA</li>
+</ul>
+<h2 id="aplicacion-en-este-proyecto">Aplicación en este proyecto</h2>
+<p>En el contexto del presente proyecto, <strong>n8n</strong> se utiliza como motor de orquestación para automatizar tareas como:</p>
+<ul>
+<li>🔄 <strong>Esperar la notificación de petición de procesamiento de papers</strong></li>
+<li>📊 <strong>Ejecución GROBID para análisis del paper</strong></li>
+<li>📈 <strong>Generación de resúmenes o procesamiento necesario</strong></li>
+<li>📤 <strong>Indexación de información en la base de datos vectorial (Qdrant)</strong></li>
+<li>🧠 <strong>Interacción con modelos de lenguaje (LLMs)</strong></li>
+<li>📁 <strong>Interacción con el usuario final</strong></li>
+</ul>
+<h2 id="ventajas-de-usar-n8n-en-el-proyecto">Ventajas de usar n8n en el proyecto</h2>
+<table>
+<thead>
+<tr>
+<th>Ventaja</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Ejecución Local</strong></td>
+<td>Permite el control total sin necesidad de pagos mensuales a aplicaciones externas.</td>
+</tr>
+<tr>
+<td><strong>Automatización sin código</strong></td>
+<td>Reduce la necesidad de scripting manual.</td>
+</tr>
+<tr>
+<td><strong>Reutilización de flujos</strong></td>
+<td>Se pueden guardar y clonar flujos.</td>
+</tr>
+<tr>
+<td><strong>Integración rápida</strong></td>
+<td>Conexiones simples con múltiples servicios.</td>
+</tr>
+<tr>
+<td><strong>Observabilidad</strong></td>
+<td>Logs visuales y control sobre cada nodo.</td>
+</tr>
+<tr>
+<td><strong>Control de errores</strong></td>
+<td>Permite manejar errores de forma precisa.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="instalacion">Instalación</h2>
+<p>Para utilizar <strong>n8n</strong> existen distintas alternativas. La más sencilla sería usarlo directamente en la nube (<strong>n8n cloud</strong>); sin embargo, no optaremos por esta opción debido a las limitaciones que presenta, especialmente en cuanto al manejo de <em>tokens</em> con modelos de IA y otras integraciones.
+Nuestro objetivo es instalar <strong>n8n</strong> de manera <strong>local</strong>, lo que ofrece mayor control y escalabilidad. Actualmente, existen dos métodos principales para hacerlo (solo la instalación de n8n, pero luego se explica una tercer forma que implica un <strong>Self-hosted AI starter kit</strong> que incluye unas caracteristicas adicionales):</p>
+<h3 id="1-instalacion-global-mediante-npm">1. <strong>Instalación global mediante npm</strong></h3>
+<p>No utilizaremos esta opción, ya que, pensando en una solución escalable y mantenible, preferimos una alternativa más robusta.</p>
+<h3 id="2-instalacion-mediante-docker">2. <strong>Instalación mediante Docker</strong></h3>
+<p>Esta es la opción que elegiremos por sus múltiples ventajas:</p>
+<ul>
+<li>Proporciona un entorno limpio para la instalación.</li>
+<li>Facilita la configuración de la base de datos preferida.</li>
+<li>Evita problemas de compatibilidad entre diferentes sistemas operativos, ya que Docker ofrece un entorno consistente.</li>
+<li>Simplifica la migración a nuevos servidores o entornos.</li>
+</ul>
+<h3 id="3-instalacion-self-hosted-ai-starter-kit">3. <strong>Instalación Self-hosted AI starter kit</strong></h3>
+<h4 id="que-es-el-self-hosted-ai-starter-kit">¿Qué es el Self-hosted AI Starter Kit?</h4>
+<p>El <strong>Self-hosted AI Starter Kit</strong> es una solución de código abierto (proporcionada por n8n) diseñada para facilitar la implementación de infraestructuras de inteligencia artificial de manera local, sin depender de servicios en la nube.<br />
+Proporciona un entorno preconfigurado que integra múltiples componentes clave, como:</p>
+<ul>
+<li>Bases de datos (PostgreSQL, Redis, etc.)</li>
+<li>Almacenamiento vectorial</li>
+<li>Servidores de modelos de lenguaje (LLMs)</li>
+<li>Interfaces web de administración</li>
+</ul>
+<p>Todo el sistema se despliega mediante contenedores <strong>Docker</strong>, lo que garantiza portabilidad, consistencia y facilidad de mantenimiento.<br />
+El kit está pensado para ser modular y escalable, adaptándose tanto a proyectos personales como a entornos productivos de mayor escala.</p>
+<p>se eligió utilizar el <strong>Self-hosted AI Starter Kit</strong> debido a varias razones fundamentales:</p>
+<ul>
+<li><strong>Control total</strong> sobre los datos y la infraestructura.</li>
+<li><strong>Evitar limitaciones</strong> de plataformas en la nube, como restricciones de tokens, memoria o tiempo de ejecución.</li>
+<li><strong>Mayor privacidad</strong> y <strong>seguridad</strong> de la información procesada.</li>
+<li><strong>Facilidad de integración</strong> con otras herramientas y sistemas propios.</li>
+<li><strong>Escalabilidad</strong>, permitiendo crecer en recursos y capacidades a medida que el proyecto lo requiera.</li>
+</ul>
+<p>Además, el enfoque basado en Docker permite que toda la infraestructura pueda ser levantada, replicada o migrada fácilmente entre distintos entornos.</p>
+<h2 id="conclusion">Conclusión</h2>
+<p>n8n es una herramienta poderosa y versátil que facilita la integración de servicios y la creación de automatismos sin requerir gran experiencia en programación. En este proyecto, permite centralizar todas las tareas repetitivas relacionadas con el análisis, resumen e indexación de papers científicos, funcionando como columna vertebral de la arquitectura de RAG implementada.</p>
+<h2 id="referencia">Referencia</h2>
+<p>Si estás más interesado conocer más sobre n8n.</p>
+<ul>
+<li><a href="https://n8n.io/">Página principal</a></li>
+<li><a href="https://docs.n8n.io/">Documentación</a></li>
+<li><a href="https://github.com/n8n-io">N8N GITHUB</a></li>
+<li><a href="https://github.com/n8n-io/self-hosted-ai-starter-kit">self-hosted-ai-starter-kit</a></li>
+</ul>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../05_opentools/" class="btn btn-neutral float-left" title="Resumen Opentools"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../07_grobid/" class="btn btn-neutral float-right" title="GROBID">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p><img src="https://raw.githubusercontent.com/danunziata/pps-kevin_haponiuk-2025/main/docs/images/escudo_unrc.png" alt="Logo UNRC" style="height: 30px; vertical-align: middle; margin-right: 10px;">
+<img src="https://raw.githubusercontent.com/danunziata/pps-kevin_haponiuk-2025/main/docs/images/escudo_ing.png" alt="Logo ING" style="height: 30px; vertical-align: middle; margin-right: 10px;">
+&copy; 2025 <a href="https://www.ing.unrc.edu.ar/inicio.php" target="_blank" rel="noopener">Universidad Nacional de Río Cuarto | Facultad de Ingeniería</a>
+</p>
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/danunziata/pps-kevin_haponiuk-2025" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../05_opentools/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../07_grobid/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../js/custom.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
